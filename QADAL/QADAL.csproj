@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QADAL</RootNamespace>
+    <AssemblyName>QADAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityFrameWorkCore\Content\AnswerRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\CollectRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\ImprovereportRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\QuestionRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\TypeRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\DbContextRepository.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Modelbase.cs" />
+    <Compile Include="EntityFrameWorkCore\QuestionContext.cs" />
+    <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\ICompleteRepository.cs" />
+    <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\IExtensionRepository.cs" />
+    <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\IRepository.cs" />
+    <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\IUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\AnswerMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\CollectMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\ImprovereportMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\QuestionMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\SysdiagramMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\TypeMap.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Answer.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Collect.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Improvereport.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Question.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\sysdiagram.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Type.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

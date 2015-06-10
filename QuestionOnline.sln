@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionOnline", "QuestionOnline\QuestionOnline.csproj", "{6C56BA6A-AC98-468C-8CA8-2F06811DA599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QADAL", "QADAL\QADAL.csproj", "{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C56BA6A-AC98-468C-8CA8-2F06811DA599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C56BA6A-AC98-468C-8CA8-2F06811DA599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C56BA6A-AC98-468C-8CA8-2F06811DA599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C56BA6A-AC98-468C-8CA8-2F06811DA599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
