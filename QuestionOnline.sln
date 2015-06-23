@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionOnline", "QuestionO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QADAL", "QADAL\QADAL.csproj", "{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QAServer", "QAServer\QAServer.csproj", "{B7A80907-5527-4460-A779-7607B60F1764}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD06C2E3-682B-4596-AE8F-2F64C8F27A0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A80907-5527-4460-A779-7607B60F1764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A80907-5527-4460-A779-7607B60F1764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A80907-5527-4460-A779-7607B60F1764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A80907-5527-4460-A779-7607B60F1764}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

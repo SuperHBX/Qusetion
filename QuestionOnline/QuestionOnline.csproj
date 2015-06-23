@@ -146,12 +146,16 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\index\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QADAL\QADAL.csproj">
       <Project>{fd06c2e3-682b-4596-ae8f-2f64c8f27a0f}</Project>
       <Name>QADAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QAServer\QAServer.csproj">
+      <Project>{b7a80907-5527-4460-a779-7607b60f1764}</Project>
+      <Name>QAServer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

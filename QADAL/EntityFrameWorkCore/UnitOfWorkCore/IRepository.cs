@@ -15,7 +15,7 @@ namespace QADAL.EntityFrameWorkCore.UnitOfWorkCore
         /// <summary>
         /// 添加实体并提交到数据服务器
         /// </summary>
-        void Insert(TEntity item);
+        TEntity Insert(TEntity item);
 
         /// <summary>
         /// 移除实体并提交到数据服务器

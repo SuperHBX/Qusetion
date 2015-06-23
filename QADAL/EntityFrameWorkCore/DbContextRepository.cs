@@ -26,11 +26,12 @@ namespace QADAL.EntityFrameWorkCore
 
         #region IRepository<T> 成员
 
-        public virtual void Insert(TEntity item)
+        public virtual TEntity Insert(TEntity item)
         {
             _db.Entry<TEntity>(item);
-            _db.Set<TEntity>().Add(item);
+            var temp=_db.Set<TEntity>().Add(item);
             this.SaveChanges();
+            return temp;
         }
 
         public virtual void Delete(TEntity item)
@@ -107,6 +108,7 @@ namespace QADAL.EntityFrameWorkCore
             {
                 this.Insert(i);//不提交
             });
+            
         }
 
         public virtual void Delete(IEnumerable<TEntity> item)
