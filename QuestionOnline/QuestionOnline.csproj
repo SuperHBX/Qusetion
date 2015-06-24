@@ -116,6 +116,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CommonClass.cs" />
     <Compile Include="Controllers\BackUpController.cs" />
     <Compile Include="Controllers\baseController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
