@@ -122,5 +122,11 @@ namespace QAServer.Server
         {
             return questionrepoistory.GetModelList(func, order, pagesize, index);
         }
+
+
+        public void Delete(Expression<Func<Question, bool>> func)
+        {
+            questionrepoistory.Delete(func);
+        }
     }
 }

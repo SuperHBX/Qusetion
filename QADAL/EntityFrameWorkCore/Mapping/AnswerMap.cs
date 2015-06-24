@@ -25,7 +25,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             this.Property(t => t.answercontent).HasColumnName("answercontent");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.state).HasColumnName("state");
-
+            
             // Relationships
             this.HasOptional(t => t.question)
                 .WithMany(t => t.Answers)

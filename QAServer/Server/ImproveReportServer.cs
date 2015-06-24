@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    class ImproveReportServer : BaseServer, IBaseServer<ImproveReport>
+    public class ImproveReportServer : BaseServer, IBaseServer<ImproveReport>
     {
 
         ImproveReportRepoistory improverepoistory;
@@ -69,6 +69,12 @@ namespace QAServer.Server
         public IEnumerable<ImproveReport> FindModelList(System.Linq.Expressions.Expression<Func<ImproveReport, bool>> func = null, Func<IQueryable<ImproveReport>, IOrderedQueryable<ImproveReport>> order = null, int pagesize = 10, int index = 1)
         {
             return improverepoistory.GetModelList(func, order, pagesize, index);
+        }
+
+
+        public void Delete(System.Linq.Expressions.Expression<Func<ImproveReport, bool>> func)
+        {
+            improverepoistory.Delete(func);
         }
     }
 }

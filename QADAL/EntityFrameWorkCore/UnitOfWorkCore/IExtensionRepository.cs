@@ -32,5 +32,7 @@ namespace QADAL.EntityFrameWorkCore.UnitOfWorkCore
         /// </summary>
         /// <param name="entity"></param>
         void Update(System.Linq.Expressions.Expression<Action<TEntity>> entity);
+
+        void Delete(System.Linq.Expressions.Expression<Func<TEntity,bool>> func);
     }
 }

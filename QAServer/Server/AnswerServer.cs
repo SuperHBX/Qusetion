@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    class AnswerServer:BaseServer,IBaseServer<Answer>
+    public class AnswerServer:BaseServer,IBaseServer<Answer>
     {
         private AnswerRepoistory answerrepoistory;
         public AnswerServer() 
@@ -68,9 +68,12 @@ namespace QAServer.Server
 
 
 
-        public IEnumerable<Answer> FindModelList(System.Linq.Expressions.Expression<Func<Answer, bool>> func = null, Func<IQueryable<Answer>, IOrderedQueryable<Answer>> order = null, int pagesize = 10, int index = 1)
+       
+
+
+        public void Delete(System.Linq.Expressions.Expression<Func<Answer, bool>> func)
         {
-            return answerrepoistory.GetModelList(func, order, pagesize, index);
+            answerrepoistory.Delete(func);
         }
     }
 }

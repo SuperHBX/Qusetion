@@ -8,7 +8,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
         public CollectMap()
         {
             // Primary Key
-            this.HasKey(t => t.Id);
+            this.HasKey(t => t.Qid).HasKey(t => new { t.Qid,t.personid});
 
             // Properties
             this.Property(t => t.Id)

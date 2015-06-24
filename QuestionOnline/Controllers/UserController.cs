@@ -32,7 +32,7 @@ namespace QuestionOnline.Controllers
            //var temp= qs.Add(new Question() {content="123", ishot=true, regdate=DateTime.Now, regman=1, state="1", typeid=1 });
 
            var list = qs.FindModelList().ToList();
-            return View();
+           return View();
         }
 
     }

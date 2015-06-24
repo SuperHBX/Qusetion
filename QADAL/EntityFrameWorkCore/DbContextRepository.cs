@@ -48,6 +48,21 @@ namespace QADAL.EntityFrameWorkCore
             this.SaveChanges();
         }
 
+        public void Delete(Expression<Func<TEntity, bool>> func)
+        {
+            var  objects = _db.Set<TEntity>().Where(func).ToList();
+            objects.ForEach(o =>
+            {
+                this.Delete(o);
+            });
+
+            //foreach (TEntity obj in objects)
+            //    //dbset.Remove(obj);
+            //    //_db.Set<TEntity>().Remove(obj);
+            //    this.Delete(obj);
+        }
+
+
         public void Update(Expression<Action<TEntity>> entity)
         {
 
@@ -170,5 +185,11 @@ namespace QADAL.EntityFrameWorkCore
 
 
 
+
+
+
+
+
+       
     }
 }

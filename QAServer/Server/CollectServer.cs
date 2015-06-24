@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    class CollectServer:BaseServer, IBaseServer<Collect>
+    public class CollectServer:BaseServer, IBaseServer<Collect>
     {
          CollectRepoistory collectrepoistory;
          public CollectServer() 
@@ -69,6 +69,12 @@ namespace QAServer.Server
         public IEnumerable<Collect> FindModelList(System.Linq.Expressions.Expression<Func<Collect, bool>> func = null, Func<IQueryable<Collect>, IOrderedQueryable<Collect>> order = null, int pagesize = 10, int index = 1)
         {
             return collectrepoistory.GetModelList(func, order, pagesize, index);
+        }
+
+
+        public void Delete(System.Linq.Expressions.Expression<Func<Collect, bool>> func)
+        {
+            collectrepoistory.Delete(func);
         }
     }
 }
