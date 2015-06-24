@@ -1,4 +1,7 @@
-﻿using QADAL.EntityFrameWorkCore.Models;
+﻿using QADAL.EntityFrameWorkCore;
+using QADAL.EntityFrameWorkCore.Content;
+using QADAL.EntityFrameWorkCore.Models;
+using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,57 +10,65 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    class ImproveReportServer:IBaseServer<ImproveReport>
+    class ImproveReportServer : BaseServer, IBaseServer<ImproveReport>
     {
+
+        ImproveReportRepoistory improverepoistory;
+        public ImproveReportServer() 
+            : base(new QuestionContext()) 
+        {
+            improverepoistory = new ImproveReportRepoistory(IUnitOfWork);        
+        }
 
         public ImproveReport Add(ImproveReport entity)
         {
-            throw new NotImplementedException();
+            return improverepoistory.Insert(entity);
         }
 
         public void Add(IEnumerable<ImproveReport> entity)
         {
-            throw new NotImplementedException();
+            improverepoistory.Insert(entity);
         }
 
         public void Delete(params object[] id)
         {
-            throw new NotImplementedException();
+            var temp = improverepoistory.Find(id);
+            improverepoistory.Delete(temp);
         }
 
         public void Delete(IEnumerable<ImproveReport> entity)
         {
-            throw new NotImplementedException();
+            improverepoistory.Delete(entity);
         }
 
         public void UpDate(ImproveReport entity)
         {
-            throw new NotImplementedException();
+            improverepoistory.Update(entity);
         }
 
         public void UpDate(IEnumerable<ImproveReport> entity)
         {
-            throw new NotImplementedException();
+            improverepoistory.Update(entity);
         }
 
         public ImproveReport FindModel(params object[] arr)
         {
-            throw new NotImplementedException();
+            return improverepoistory.Find(arr);
         }
 
         public IEnumerable<ImproveReport> FindModelList()
         {
-            throw new NotImplementedException();
+            return improverepoistory.GetModelList();
         }
 
         public IEnumerable<ImproveReport> FindModelList(System.Linq.Expressions.Expression<Func<ImproveReport, bool>> func)
         {
-            throw new NotImplementedException();
+            return improverepoistory.GetModelList(func);
         }
 
         public IEnumerable<ImproveReport> FindModelList(System.Linq.Expressions.Expression<Func<ImproveReport, bool>> func = null, Func<IQueryable<ImproveReport>, IOrderedQueryable<ImproveReport>> order = null, int pagesize = 10, int index = 1)
         {
-            throw new NotImplementedException();
+            return improverepoistory.GetModelList(func, order, pagesize, index);
         }
     }
 }

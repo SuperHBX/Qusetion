@@ -1,4 +1,7 @@
-﻿using QADAL.EntityFrameWorkCore.Models;
+﻿using QADAL.EntityFrameWorkCore;
+using QADAL.EntityFrameWorkCore.Content;
+using QADAL.EntityFrameWorkCore.Models;
+using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,58 +10,65 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    class CollectServer:IBaseServer<Collect>
+    class CollectServer:BaseServer, IBaseServer<Collect>
     {
+         CollectRepoistory collectrepoistory;
+         public CollectServer() 
+            : base(new QuestionContext()) 
+        {
+            collectrepoistory = new CollectRepoistory(IUnitOfWork);        
+        }
 
 
         public Collect Add(Collect entity)
         {
-            throw new NotImplementedException();
+            return collectrepoistory.Insert(entity);
         }
 
         public void Add(IEnumerable<Collect> entity)
         {
-            throw new NotImplementedException();
+            collectrepoistory.Insert(entity);
         }
 
         public void Delete(params object[] id)
         {
-            throw new NotImplementedException();
+            var temp=collectrepoistory.Find(id);
+            collectrepoistory.Delete(temp);
         }
 
         public void Delete(IEnumerable<Collect> entity)
         {
-            throw new NotImplementedException();
+            collectrepoistory.Delete(entity);
         }
 
         public void UpDate(Collect entity)
         {
-            throw new NotImplementedException();
+            collectrepoistory.Update(entity);
         }
 
         public void UpDate(IEnumerable<Collect> entity)
         {
-            throw new NotImplementedException();
+            collectrepoistory.Update(entity);
         }
 
         public Collect FindModel(params object[] arr)
         {
-            throw new NotImplementedException();
+            return collectrepoistory.Find(arr);
         }
 
         public IEnumerable<Collect> FindModelList()
         {
-            throw new NotImplementedException();
+            return collectrepoistory.GetModelList();
         }
 
         public IEnumerable<Collect> FindModelList(System.Linq.Expressions.Expression<Func<Collect, bool>> func)
         {
-            throw new NotImplementedException();
+            return collectrepoistory.GetModelList(func);
         }
 
         public IEnumerable<Collect> FindModelList(System.Linq.Expressions.Expression<Func<Collect, bool>> func = null, Func<IQueryable<Collect>, IOrderedQueryable<Collect>> order = null, int pagesize = 10, int index = 1)
         {
-            throw new NotImplementedException();
+            return collectrepoistory.GetModelList(func, order, pagesize, index);
         }
     }
 }
