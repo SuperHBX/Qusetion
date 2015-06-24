@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace QADAL.EntityFrameWorkCore.Content
 {
-    public class ImprovereportRepoistory:DbContextRepository<Models.Improvereport>
+    public class ImproveReportRepoistory:DbContextRepository<Models.ImproveReport>
     {
-        public ImprovereportRepoistory(UnitOfWorkCore.IUnitOfWork db)
+        public ImproveReportRepoistory(UnitOfWorkCore.IUnitOfWork db)
             :base((QuestionContext)db)
         { }
     }

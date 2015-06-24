@@ -18,7 +18,7 @@ namespace QADAL.EntityFrameWorkCore
 
         public DbSet<Models.Answer> Answers { get; set; }
         public DbSet<Models.Collect> collects { get; set; }
-        public DbSet<Models.Improvereport> improvereports { get; set; }
+        public DbSet<Models.ImproveReport> improvereports { get; set; }
         public DbSet<Models.Question> questions { get; set; }
         public DbSet<Models.sysdiagram> sysdiagrams { get; set; }
         public DbSet<Models.Type> types { get; set; }

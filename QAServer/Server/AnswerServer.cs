@@ -1,4 +1,5 @@
 ﻿using QADAL.EntityFrameWorkCore;
+using QADAL.EntityFrameWorkCore.Content;
 using QADAL.EntityFrameWorkCore.Models;
 using System;
 using System.Collections.Generic;
@@ -10,53 +11,58 @@ namespace QAServer.Server
 {
     class AnswerServer:BaseServer,IBaseServer<Answer>
     {
-        public AnswerServer() : base(new QuestionContext()) { }
-
-
+        private AnswerRepoistory answerrepoistory;
+        public AnswerServer() 
+            : base(new QuestionContext())
+        {
+            answerrepoistory = new AnswerRepoistory(IUnitOfWork);
+        }
 
         public Answer Add(Answer entity)
         {
-            throw new NotImplementedException();
+            return answerrepoistory.Insert(entity);
         }
 
         public void Add(IEnumerable<Answer> entity)
         {
-            throw new NotImplementedException();
+             answerrepoistory.Insert(entity);
         }
 
         public void Delete(params object[] id)
         {
-            throw new NotImplementedException();
+            var temp=answerrepoistory.Find(id);
+            answerrepoistory.Delete(temp);
         }
 
         public void Delete(IEnumerable<Answer> entity)
         {
-            throw new NotImplementedException();
+            answerrepoistory.Delete(entity);
         }
 
         public void UpDate(Answer entity)
         {
-            throw new NotImplementedException();
+            answerrepoistory.Update(entity);
         }
 
         public void UpDate(IEnumerable<Answer> entity)
         {
-            throw new NotImplementedException();
+            answerrepoistory.Update(entity);
         }
 
         public Answer FindModel(params object[] arr)
         {
-            throw new NotImplementedException();
+            return answerrepoistory.Find(arr);
+
         }
 
         public IEnumerable<Answer> FindModelList()
         {
-            throw new NotImplementedException();
+            return answerrepoistory.GetModelList();
         }
 
         public IEnumerable<Answer> FindModelList(System.Linq.Expressions.Expression<Func<Answer, bool>> func)
         {
-            throw new NotImplementedException();
+            return answerrepoistory.GetModelList(func);
         }
 
 
@@ -64,7 +70,7 @@ namespace QAServer.Server
 
         public IEnumerable<Answer> FindModelList(System.Linq.Expressions.Expression<Func<Answer, bool>> func = null, Func<IQueryable<Answer>, IOrderedQueryable<Answer>> order = null, int pagesize = 10, int index = 1)
         {
-            throw new NotImplementedException();
+            return answerrepoistory.GetModelList(func, order, pagesize, index);
         }
     }
 }

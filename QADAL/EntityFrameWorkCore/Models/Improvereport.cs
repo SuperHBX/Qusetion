@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QADAL.EntityFrameWorkCore.Models
 {
-    public partial class Improvereport : Modelbase
+    public partial class ImproveReport : Modelbase
     {
         public Nullable<int> Id { get; set; }
         public int regmanid { get; set; }

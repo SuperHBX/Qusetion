@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace QADAL.EntityFrameWorkCore.Mapping
 {
-    public class ImprovereportMap : EntityTypeConfiguration<Models.Improvereport>
+    public class ImprovereportMap : EntityTypeConfiguration<Models.ImproveReport>
     {
         public ImprovereportMap()
         {

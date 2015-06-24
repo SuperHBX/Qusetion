@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="EntityFrameWorkCore\Content\AnswerRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\CollectRepoistory.cs" />
-    <Compile Include="EntityFrameWorkCore\Content\ImprovereportRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\ImproveReportRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\QuestionRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\TypeRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\DbContextRepository.cs" />
