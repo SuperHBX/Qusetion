@@ -10,6 +10,7 @@ namespace QAServer.Server
     class CollectServer:IBaseServer<Collect>
     {
 
+
         public Collect Add(Collect entity)
         {
             throw new NotImplementedException();
