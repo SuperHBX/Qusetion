@@ -7,6 +7,7 @@ namespace QADAL.EntityFrameWorkCore.Models
     {
         public Nullable<int> Id { get; set; }
         public int regmanid { get; set; }
+        public string regman { get; set; }
         public Nullable<System.DateTime> regdate { get; set; }
         public Nullable<int> type { get; set; }
         public string title { get; set; }

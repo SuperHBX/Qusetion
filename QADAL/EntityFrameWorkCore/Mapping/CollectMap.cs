@@ -12,7 +12,14 @@ namespace QADAL.EntityFrameWorkCore.Mapping
 
             // Properties
             this.Property(t => t.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            this.Property(t => t.personid)
+              .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            this.Property(t => t.Qid)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
 
             // Table & Column Mappings
             this.ToTable("collect");
@@ -20,9 +27,10 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             this.Property(t => t.personid).HasColumnName("personid");
             this.Property(t => t.Qid).HasColumnName("Qid");
             this.Property(t => t.collecttime).HasColumnName("collecttime");
+            this.Property(t => t.name).HasColumnName("name");
 
             // Relationships
-            this.HasOptional(t => t.question)
+            this.HasRequired(t => t.question)
                 .WithMany(t => t.collects)
                 .HasForeignKey(d => d.Qid);
 

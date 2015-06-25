@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using QADAL.EntityFrameWorkCore.Models;
+using QAServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +11,25 @@ namespace QuestionOnline.Controllers
 {
     public class BackUpController : Controller
     {
-        //
-        // GET: /BackUp/
+        ImproveReportServer ir = new ImproveReportServer();
+
+        public ImproveReport AddReport(string typeid,string title,string content,string filename) 
+        {
+            //验证数据
+
+            var model = new ImproveReport() 
+            {
+                regdate=DateTime.Now,
+                regman=Common.CommonClass.GetUserName(),
+                regmanid=Common.CommonClass.GetPartyIdCount(),
+                reportcontent=content,
+                title=title,
+                type=Convert.ToInt32(typeid)
+            };
+            return ir.Add(model);
+        }
+
+
 
         public ActionResult Index()
         {

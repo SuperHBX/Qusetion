@@ -63,13 +63,11 @@
     <Compile Include="EntityFrameWorkCore\Mapping\CollectMap.cs" />
     <Compile Include="EntityFrameWorkCore\Mapping\ImprovereportMap.cs" />
     <Compile Include="EntityFrameWorkCore\Mapping\QuestionMap.cs" />
-    <Compile Include="EntityFrameWorkCore\Mapping\SysdiagramMap.cs" />
     <Compile Include="EntityFrameWorkCore\Mapping\TypeMap.cs" />
     <Compile Include="EntityFrameWorkCore\Models\Answer.cs" />
     <Compile Include="EntityFrameWorkCore\Models\Collect.cs" />
-    <Compile Include="EntityFrameWorkCore\Models\Improvereport.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\ImproveReport.cs" />
     <Compile Include="EntityFrameWorkCore\Models\Question.cs" />
-    <Compile Include="EntityFrameWorkCore\Models\sysdiagram.cs" />
     <Compile Include="EntityFrameWorkCore\Models\Type.cs" />
   </ItemGroup>
   <ItemGroup />

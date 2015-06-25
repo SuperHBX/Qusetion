@@ -17,6 +17,7 @@ namespace QADAL.EntityFrameWorkCore.Models
         public Nullable<int> typeid { get; set; }
         public string state { get; set; }
         public string regman { get; set; }
+        public Nullable<int> regmanid { get; set; }
         public Nullable<System.DateTime> regdate { get; set; }
         public Nullable<bool> ishot { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }

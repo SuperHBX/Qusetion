@@ -8,11 +8,11 @@ namespace QADAL.EntityFrameWorkCore.Mapping
         public ImprovereportMap()
         {
             // Primary Key
-            this.HasKey(t => t.regmanid);
+            this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.regmanid)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            this.Property(t => t.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             this.Property(t => t.title)
                 .HasMaxLength(50);
@@ -28,6 +28,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             this.Property(t => t.type).HasColumnName("type");
             this.Property(t => t.title).HasColumnName("title");
             this.Property(t => t.reportcontent).HasColumnName("reportcontent");
+            this.Property(t => t.regman).HasColumnName("regman");
 
             // Relationships
             this.HasOptional(t => t.type1)

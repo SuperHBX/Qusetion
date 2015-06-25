@@ -23,7 +23,7 @@ namespace QuestionOnline.Controllers
         /// <param name="typeid">问题类型id</param>
         /// <param name="regman">创建人</param>
         /// <param name="ishot">是否是热门问题</param>
-        public Question AddQuestion(string title,string content,int typeid,string regman,bool ishot=false) 
+        public Question AddQuestion(string title,string content,int typeid,bool ishot=false) 
         {
             //验证信息
 
@@ -32,7 +32,8 @@ namespace QuestionOnline.Controllers
                 title=title,
                 content = content,
                 typeid = typeid,
-                regman = regman,
+                regman = Common.CommonClass.GetUserName(),
+                regmanid=Common.CommonClass.GetPartyIdCount(),
                 regdate = DateTime.Now,
                 ishot=ishot
             };
@@ -46,14 +47,15 @@ namespace QuestionOnline.Controllers
         /// <param name="answerman">回答人</param>
         /// <param name="answercontent">回答内容</param>
         /// <returns></returns>
-        public Answer AddAnswer(string Qid, string answerman, string answercontent)
+        public Answer AddAnswer(string Qid, string answercontent)
         {
 
             //验证信息
 
             var model = new Answer()
             {
-                anserman = answerman,
+                answerman = Common.CommonClass.GetUserName(),
+                answermanid=Common.CommonClass.GetPartyIdCount(),
                 answercontent = answercontent,
                 answerdate = DateTime.Now,
                 Qid = Convert.ToInt32(Qid)
@@ -81,12 +83,12 @@ namespace QuestionOnline.Controllers
         /// <param name="typeid">问题类型</param>
         /// <param name="person">创建人</param>
         /// <param name="answercontent">回答内容</param>
-        public void AddHotQuestion(string qtitle, string qcontent, int typeid, string person,string answercontent) 
+        public void AddHotQuestion(string qtitle, string qcontent, int typeid,string answercontent) 
         {
             try
             {
-                var model = AddQuestion(qtitle, qcontent, typeid, person, true);
-                AddAnswer(model.Id.ToString(), person, answercontent);
+                var model = AddQuestion(qtitle, qcontent, typeid, true);
+                AddAnswer(model.Id.ToString(), answercontent);
             }
             catch (Exception ex)
             {
@@ -121,14 +123,15 @@ namespace QuestionOnline.Controllers
         /// <param name="Qid">问题id</param>
         /// <param name="person">人名</param>
         /// <returns></returns>
-        public string AddFavorite(string Qid,string person)
+        public string AddFavorite(string Qid)
         {
-            var temp = cs.FindModel(new object[]{Qid,person});
+            var pid = Common.CommonClass.GetPartyIdCount();
+            var temp = cs.FindModel(new object[] { Qid, pid });
             if (temp == null)
             {
                 var model = new Collect()
                 {
-                    personid = person,
+                    personid = Convert.ToInt32(pid),
                     Qid = Convert.ToInt32(Qid),
                     collecttime = DateTime.Now
                 };
@@ -143,15 +146,16 @@ namespace QuestionOnline.Controllers
         /// <summary>
         /// 获得收藏夹列表
         /// </summary>
-        /// <param name="persion">人名</param>
+        
         /// <returns></returns>
-        public List<Collect> GetFavoriteByPerson(string persion)
+        public List<Collect> GetFavoriteByPerson()
         {
-            return cs.FindModelList(o => o.personid == persion).ToList();
+            var id = Common.CommonClass.GetPartyIdCount();
+            return cs.FindModelList(o => o.personid == id).ToList();
         }
 
         /// <summary>
-        /// 获取全部类型
+        /// 获取全部分类
         /// </summary>
         /// <returns></returns>
         public List<QADAL.EntityFrameWorkCore.Models.Type> GetAlltype() 

@@ -30,6 +30,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             this.Property(t => t.regdate).HasColumnName("regdate");
             this.Property(t => t.ishot).HasColumnName("ishot");
             this.Property(t => t.title).HasColumnName("title");
+            this.Property(t => t.regmanid).HasColumnName("regmanid");
 
 
             // Relationships

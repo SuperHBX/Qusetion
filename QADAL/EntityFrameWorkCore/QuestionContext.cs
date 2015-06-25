@@ -20,7 +20,7 @@ namespace QADAL.EntityFrameWorkCore
         public DbSet<Models.Collect> collects { get; set; }
         public DbSet<Models.ImproveReport> improvereports { get; set; }
         public DbSet<Models.Question> questions { get; set; }
-        public DbSet<Models.sysdiagram> sysdiagrams { get; set; }
+       
         public DbSet<Models.Type> types { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace QADAL.EntityFrameWorkCore
             modelBuilder.Configurations.Add(new Mapping.CollectMap());
             modelBuilder.Configurations.Add(new Mapping.ImprovereportMap());
             modelBuilder.Configurations.Add(new Mapping.QuestionMap());
-            modelBuilder.Configurations.Add(new Mapping.SysdiagramMap());
+           
             modelBuilder.Configurations.Add(new Mapping.TypeMap());
         }
 

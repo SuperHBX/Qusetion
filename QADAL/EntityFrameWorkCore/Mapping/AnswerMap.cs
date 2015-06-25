@@ -15,16 +15,17 @@ namespace QADAL.EntityFrameWorkCore.Mapping
                 .HasMaxLength(200);
 
             this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             // Table & Column Mappings
             this.ToTable("Answer");
             this.Property(t => t.Qid).HasColumnName("Qid");
-            this.Property(t => t.anserman).HasColumnName("anserman");
+            this.Property(t => t.answerman).HasColumnName("answerman");
             this.Property(t => t.answerdate).HasColumnName("answerdate");
             this.Property(t => t.answercontent).HasColumnName("answercontent");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.state).HasColumnName("state");
+            this.Property(t => t.answermanid).HasColumnName("answermanid");
             
             // Relationships
             this.HasOptional(t => t.question)
