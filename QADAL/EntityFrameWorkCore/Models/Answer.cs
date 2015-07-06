@@ -12,7 +12,7 @@ namespace QADAL.EntityFrameWorkCore.Models
         public int Id { get; set; }
         public Nullable<bool> state { get; set; }
         public virtual Question question { get; set; }
-        public int answermanid { get; set; }
+        public string answermanid { get; set; }
        
     }
 }

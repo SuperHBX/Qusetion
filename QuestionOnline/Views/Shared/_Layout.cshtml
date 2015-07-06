@@ -1,0 +1,300 @@
+﻿@{
+    Layout = null;    
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"> 
+        <style type="text/css">
+        *{
+            list-style:none;
+            padding:0px;
+            margin:0px;
+            font-size:12px;
+        }
+        #c {
+         margin:0 auto;
+         width:96%;
+        }
+        .sizebig {
+           vertical-align:middle;
+           font-size:28px;        
+        }
+        .header{                       
+            height:30px;                        
+            background-color:#E3EFFF;
+            padding:5px;
+            text-align:center;
+           
+        }
+        .float_left {
+            float:left;        
+        }
+      
+        .listcolor {
+            background-color:#A2CDE1;
+        }
+        .middle {
+         vertical-align:middle;
+         font-size:14px;
+         
+        }
+        .clear {
+            clear:both;
+        }
+        .margin {
+            margin:10px 0;
+        }
+
+        .listborderbottom {
+            border-bottom: 1px solid #000;
+        }
+         .listborderother {
+            border-top:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+        #title2 li {
+            margin:5px;
+            padding:5px;
+        }
+        .question_style {
+            margin:10px 0;
+           
+            
+        }
+        #qusetion{
+            width:65%;
+            float:left;
+            height:1px;
+
+        }    
+        .question_title {
+            padding:10px;
+            color:#5896BD;
+            font-size:24px;
+            background-color:#E3EFFF;
+          
+        }
+        .question_content {
+            padding:20px 40px;
+            font-size:20px
+        }
+        .qusetion_detail {
+            width:200px;
+            display:inline-block;
+            padding:0 10px;
+        }
+        .dot_line {
+            height:2px;border:none;border-top:1px dashed #0066CC
+        }
+        .yellow {
+            background-color:#FFFFEA;
+        }
+        #keyword {
+            height:30px;
+            font:24px;
+            line-height:30px;
+            vertical-align:middle;
+            width:60%;           
+        }
+       
+        #search {
+            height:50px;
+            width:70%;
+            line-height:50px;
+            vertical-align:middle;
+            text-align:center;
+            margin:0 auto;
+        }
+        #search_button {
+            height:30px;
+            width:30px;
+            
+            display:inline-block;
+            position:relative;top:10px;
+        
+        }
+        .classify {
+            font-size:12px;
+            width:70%;
+            height:30px;
+            line-height:30px;
+            vertical-align:middle;
+            text-align:center;
+            margin:0 auto;
+            border-bottom:1px dashed #000;
+        }
+        .hot_question {
+            font-size:12px;
+            width:70%;
+            height:30px;
+            line-height:30px;
+            vertical-align:middle;
+            
+            margin:0 auto;
+            border-bottom:1px dashed #000;
+        
+        }
+        .answer_question {
+            font-size:12px;
+            margin:10px;     
+            cursor:pointer;
+            width:150px;
+                   
+        }
+        .sub_answer{
+            padding:10px;
+            background-color:#A1CDE1;
+            font-size:16px;
+            width:150px;
+            text-align:center;
+            float:right;
+            margin:10px;
+
+        }
+        .hide {
+        display:none;
+        }
+        #hot_editer {
+            position:relative;left:50%;top:10px;
+        }
+
+        #parent_type {
+               
+        }
+        .child_type li {
+           padding:8px;width:100px; 
+           font-size:16px;
+           background-color:#F1FCFE;           
+        }
+         .child_type li:hover {         
+           background-color:#AAAAAA;  
+           cursor:pointer;         
+        }
+         #parent_type li {
+           padding:8px; width:100px; 
+            font-size:16px;              
+        }
+        #parent_type li:hover {
+           background-color:#8CE5F5;   
+        }
+        #body{
+           width:70%;
+           margin:0 auto;
+        }
+        .parent_line {
+           background-color:#EDEDED;
+           cursor:pointer;
+        }
+        .blackline {
+            border:1px solid #AAAAAA;
+            margin:8px 10px;
+            box-shadow:3px 3px 3px #CDCDCD;
+            -moz-box-shadow:3px 3px 3px #CDCDCD;
+            -webkit-box-shadow:3px 3px 3px #CDCDCD;
+                    
+       }
+       #left {
+            width:70%;
+            float:left;
+           
+       }
+       #right{
+           width:25%;
+           float:left;
+           font-size:16px;
+           text-align:center;
+           margin:8px 12px;
+           
+           
+       }
+       .rightdiv {
+          margin:5px 0;  
+          font-size:16px;       
+       }
+       .titlediv {
+            background-color:#4F92D5;
+            color:white;
+            height:28px;
+            line-height:28px;
+            font-size:16px;                   
+       }
+        .type {           
+           
+            height:28px;
+            line-height:28px;
+            font-size:16px;
+                             
+       }
+       .button {
+            font-size:16px;
+            cursor:pointer;       
+       }
+       .module_type {
+            border:1px solid #EDEDED;
+
+       }
+       .title {
+            background-color:#EDF7FF;
+            color:#1C6EA3;
+            font-size:16px;
+            padding:5px;
+       }
+       .content {
+            font-size:14px;
+            padding:15px;
+       }
+       .list li:nth-of-type(odd){ background:#FEFEFE; cursor:pointer}
+       .list li:nth-of-type(even){ background:#F6F6F6;cursor:pointer}
+        .detail li{
+            padding:5px  50px 5px 5px;
+        }
+       .answer {
+            border-top:dashed 1px #4F92D5;
+       }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header class="header">
+             <span class="sizebig">网上答疑</span><span class="middle">-上勘信息化网上答疑平台</span>
+        </header>        
+            <div id="body" >
+                <div>
+                   <div class="parent_line">
+                        <ul id="parent_type" >
+                            <li class="float_left">所有问题</li>
+                            <li class="float_left">我的答疑</li>
+                            <li class="float_left">答疑收藏</li>
+                        </ul>
+                        <div class="clear"></div>
+                   </div>
+                    <ul class="child_type " id="all_question">
+                        <li class="float_left">待解决问题</li>
+                        <li class="float_left">已解决问题</li>
+                        <li class="float_left">所有问题</li>
+                    </ul>
+                    <div class="clear"></div>
+                     <ul class="child_type hide" id="my_question">
+                        <li class="float_left">待解决问题</li>
+                        <li class="float_left">已解决问题</li>                      
+                    </ul>
+                     <div class="clear"></div>
+                     <ul class="child_type hide" id="fav_question">
+                        <li class="float_left">我的收藏</li>                       
+                    </ul>
+                     <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div>
+                    @RenderBody()
+                </div>                
+                
+            </div> 
+    </div>
+</body>
+</html>

@@ -55,7 +55,7 @@ namespace QuestionOnline.Controllers
             var model = new Answer()
             {
                 answerman = Common.CommonClass.GetUserName(),
-                answermanid=Common.CommonClass.GetPartyIdCount(),
+                answermanid=Common.CommonClass.GetPartyIdCount().ToString(),
                 answercontent = answercontent,
                 answerdate = DateTime.Now,
                 Qid = Convert.ToInt32(Qid)
@@ -166,9 +166,22 @@ namespace QuestionOnline.Controllers
         public ActionResult Index()
         {
             
-            var list = SearchKeyword("今");
+           // var list = SearchKeyword("今");
             return View();
         }
+        public ActionResult Question(string module=null,string parenttype=null,string childtype=null,int page=1)
+        {
 
+           var list = GetAllQuestion();
+         
+
+           ViewBag.TypeList = ts.FindModelList();
+           return View(list);
+        }
+
+        private List<Question> GetAllQuestion()
+        {
+            return qs.FindModelList().ToList();
+        }
     }
 }
