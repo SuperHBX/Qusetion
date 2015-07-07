@@ -38,11 +38,24 @@
         </div>      
         </div>
         }
-    </div>
-
-       
-   
+        @if (item.state == "1")
+        {
+            <div>回答问题</div> 
+        }
+    </div>       
 }
+
+     <div id="paging">
+         <span id="page_up" class="hand">上一页</span>
+         <span id="page_down"  class="hand">下一页</span>
+         <span>跳转到第</span> 
+         <input type="text" value="@ViewBag.page"/>
+         <span  class="hand">GO</span>
+         <span>当前第@(ViewBag.page)页</span>
+         <span>共@(ViewBag.allpage)页</span>
+         <span>共@(ViewBag.count)条记录</span>
+
+     </div>
 </div>
 <div id="right">
     <div class="rightdiv">
@@ -74,6 +87,68 @@
         }               
         </ul>
     </div>      
-    
+ <div class="clear"></div>
+<input id="parenttype" value="allquestion"/>
+<input id="childtype" value="resolved"/>
+<input id="page" value="@ViewBag.page" />
+<input id="module" value="0"/>
 </div>
-<div class="clear"></div>
+<script type="text/javascript">
+
+    //选择父菜单
+    $("#parent_type").children().click(function () {
+        $("#parent_type").children().css("background-color", "");
+        $(this).css("background-color", "#8CE5F5");
+        allshow();
+        $("#child_type").children().css("background-color", "#F1FCFE");
+        switch ($(this).attr("etype")) {
+            case "allquestion":              
+                $("#mycollect").hide();
+                $("#unsolved").css("background-color", "#AAAAAA");
+                $("#childtype").val($("#unsolved").attr("etype"));
+                break;
+            case "myquestion":
+                $("#mycollect").hide();
+                $("#all").hide();
+                $("#unsolved").css("background-color", "#AAAAAA");
+                $("#childtype").val($("#unsolved").attr("etype"));
+                break;
+            case "collect":
+                $("#unsolved").hide();
+                $("#resolved").hide();
+                $("#all").hide();
+                $("#mycollect").css("background-color", "#AAAAAA");
+                $("#childtype").val($("#mycollect").attr("etype"));
+                break;              
+        }
+        $("#parenttype").val($(this).attr("etype"));
+    });
+
+    //选择子菜单
+    $("#child_type").children().click(function () {
+        $("#child_type").children().css("background-color", "#F1FCFE");
+        $(this).css("background-color", "#AAAAAA");
+        $("#childtype").val($(this).attr("etype"));
+    });
+   
+    function allshow()
+    {
+        $("#unsolved").show();
+        $("#resolved").show();
+        $("#all").show();
+        $("#mycollect").show();
+    }
+
+    //上一页
+    $("#page_up").click(function () {
+        var temp = parseInt($("#page").val()) - 1;       
+        $("#page").val(temp <= 0 ? 1 : temp);
+    });
+    //下一页
+    $("#page_down").click(function () {
+        var temp = parseInt($("#page").val()) + 1;
+        var allpage=@(ViewBag.allpage)
+        $("#page").val(temp > allpage ? allpage : temp);
+        window.location.href = '@Url.Action("Question")?module=' + $("#module").val() + '&page=' + $("#page").val() + '&parenttype=' + $("#parenttype").val() + '&childtype=' + $("#childtype").val();
+    });
+</script>

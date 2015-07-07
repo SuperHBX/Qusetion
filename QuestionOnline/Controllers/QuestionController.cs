@@ -4,6 +4,7 @@ using QAServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -169,18 +170,60 @@ namespace QuestionOnline.Controllers
            // var list = SearchKeyword("今");
             return View();
         }
-        public ActionResult Question(string module=null,string parenttype=null,string childtype=null,int page=1)
+        public ActionResult Question(int? module=null,string parenttype=null,string childtype=null,int page=1)
         {
+            int pagenumber = 6;
+            IEnumerable<Question> list = qs.FindModelList().ToList();
 
-           var list = GetAllQuestion();
-         
+            //if (module != null) 
+            //{
+            //    list = list.Where(o => o.typeid == module);
+            //}
 
+            if (parenttype != null) 
+            {
+                int manid = 1;//Common.CommonClass.GetPartyIdCount();
+                switch(parenttype)
+                {
+                    case "allquestion"://所有收藏
+                        list = qs.FindModelList();
+                        break;
+                    case "myquestion":                        
+                        list = list.Where(o => o.regmanid == manid);
+                        break;
+                    case "collect":
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o=>o.question).Select(o=>o.Key);
+                        break;                                     
+                }
+                    
+            }
+            if (childtype != null && parenttype != "collect") 
+            {
+                //int manid = Common.CommonClass.GetPartyIdCount();
+                switch (parenttype)
+                {
+                    case "all":
+                        break;
+                    case "resolved"://已解决
+                        list = list.Where(o => o.state == "0");
+                        break;
+                    case "unsolved"://未解决
+                        list = list.Where(o => o.state == "1");
+                        break;                 
+                      
+                }
+            }
+           ViewBag.count = list.Count();                 
            ViewBag.TypeList = ts.FindModelList();
+           ViewBag.page = page;
+           ViewBag.allpage =Math.Ceiling((double)list.Count() / (double)pagenumber);
+
+           list = list.Skip((page - 1) * pagenumber).Take(pagenumber);
            return View(list);
         }
 
         private List<Question> GetAllQuestion()
-        {
+        {      
             return qs.FindModelList().ToList();
         }
     }

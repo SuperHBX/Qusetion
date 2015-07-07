@@ -132,6 +132,21 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <Content Include="image\ask_question.png" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\kindeditor-min.js" />
+    <Content Include="js\themes\common\anchor.gif" />
+    <Content Include="js\themes\common\blank.gif" />
+    <Content Include="js\themes\common\flash.gif" />
+    <Content Include="js\themes\common\loading.gif" />
+    <Content Include="js\themes\common\media.gif" />
+    <Content Include="js\themes\common\rm.gif" />
+    <Content Include="js\themes\default\background.png" />
+    <Content Include="js\themes\default\default.css" />
+    <Content Include="js\themes\default\default.png" />
+    <Content Include="js\themes\qq\editor.gif" />
+    <Content Include="js\themes\qq\qq.css" />
+    <Content Include="js\themes\simple\simple.css" />
+    <Content Include="js\zh_CN.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -144,7 +159,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="css\" />
-    <Folder Include="js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
