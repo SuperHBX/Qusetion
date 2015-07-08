@@ -7,6 +7,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using QuestionOnline.Models;
 
 namespace QuestionOnline.Controllers
 {
@@ -17,6 +19,14 @@ namespace QuestionOnline.Controllers
         AnswerServer ans = new AnswerServer();
         CollectServer cs = new CollectServer();
         TypeServer ts = new TypeServer();
+
+
+        public ActionResult AskQuestion() 
+        {
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate);
+            ViewBag.Types = GetAlltype();
+            return View();
+        }
         /// <summary>
         /// 添加新问题
         /// </summary>
@@ -184,7 +194,7 @@ namespace QuestionOnline.Controllers
             {
                 int manid = 1;//Common.CommonClass.GetPartyIdCount();
                 switch(parenttype)
-                {
+                { 
                     case "allquestion"://所有收藏
                         list = qs.FindModelList();
                         break;
@@ -217,10 +227,82 @@ namespace QuestionOnline.Controllers
            ViewBag.TypeList = ts.FindModelList();
            ViewBag.page = page;
            ViewBag.allpage =Math.Ceiling((double)list.Count() / (double)pagenumber);
-
            list = list.Skip((page - 1) * pagenumber).Take(pagenumber);
            return View(list);
         }
+        public ActionResult GetQuestionByPage(int? module = null, string parenttype = null, string childtype = null, int page = 1) 
+        {
+            int pagenumber = 6;//每页6条
+            IEnumerable<Question> list = qs.FindModelList().ToList();
+
+            //if (module != null) 
+            //{
+            //    list = list.Where(o => o.typeid == module);
+            //}
+
+            if (parenttype != null)
+            {
+                int manid = 1;//Common.CommonClass.GetPartyIdCount();
+                switch (parenttype)
+                {
+                    case "allquestion"://所有收藏
+                        list = qs.FindModelList();
+                        break;
+                    case "myquestion":
+                        list = list.Where(o => o.regmanid == manid);
+                        break;
+                    case "collect":
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key);
+                        break;
+                }
+
+            }
+            if (childtype != null && parenttype != "collect")
+            {
+                switch (childtype)
+                {
+                    case "all":
+                        break;
+                    case "resolved"://已解决
+                        list = list.Where(o => o.state == "0");
+                        break;
+                    case "unsolved"://未解决
+                        list = list.Where(o => o.state == "1");
+                        break;
+
+                }
+            }
+            list = list.Skip((page - 1) * pagenumber).Take(pagenumber).ToList();
+            var templist = new List<QuestionPageModel>();
+            foreach (var i in list)
+            {
+                i.Type.questions.Clear();
+                i.Type.improvereports.Clear();
+                var answer = new Answer();
+                if (i.Answers.Count!=0)
+                {
+                    answer = i.Answers.ToList().FirstOrDefault();
+                    answer.question = null;
+                }
+                templist.Add(new QuestionPageModel() 
+                {
+                    ishot=i.ishot,
+                    Id=i.Id,
+                    state=i.state,
+                    regdate=i.regdate,
+                    regman=i.regman,
+                    regmanid=i.regmanid,
+                    title=i.title,
+                    Type=i.Type,
+                    Answer = answer,
+                    content=i.content,
+                    typeid=i.typeid                         
+                });
+           
+            }
+            return Json(templist, JsonRequestBehavior.AllowGet);
+        }
+
 
         private List<Question> GetAllQuestion()
         {      

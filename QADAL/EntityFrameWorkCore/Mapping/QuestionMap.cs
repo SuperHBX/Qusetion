@@ -34,7 +34,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
 
 
             // Relationships
-            this.HasOptional(t => t.type)
+            this.HasOptional(t => t.Type)
                 .WithMany(t => t.questions)
                 .HasForeignKey(d => d.typeid);
 

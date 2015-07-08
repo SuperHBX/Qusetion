@@ -5,6 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div id="left">
+     <div>
+        <div class="parent_line">
+            <ul id="parent_type" >
+                <li class="float_left" etype="allquestion">所有问题</li>
+                <li class="float_left" etype="myquestion">我的答疑</li>
+                <li class="float_left" etype="collect">答疑收藏</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <ul class="child_type "id="child_type">
+            <li class="float_left" etype="unsolved" id="unsolved">待解决问题</li>
+            <li class="float_left" etype="resolved" id="resolved">已解决问题</li>
+            <li class="float_left" etype="all" id="all">所有问题</li>
+            <li class="float_left"  etype="collect" id="mycollect">我的收藏</li>   
+        </ul>
+        <div class="clear"></div>                   
+     </div>
+     <div class="clear"></div>
+    <div id="questions">
 @foreach (var item in Model) {
     <div class="blackline">
         <div class="title">
@@ -15,7 +34,7 @@
         </div>
         <div>
             <ul class="detail">
-                <li class="float_left">分类：@Html.DisplayFor(modelItem => item.type.typename)</li>
+                <li class="float_left">分类：@Html.DisplayFor(modelItem => item.Type.typename)</li>
                 <li class="float_left">提问人：@Html.DisplayFor(modelItem => item.regman)</li>
                 <li class="float_left">提问时间：@Html.DisplayFor(modelItem => item.regdate)</li>
                 <div class="clear"></div>
@@ -44,7 +63,7 @@
         }
     </div>       
 }
-
+    </div>
      <div id="paging">
          <span id="page_up" class="hand">上一页</span>
          <span id="page_down"  class="hand">下一页</span>
@@ -62,7 +81,7 @@
         <input type="text" style="width:70%;height:25px"/><input type="button" value="搜索" style="width:28%;height:25px"/>
     </div>
     <div class="rightdiv button">
-            我要提问      
+            <a href="@Url.Action("AskQuestion")">我要提问</a>      
     </div>
     <div class="module_type">
         <div class="titlediv">
@@ -122,6 +141,7 @@
                 break;              
         }
         $("#parenttype").val($(this).attr("etype"));
+        QuestionPaging();
     });
 
     //选择子菜单
@@ -129,6 +149,7 @@
         $("#child_type").children().css("background-color", "#F1FCFE");
         $(this).css("background-color", "#AAAAAA");
         $("#childtype").val($(this).attr("etype"));
+        QuestionPaging();
     });
    
     function allshow()
@@ -143,12 +164,48 @@
     $("#page_up").click(function () {
         var temp = parseInt($("#page").val()) - 1;       
         $("#page").val(temp <= 0 ? 1 : temp);
+        QuestionPaging();
     });
     //下一页
     $("#page_down").click(function () {
         var temp = parseInt($("#page").val()) + 1;
         var allpage=@(ViewBag.allpage)
         $("#page").val(temp > allpage ? allpage : temp);
-        window.location.href = '@Url.Action("Question")?module=' + $("#module").val() + '&page=' + $("#page").val() + '&parenttype=' + $("#parenttype").val() + '&childtype=' + $("#childtype").val();
+        @*window.location.href = '@Url.Action("Question")?module=' + $("#module").val() + '&page=' + $("#page").val() + '&parenttype=' + $("#parenttype").val() + '&childtype=' + $("#childtype").val();*@
+        QuestionPaging();
     });
+
+
+
+
+    function QuestionPaging()
+    {
+        var module = $("#module").val();
+        var page = $("#page").val();
+        var parenttype = $("#parenttype").val();
+        var childtype = $("#childtype").val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetQuestionByPage")',
+            data: { "module": module, "page": page, "parenttype": parenttype, "childtype": childtype },
+            dataType: "json",
+            success: function (data) {
+                //alert(data);
+                //动态写出问题列表
+                var str="";
+                for (var i = 0; i < data.length; i++) {
+                    str += '<div class="blackline"><div class="title">请问' + data[i].title + '</div><div class="content">' + data[i].content + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + data[i].regdate + '</li><div class="clear"></div></ul></div>';
+                    if (data[i].Answer.answercontent != null) {
+                        str += '<div class="answer"><div class="title">回答:</div><div class="content">' + data[i].Answer.answercontent + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + data[i].Answer.answerdate + '</li><div class="clear"></div></ul></div></div>';
+                    }
+                    str += '</div>';
+                }
+                $("#questions").html(str);
+            },
+            error: function (msg) {
+                alert("error")
+            }
+
+        });
+    }
 </script>

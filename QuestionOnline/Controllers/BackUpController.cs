@@ -24,7 +24,7 @@ namespace QuestionOnline.Controllers
                 regmanid=Common.CommonClass.GetPartyIdCount(),
                 reportcontent=content,
                 title=title,
-                type=Convert.ToInt32(typeid)
+                typeid=Convert.ToInt32(typeid)
             };
             return ir.Add(model);
         }

@@ -25,7 +25,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.regmanid).HasColumnName("regmanid");
             this.Property(t => t.regdate).HasColumnName("regdate");
-            this.Property(t => t.type).HasColumnName("type");
+            this.Property(t => t.typeid).HasColumnName("typeid");
             this.Property(t => t.title).HasColumnName("title");
             this.Property(t => t.reportcontent).HasColumnName("reportcontent");
             this.Property(t => t.regman).HasColumnName("regman");
@@ -33,7 +33,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
             // Relationships
             this.HasOptional(t => t.type1)
                 .WithMany(t => t.improvereports)
-                .HasForeignKey(d => d.type);
+                .HasForeignKey(d => d.typeid);
 
         }
     }
