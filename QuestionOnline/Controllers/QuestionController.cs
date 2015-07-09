@@ -23,9 +23,32 @@ namespace QuestionOnline.Controllers
 
         public ActionResult AskQuestion() 
         {
-            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate);
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(6);
             ViewBag.Types = GetAlltype();
             return View();
+        }
+
+        public ActionResult EditorHot()
+        {
+            ViewBag.TypeList = ts.FindModelList();
+            ViewBag.Types = GetAlltype();
+            return View();
+        }
+
+        public ActionResult RightContent()
+        {
+            
+            return View();
+        }
+
+        /// <summary>
+        /// 添加新问题
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddQuestionV2(Question model) 
+        {
+            var temp=qs.Add(model);
+            return Json(temp, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 添加新问题
@@ -54,25 +77,35 @@ namespace QuestionOnline.Controllers
         /// <summary>
         /// 添加回答
         /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult AddAnswer(Answer model) 
+        {
+            var temp = ans.Add(model);
+            return Json(temp, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 添加回答
+        /// </summary>
         /// <param name="Qid">问题id</param>
         /// <param name="answerman">回答人</param>
         /// <param name="answercontent">回答内容</param>
         /// <returns></returns>
-        public Answer AddAnswer(string Qid, string answercontent)
-        {
+        //public Answer AddAnswer(string Qid, string answercontent)
+        //{
 
-            //验证信息
+        //    //验证信息
 
-            var model = new Answer()
-            {
-                answerman = Common.CommonClass.GetUserName(),
-                answermanid=Common.CommonClass.GetPartyIdCount().ToString(),
-                answercontent = answercontent,
-                answerdate = DateTime.Now,
-                Qid = Convert.ToInt32(Qid)
-            };
-             return ans.Add(model);
-        }
+        //    var model = new Answer()
+        //    {
+        //        answerman = Common.CommonClass.GetUserName(),
+        //        answermanid=Common.CommonClass.GetPartyIdCount().ToString(),
+        //        answercontent = answercontent,
+        //        answerdate = DateTime.Now,
+        //        Qid = Convert.ToInt32(Qid)
+        //    };
+        //     return ans.Add(model);
+        //}
 
         /// <summary>
         /// 关键字查询
@@ -94,19 +127,19 @@ namespace QuestionOnline.Controllers
         /// <param name="typeid">问题类型</param>
         /// <param name="person">创建人</param>
         /// <param name="answercontent">回答内容</param>
-        public void AddHotQuestion(string qtitle, string qcontent, int typeid,string answercontent) 
-        {
-            try
-            {
-                var model = AddQuestion(qtitle, qcontent, typeid, true);
-                AddAnswer(model.Id.ToString(), answercontent);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //public void AddHotQuestion(string qtitle, string qcontent, int typeid,string answercontent) 
+        //{
+        //    try
+        //    {
+        //        var model = AddQuestion(qtitle, qcontent, typeid, true);
+        //        AddAnswer(model.Id.ToString(), answercontent);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
         /// <summary>
         /// 删除问题
@@ -183,7 +216,7 @@ namespace QuestionOnline.Controllers
         public ActionResult Question(int? module=null,string parenttype=null,string childtype=null,int page=1)
         {
             int pagenumber = 6;
-            IEnumerable<Question> list = qs.FindModelList().ToList();
+            IEnumerable<Question> list = qs.FindModelList().ToList().OrderByDescending(o => o.regdate);
 
             //if (module != null) 
             //{

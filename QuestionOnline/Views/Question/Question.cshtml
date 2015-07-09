@@ -11,7 +11,9 @@
                 <li class="float_left" etype="allquestion">所有问题</li>
                 <li class="float_left" etype="myquestion">我的答疑</li>
                 <li class="float_left" etype="collect">答疑收藏</li>
+                
             </ul>
+            <span class="float_right sizemiddle" ><a href="@Url.Action("EditorHot")">编辑问题</a></span>
             <div class="clear"></div>
         </div>
         <ul class="child_type "id="child_type">
@@ -59,7 +61,7 @@
         }
         @if (item.state == "1")
         {
-            <div>回答问题</div> 
+            <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div> 
         }
     </div>       
 }
@@ -76,48 +78,24 @@
 
      </div>
 </div>
-<div id="right">
-    <div class="rightdiv">
-        <input type="text" style="width:70%;height:25px"/><input type="button" value="搜索" style="width:28%;height:25px"/>
-    </div>
-    <div class="rightdiv button">
-            <a href="@Url.Action("AskQuestion")">我要提问</a>      
-    </div>
-    <div class="module_type">
-        <div class="titlediv">
-            模块分类    
-        </div>
-        <ul class="list">
-        @foreach (var i in ViewBag.TypeList) 
-        {
-            <li class="type">@i.typename</li>
-        }               
-        </ul>
-    </div> 
-    <br />
-    <div class="module_type">
-        <div class="titlediv">
-            模块分类    
-        </div>
-        <ul class="list">
-        @foreach (var i in ViewBag.TypeList) 
-        {
-            <li class="type">@i.typename</li>
-        }               
-        </ul>
-    </div>      
- <div class="clear"></div>
+<div id="right" class="text_centre">
+    @Html.Partial("RightContent")
+</div>
+<div class="clear"></div>
+<div id="hide_answer" style="width:100%;height:100%;background-color:black;filter:alpha(opacity=50)";>
+a
+</div>
 <input id="parenttype" value="allquestion"/>
 <input id="childtype" value="resolved"/>
 <input id="page" value="@ViewBag.page" />
 <input id="module" value="0"/>
-</div>
+
 <script type="text/javascript">
 
     //选择父菜单
     $("#parent_type").children().click(function () {
-        $("#parent_type").children().css("background-color", "");
-        $(this).css("background-color", "#8CE5F5");
+        $("#parent_type").children().css({ "background-color": "", "color": "black" });
+        $(this).css({"background-color":"#00A1E0","color":"white"});
         allshow();
         $("#child_type").children().css("background-color", "#F1FCFE");
         switch ($(this).attr("etype")) {

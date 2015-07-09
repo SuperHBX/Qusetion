@@ -3,155 +3,144 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-  
-    <style type="text/css">
-          *{
-            list-style:none;
-            padding:0px;
-            margin:0px;
-        }   
-        #search {
-            width:50%;
-            text-align:center;
-            height:45px;
-            line-height:45px;
-           vertical-align:middle;
-        }
-        #location {
-            margin:15px 0 0 0;
-            width:50%;
-            padding:10px;
-            font-size:14px;
 
-            border-bottom:3px solid #000;
-        }
-        .rightdiv {
-            font-size:20px;
-            width:150px;
-            height:30px;
-            line-height:30px;
-            vertical-align:middle;
-            text-align:center;
-             margin:0 auto;
-             background-color:#A1CDE1;
-             display:inline-block;
-        
-        }
-        #search1 {
-            height:30px;
-            width:30%;
-            line-height:30px;
-            vertical-align:middle;
-            
-            margin:0 auto;
-        }
-        img {
-            position:relative; top:10px;
-        }
-        #sub_question {
-            width:50%;
-            padding:5px;
-            border-bottom:3px solid #000;
-            font-size:18px;
-            font-weight:bold;
-        
-        }
-        #man {
-            width:40%;
-            display:inline-block;
-        }
-        #right {
-            width:350px;
-            position:relative;top:-550px; left:70%;
-        }
-        .rightdiv1 {
-            
-            width:120px;
-             height:30px;
-            line-height:30px;
-            vertical-align:middle;
-            text-align:center;
-             margin:0 auto;
-             background-color:#A1CDE1;
-             
-        }
-        .list {
-            padding:5px;
-            font-size:12px;
-        }
-    </style>
+<link href="~/css/default.css" rel="stylesheet" />
+<script src="~/js/kindeditor-min.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/zh_CN.js"></script>
+<script src="~/js/jquery.form.js"></script>
+<style type="text/css">
+    #menu {
+        font-size:14px;
+        padding:10px 10px 1px 0px;
+        border-bottom:2px solid #000000;
+    }
+    #ask_question {
+        border-bottom:2px solid #000000;
+        font-size:16px;
+    }
+    .tips li{
+        padding:5px;
+        line-height:17px;
+       
+    }
+</style>
 <div id="location">
+
+    <div id="left">
+
+        <div id="menu">
             当前位置：网上答疑 > 我要提问
         </div>
-        <br />
-        <br />
         <div id="search">
-            <span class="rightdiv">搜索提问：</span>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="search1" />
-                <img src="image/search.png"  width="30" height="30"/>
-        </div>
-        <br />
-        <br />
-      
-        <div id="sub_question">
+            <span class="rightdiv">搜索提问：</span>
+            <input type="text" id="search1" style="width:150px;height:25px"/>
+            <input style="width:80px;height:25px" type="button" value="搜索"/>               
+        </div>       
+        <div id="ask_question">
             我要提问
         </div>
-        <br />
-        <div>
-          
-            <span id="man">提问人：</span><input  type="hidden" value=""/>
-        </div>
-        <br />
-        <div>
-            模块分类：   
-                <select name="typeid">
-               @foreach (var i in ViewBag.Types) 
-               {
-                   <option value="@i.Id" >@i.typename</option>
-               }
-                </select>
-        </div>
-        <br />
-        <div>
-            问题描述：
-            <br />
-            <br />
-           <textarea id="content" name="content" style="width:51%;height:200px;visibility:hidden; resize:none" ></textarea>
+        <form id="sub_question">
+            <div class="sizesmall padding5">          
+                <span id="man" class="sizesmall">提问人:蔡冬冬</span><input name="regman" type="hidden" value="蔡冬冬"/>@*regman*@
+                <span id="date" class="float_right sizesmall">提问时间：@DateTime.Now</span><input name="regdate" type="hidden" value="@DateTime.Now"/>
+                <input name="regmanid"  type="hidden" value="2"/>@*regmanid*@
+                <input name="state"  type="hidden" value="1"/>@*0已解决1未解决*@
+                <input name="ishot"  type="hidden" value="false"/>@*0已解决1未解决*@
+            </div>
+            <div class="sizesmall padding5">
+                <span>模块分类： </span>  
+                    <select name="typeid">
+                   @foreach (var i in ViewBag.Types) 
+                   {
+                       <option value="@i.Id">@i.typename</option>
+                   }
+                    </select>
+            </div>
+            <div>
+                <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%"/></div>           
+               <div class="sizesmall padding5">问题描述：</div>           
+               <textarea id="content" name="content" style=" width:100%;height:200px;visibility:hidden; resize:none" ></textarea>
 
-        </div>
-        <br />
-        <br />
-        <div id="search"><span class="rightdiv">提交问题</span></div>
+            </div>
+            <div  class="text_centre sizesmall padding5"><input type="button" id="sub_button" value="提交问题"/></div>
+        </form>
     </div>
-
-    <div id="right" >
-        <div class="rightdiv1"><a href="index.html">返回主页</a></div>
-        <br />
-        <br />
-        <div class="rightdiv1">提问主手小贴士</div>
-        <br />
-        <div style="padding:10px;">
-            1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题
-            <br />
-            <br />
-            <hr />
-            <br />
-            2.在提问是问题竟可能的描述清晰，以便工作人员帮你快速解答
-            <br />
-            <br />
-            <hr />
-            <br />
-            3.您的问题，会在24小时内解答
-        </div>
-        <br />
-        <br />
-
-        <div class="rightdiv1">热门问题</div>
-        <br />
-        <ul>
-            <li class="list">标书编号是什么时候生成的？</li>
-            <li class="list">我这有个流程为什么审批人到现在还没批呢？</li>
-            <li class="list">标书编号是什么时候生成的？</li>
-            <li class="list">我这有个流程为什么审批人到现在还没批呢？</li> 
-            <li class="list">标书编号是什么时候生成的？</li>
-            <li class="list">我这有个流程为什么审批人到现在还没批呢？</li>
+    <div id="right"> 
+    <div class="text_centre" style="margin-top:20px;">
+        <a href="@Url.Action("Question")" class="sizemiddle">
+            返回主页
+        </a>
+    </div>
+        <div class="text_centre sizemiddle">提问助手小贴士</div>
+        <div class="tips">
+            <ul>
+                <li>1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题</li>
+                <li>2.在提问是问题竟可能的描述清晰，以便工作人员帮你快速解答</li>
+                <li>3.您的问题，会在24小时内解答</li>
+            </ul>          
+        </div>      
+        <div class="sizemiddle text_centre">热门问题</div>      
+        <ul class="tips">
+            @foreach(var i in ViewBag.HotQuestion)
+            {
+            <li>@i.title</li>          
+            }
         </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: false,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+    });
+
+    $(function () {
+        $("#sub_button").click(function () {
+            if ($("#content").val()=="" || $("#title").val()=="") {
+                alert("请填写完整");
+                return;
+            }
+        
+            $("#sub_question").ajaxSubmit({
+                url: '@Url.Action("AddQuestionV2")',
+                type: 'POST',
+                success: function (ret) {
+                    alert("添加成功");
+                    self.clearFormInput();
+                    self.getAttendanceManagers();
+                    self.searchProjectAttendance();
+                },
+                error: function (xhr, msg) {
+                    alert(msg);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+ 

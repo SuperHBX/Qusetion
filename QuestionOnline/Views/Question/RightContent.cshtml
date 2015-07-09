@@ -1,0 +1,30 @@
+﻿    <div class="rightdiv">
+        <input type="text" style="width:70%;height:25px"/><input type="button" value="搜索" style="width:28%;height:25px"/>
+    </div>
+    <div class="rightdiv button">
+            <a href="@Url.Action("AskQuestion")" class="sizemiddle">我要提问</a>      
+    </div>
+    <div class="module_type">
+        <div class="titlediv">
+            模块分类    
+        </div>
+        <ul class="list">
+        @foreach (var i in ViewBag.TypeList) 
+        {
+            <li class="type">@i.typename</li>
+        }               
+        </ul>
+    </div> 
+    <br />
+    <div class="module_type">
+        <div class="titlediv">
+            模块分类    
+        </div>
+        <ul class="list">
+        @foreach (var i in ViewBag.TypeList) 
+        {
+            <li class="type">@i.typename</li>
+        }               
+        </ul>
+    </div>      
+    <div class="clear"></div>

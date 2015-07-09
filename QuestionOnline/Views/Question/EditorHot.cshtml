@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "EditorHot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "AskQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/css/default.css" rel="stylesheet" />
+<script src="~/js/kindeditor-min.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/zh_CN.js"></script>
+<script src="~/js/jquery.form.js"></script>
+<style type="text/css">
+    #menu {
+        font-size:14px;
+        padding:10px 10px 1px 0px;
+        border-bottom:2px solid #000000;
+    }
+    #ask_question {
+        border-bottom:2px solid #000000;
+        font-size:16px;
+    }
+    .tips li{
+        padding:5px;
+        line-height:17px;
+       
+    }
+</style>
+<div id="location">
+
+    <div id="left">
+
+        <div id="menu">
+            当前位置：网上答疑 > 编辑问题
+        </div>
+        <div id="search" class="sizemiddle">
+            编辑热门问题                        
+        </div>                         
+        <form id="sub_question">
+            <div class="sizesmall padding5">          
+                <span id="man" class="sizesmall">编辑人:蔡冬冬</span><input name="regman" type="hidden" value="蔡冬冬"/>@*regman*@
+                <span id="date" class="float_right sizesmall">编辑时间：@DateTime.Now</span><input name="regdate" type="hidden" value="@DateTime.Now"/>
+                <input name="regmanid"  type="hidden" value="2"/>@*regmanid*@
+                <input name="state"  type="hidden" value="0"/>@*0已解决1未解决*@
+                <input name="ishot"  type="hidden" value="true"/>@*0已解决1未解决*@
+            </div>
+            <div class="sizesmall padding5">
+                <span>模块分类： </span>  
+                    <select name="typeid">
+                   @foreach (var i in ViewBag.Types) 
+                   {
+                       <option value="@i.Id">@i.typename</option>
+                   }
+                    </select>
+            </div>
+            <div>
+                <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%"/></div>           
+                <div class="sizesmall padding5">问题描述：</div>           
+                <textarea id="content" name="content" style=" width:100%;height:200px;visibility:hidden; resize:none" ></textarea>
+            </div>
+        </form>
+        <form id="sub_answer">
+            <div>
+                <div class="sizesmall padding5">问题回复：</div>
+                <textarea id="content1" name="answercontent" style=" width:100%;height:200px;visibility:hidden; resize:none" ></textarea>
+                <input id="Qid"name="Qid" type="hidden" />
+                <input name="answermanid" type="hidden" value="蔡冬冬"/>@*regman*@
+                <input name="answerman"  type="hidden" value="2"/>@*regmanid*@
+                <input name="answerdate" type="hidden" value="@DateTime.Now"/>@*regman*@
+                <input name="state" type="hidden" value="true"/>@*regman*@
+            </div>
+        </form>
+            <div  class="text_centre sizesmall padding5"><input type="button" id="sub_button" value="提交问题"/></div>
+        
+    </div>
+    <div id="right" class="text_centre"> 
+    @Html.Partial("RightContent")
+    </div>
+</div>
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: false,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+        editor = K.create('textarea[name="answercontent"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: false,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+    });
+
+    $(function () {
+        $("#sub_button").click(function () {
+            if ($("#content").val() == "" || $("#title").val() == "" || $("#content1").val() == "") {
+                alert("请填写完整");
+                return;
+            }
+        
+            $("#sub_question").ajaxSubmit({
+                url: '@Url.Action("AddQuestionV2")',
+                type: 'POST',
+                success: function (date) {
+                    $("#Qid").val(date.Id);
+                    $("#sub_answer").ajaxSubmit({
+                        url: '@Url.Action("AddAnswer")',
+                        type: 'POST',
+                        success: function () {
+                            alert("添加成功")
+                        },
+                        error: function (xhr, ms) {
+                            alert(msg);
+                        }
+
+                    });
+                },
+                error: function (xhr, msg) {
+                    alert(msg);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+ 
