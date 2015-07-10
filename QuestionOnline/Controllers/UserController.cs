@@ -12,8 +12,8 @@ using QAServer.Server;
 
 namespace QuestionOnline.Controllers
 {
-    
-    public class UserController:Controller
+
+    public class UserController : baseController
     {
           
         private QuestionServer qs=new QuestionServer();

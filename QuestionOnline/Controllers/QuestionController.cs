@@ -12,7 +12,7 @@ using QuestionOnline.Models;
 
 namespace QuestionOnline.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionController : baseController
     {
          
         QuestionServer qs = new QuestionServer();
@@ -20,7 +20,10 @@ namespace QuestionOnline.Controllers
         CollectServer cs = new CollectServer();
         TypeServer ts = new TypeServer();
 
-
+        /// <summary>
+        /// 提问页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AskQuestion() 
         {
             ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(6);
@@ -28,11 +31,22 @@ namespace QuestionOnline.Controllers
             return View();
         }
 
-        public ActionResult QuestionDetail() 
+        /// <summary>
+        /// 详情页
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult QuestionDetail(int Qid=1) 
         {
-           return View();
+           var temp=qs.FindModel(new object[] {Qid});
+           ViewBag.TypeList = ts.FindModelList();
+           ViewBag.Types = GetAlltype();
+           return View(temp);
         }
 
+        /// <summary>
+        /// 热门问题编辑
+        /// </summary>
+        /// <returns></returns>
         public ActionResult EditorHot()
         {
             ViewBag.TypeList = ts.FindModelList();
@@ -40,6 +54,10 @@ namespace QuestionOnline.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 右边栏
+        /// </summary>
+        /// <returns></returns>
         public ActionResult RightContent()
         {
             

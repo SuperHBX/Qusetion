@@ -62,8 +62,8 @@
     <div id="questions">
 @foreach (var item in Model) {
     <div class="blackline">
-        <div class="title">
-                请问： @Html.DisplayFor(modelItem => item.title)
+        <div class="title hand" >
+               <div onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div>
         </div>
         <div class="content">
                 @Html.DisplayFor(modelItem => item.content)
@@ -276,6 +276,8 @@
 
     });
 
-    //提交回答
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?" + o;
+    }
     
 </script>

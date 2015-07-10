@@ -15,11 +15,6 @@ namespace QuestionOnline.Controllers
         // GET: /base/
 
 
-        protected IUnitOfWork IUnitOfWork { get; private set; }
-
-        public baseController(IUnitOfWork _iUnitOfWork)
-        {
-            IUnitOfWork = _iUnitOfWork;
-        }
+       
     }
 }

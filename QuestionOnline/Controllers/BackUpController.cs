@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace QuestionOnline.Controllers
 {
-    public class BackUpController : Controller
+    public class BackUpController : baseController
     {
         ImproveReportServer ir = new ImproveReportServer();
 
