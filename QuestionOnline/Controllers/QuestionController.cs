@@ -14,7 +14,7 @@ namespace QuestionOnline.Controllers
 {
     public class QuestionController : Controller
     {
-
+         
         QuestionServer qs = new QuestionServer();
         AnswerServer ans = new AnswerServer();
         CollectServer cs = new CollectServer();
