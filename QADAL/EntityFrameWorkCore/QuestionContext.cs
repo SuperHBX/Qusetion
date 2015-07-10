@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
@@ -28,14 +29,20 @@ namespace QADAL.EntityFrameWorkCore
             modelBuilder.Configurations.Add(new Mapping.AnswerMap());
             modelBuilder.Configurations.Add(new Mapping.CollectMap());
             modelBuilder.Configurations.Add(new Mapping.ImprovereportMap());
-            modelBuilder.Configurations.Add(new Mapping.QuestionMap());
-           
+            modelBuilder.Configurations.Add(new Mapping.QuestionMap());          
             modelBuilder.Configurations.Add(new Mapping.TypeMap());
         }
 
         public void Save()
         {
-            this.SaveChanges();
+            try
+            {
+                this.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
         }
 

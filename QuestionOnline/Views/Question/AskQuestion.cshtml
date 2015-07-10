@@ -115,10 +115,7 @@
                 url: '@Url.Action("AddQuestionV2")',
                 type: 'POST',
                 success: function (ret) {
-                    alert("添加成功");
-                    self.clearFormInput();
-                    self.getAttendanceManagers();
-                    self.searchProjectAttendance();
+                    alert("添加成功");                   
                 },
                 error: function (xhr, msg) {
                     alert(msg);

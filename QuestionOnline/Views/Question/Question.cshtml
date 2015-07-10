@@ -4,6 +4,40 @@
     ViewBag.Title = "Question";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/css/default.css" rel="stylesheet" />
+<script src="~/js/kindeditor-min.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/zh_CN.js"></script>
+<script src="~/js/jquery.form.js"></script>
+<style type="text/css">
+    #hide_answer {
+        position:absolute;
+        top:0px;
+        left:0px;
+        bottom:0px;
+        width:100%;
+        height:100%;
+        display:none;
+    }
+    #bg {
+        width:100%;height:100%;
+    /**透明层兼容**/
+     filter:alpha(opacity=30);-moz-opacity:0.3;-khtml-opacity: 0.3;opacity: 0.3;
+     background-color:black;z-index:0;position:fixed;
+    }
+    #nr{
+        border:1px solid red;
+        width:700px;
+        height:400px;
+        margin:100px auto 0px;
+        /*background-image:url("../image/background_white.png");*/
+        background-color:#fff;
+        z-index:900;
+        position:relative;
+        padding:10px;
+        
+    }
+</style>
 <div id="left">
      <div>
         <div class="parent_line">
@@ -82,8 +116,22 @@
     @Html.Partial("RightContent")
 </div>
 <div class="clear"></div>
-<div id="hide_answer" style="width:100%;height:100%;background-color:black;filter:alpha(opacity=50)";>
-a
+<div id="hide_answer">
+    <div id="bg">
+       
+    </div>
+    <form id="sub_answer">
+        <div id="nr">
+            <span class="sizebig float_right hand" id="close_hide">×</span>            <!--层内的内容-->
+            <input id="hide_Qid" name="Qid" value=""/>
+            <div class="sizemiddle">问答问题：</div>
+            <br />
+            <div>
+                <textarea id="content" name="content" style=" width:100%;height:300px;visibility:hidden; resize:none" ></textarea>
+            </div>
+            <div style="margin:15px auto;width:80px;"><input " id="submit" type="button"  value="提交" style="width:80px;height:30px;font-size:16px;"/></div>            
+        </div>
+    </form>
 </div>
 <input id="parenttype" value="allquestion"/>
 <input id="childtype" value="resolved"/>
@@ -186,4 +234,48 @@ a
 
         });
     }
+
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: true,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+        });
+    });
+
+    function SubAnswer(item) {
+        $("#hide_Qid").val(item);
+        $("#hide_answer").show();
+        scroll(0, 0);
+    }
+    $("#close_hide").click(function () {
+        $("#hide_answer").hide();
+
+    });
+
+    $("#submit").click(function () {
+        $("#sub_answer").ajaxSubmit({
+
+            url: '@Url.Action("AddAnswer")',
+                type: 'POST',
+                success: function () {
+                    alert("添加成功")
+                },
+                error: function (xhr, ms) {
+                    alert(msg);
+                }
+
+
+            });
+
+    });
+
+    //提交回答
+    
 </script>

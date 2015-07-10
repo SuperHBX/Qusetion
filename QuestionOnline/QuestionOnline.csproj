@@ -153,6 +153,7 @@
     <Content Include="css\reset.css" />
     <Content Include="Global.asax" />
     <Content Include="image\ask_question.png" />
+    <Content Include="image\background_white.png" />
     <Content Include="js\jquery.form.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\kindeditor-min.js" />
