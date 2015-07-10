@@ -28,6 +28,11 @@ namespace QuestionOnline.Controllers
             return View();
         }
 
+        public ActionResult QuestionDetail() 
+        {
+           return View();
+        }
+
         public ActionResult EditorHot()
         {
             ViewBag.TypeList = ts.FindModelList();
