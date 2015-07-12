@@ -13,6 +13,8 @@
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/zh_CN.js"></script>
 <script src="~/js/jquery.form.js"></script>
+<script src="~/js/jquery-1.10.2.js"></script>
+@*<script src="~/js/kindeditor-all.js"></script>*@
 <style type="text/css">
     #menu {
         font-size:14px;
@@ -29,6 +31,32 @@
        
     }
 </style>
+<script type="text/javascript">
+    //jQuery(function ($) {
+    //    $("textarea").bind("paste", handlePaste)
+    //})
+
+    //function handlePaste(ev) {
+    //    alert(1);
+    //    var item = ev.originalEvent.clipboardData.items[0]
+    //    //console.log(ev.originalEvent.clipboardData.items[0]);
+
+    //    var blob = item.getAsFile();
+    //    var reader = new FileReader();
+    //    reader.onload = function (event) {
+    //        //console.log(event.target.result)
+
+    //        var sHtml = '&lt;img src="' + event.target.result + '" /&gt;';
+    //        console.log(sHtml);
+    //        $(".ke-content").html($(".ke-content").html() + sHtml);
+    //    }
+    //    reader.readAsDataURL(blob);
+    //    return false;
+
+    //}
+
+
+</script>
 <div id="location">
 
     <div id="left">
@@ -91,7 +119,7 @@
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile']
         });
         editor = K.create('textarea[name="answercontent"]', {
             afterBlur: function () { this.sync(); },
@@ -101,7 +129,7 @@
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link',  'insertfile']
         });
     });
 
@@ -135,21 +163,6 @@
             });
         });
     });
+    
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
- 

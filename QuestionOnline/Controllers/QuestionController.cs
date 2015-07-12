@@ -9,10 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using QuestionOnline.Models;
+using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
+using QADAL.EntityFrameWorkCore;
 
 namespace QuestionOnline.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionController : baseController
     {
          
         QuestionServer qs = new QuestionServer();
@@ -20,6 +22,11 @@ namespace QuestionOnline.Controllers
         CollectServer cs = new CollectServer();
         TypeServer ts = new TypeServer();
 
+        public QuestionController()
+            : base(new QuestionContext())
+        {
+
+        }
 
         public ActionResult AskQuestion() 
         {
