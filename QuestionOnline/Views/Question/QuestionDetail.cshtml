@@ -1,0 +1,54 @@
+﻿@model QADAL.EntityFrameWorkCore.Models.Question
+@{
+    ViewBag.Title = "QuestionDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/default.css" rel="stylesheet" />
+<script src="~/js/kindeditor-min.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/zh_CN.js"></script>
+<script src="~/js/jquery.form.js"></script>
+<style type="text/css">
+    #menu {
+        font-size:14px;
+        padding:10px 10px 1px 0px;
+        border-bottom:2px solid #000000;
+    }
+    #ask_question {
+        border-bottom:2px solid #000000;
+        font-size:16px;
+    }
+    .tips li{
+        padding:5px;
+        line-height:17px;      
+    }
+   
+</style>
+<div id="location">
+
+    <div id="left" >
+
+        <div id="menu">
+            当前位置：网上答疑 > 问题详情
+        </div>
+        <div class="sizebig padding10">请问：@Html.DisplayFor(o => o.title)</div>
+        <div class="sizesmall padding10 backgriund_gray">By:@Html.DisplayFor(o => o.regman) &nbsp;&nbsp;|&nbsp;&nbsp; @Html.DisplayFor(o=>o.regdate)</div>
+        <div class="padding10" style="margin-top:15px;">
+            @Html.DisplayFor(o => o.content)
+        </div>
+        <div class="sizesmall padding10 backgriund_gray">
+            所属分类:@Html.DisplayFor(o => o.Type.typename)
+        </div>
+        @if (Model.Answers.Count != 0) 
+        {
+            <div class="sizebig padding10">回答：</div>
+            <div class="padding10" style="margin-top:15px;"> 
+                @Html.DisplayFor(o => o.Answers.FirstOrDefault().answercontent)
+            </div>
+            <div class="sizesmall padding10 backgriund_gray">By:@Html.DisplayFor(o => o.Answers.FirstOrDefault().answerman) &nbsp;&nbsp;|&nbsp;&nbsp; @Html.DisplayFor(o=>o.Answers.FirstOrDefault().answerdate)</div>
+        }
+    </div>
+    <div id="right" class="text_centre"> 
+    @Html.Partial("RightContent")
+    </div>
+</div>

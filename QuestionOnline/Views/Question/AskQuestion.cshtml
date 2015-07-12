@@ -5,10 +5,12 @@
 
 
 <link href="~/css/default.css" rel="stylesheet" />
+<link href="~/css/prettify.css" rel="stylesheet" />
 <script src="~/js/kindeditor-min.js"></script>
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/zh_CN.js"></script>
 <script src="~/js/jquery.form.js"></script>
+<script src="~/js/prettify.js"></script>
 <style type="text/css">
     #menu {
         font-size:14px;
@@ -95,13 +97,26 @@
         editor = K.create('textarea[name="content"]', {
             afterBlur: function () { this.sync(); },
             resizeType: 0,
-            allowPreviewEmoticons: false,
-            allowImageUpload: false,
+            allowPreviewEmoticons: true,
+            allowImageUpload: true,
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+            afterCreate: function () {
+                var self = this;
+                K.ctrl(document, 13, function () {
+                    self.sync();
+                    K('form[name=example]')[0].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function () {
+                    self.sync();
+                    K('form[name=example]')[0].submit();
+                });
+            }
+
         });
+        prettyPrint();
     });
 
     $(function () {
