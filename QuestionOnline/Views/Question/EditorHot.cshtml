@@ -14,6 +14,7 @@
 <script src="~/js/zh_CN.js"></script>
 <script src="~/js/jquery.form.js"></script>
 <script src="~/js/jquery-1.10.2.js"></script>
+
 @*<script src="~/js/kindeditor-all.js"></script>*@
 <style type="text/css">
     #menu {
@@ -135,11 +136,12 @@
 
     $(function () {
         $("#sub_button").click(function () {
+     
             if ($("#content").val() == "" || $("#title").val() == "" || $("#content1").val() == "") {
                 alert("请填写完整");
                 return;
             }
-        
+            alert();
             $("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
                 type: 'POST',
