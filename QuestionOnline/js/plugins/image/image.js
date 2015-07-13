@@ -202,7 +202,9 @@ KindEditor.plugin('image', function(K) {
 						clickFn.call(self, url, data.title, data.width, data.height, data.border, data.align);
 					} else {
 						K(".ke-dialog-row #remoteUrl", div).val(url);
-						K(".ke-tabs-li", div)[0].click();
+					    //K(".ke-tabs-li", div)[0].click();ke-dialog-footer
+						console.log($(".ke-dialog-yes", div));
+						K(".ke-dialog-yes input", div).click();
 						K(".ke-refresh-btn", div).click();
 					}
 				} else {
@@ -215,7 +217,6 @@ KindEditor.plugin('image', function(K) {
 			}
 		});
 		uploadbutton.fileBox.change(function (e) {
-		    console.log(uploadbutton.fileBox);
 			localUrlBox.val(uploadbutton.fileBox.val());
 		});
 		if (allowFileManager) {
