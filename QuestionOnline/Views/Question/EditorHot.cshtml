@@ -13,7 +13,7 @@
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/zh_CN.js"></script>
 <script src="~/js/jquery.form.js"></script>
-<script src="~/js/jquery-1.10.2.js"></script>
+
 
 @*<script src="~/js/kindeditor-all.js"></script>*@
 <style type="text/css">
@@ -141,7 +141,7 @@
                 alert("请填写完整");
                 return;
             }
-            alert();
+         
             $("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
                 type: 'POST',
