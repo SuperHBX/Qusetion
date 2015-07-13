@@ -68,6 +68,7 @@ namespace QuestionOnline.Controllers
         /// 添加新问题
         /// </summary>
         /// <returns></returns>
+        [ValidateInput(false)]
         public ActionResult AddQuestionV2(Question model) 
         {
             var temp=qs.Add(model);
