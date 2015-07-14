@@ -34,7 +34,7 @@
         <div class="sizebig padding10">请问：@Html.DisplayFor(o => o.title)</div>
         <div class="sizesmall padding10 backgriund_gray">By:@Html.DisplayFor(o => o.regman) &nbsp;&nbsp;|&nbsp;&nbsp; @Html.DisplayFor(o=>o.regdate)</div>
         <div class="padding10" style="margin-top:15px;">
-            @Html.DisplayFor(o => o.content)
+            @(new HtmlString(Model.content))
         </div>
         <div class="sizesmall padding10 backgriund_gray">
             所属分类:@Html.DisplayFor(o => o.Type.typename)

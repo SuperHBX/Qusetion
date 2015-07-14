@@ -71,6 +71,9 @@ namespace QuestionOnline.Controllers
         [ValidateInput(false)]
         public ActionResult AddQuestionV2(Question model) 
         {
+            model.regman = Common.CommonClass1.GetUserName();
+            model.regmanid = Common.CommonClass1.GetPartyIdCount();
+            
             var temp=qs.Add(model);
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
@@ -90,8 +93,8 @@ namespace QuestionOnline.Controllers
                 title=title,
                 content = content,
                 typeid = typeid,
-                regman = Common.CommonClass.GetUserName(),
-                regmanid=Common.CommonClass.GetPartyIdCount(),
+                regman = Common.CommonClass1.GetUserName(),
+                regmanid=Common.CommonClass1.GetPartyIdCount(),
                 regdate = DateTime.Now,
                 ishot=ishot
             };
@@ -103,9 +106,17 @@ namespace QuestionOnline.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [ValidateInput(false)]
         public ActionResult AddAnswer(Answer model) 
         {
+            model.answerdate = DateTime.Now;
+            model.answerman = Common.CommonClass1.GetUserName();
+            model.answermanid = Common.CommonClass1.GetPartyIdCount().ToString();
+            model.state = true;
             var temp = ans.Add(model);
+            var questionmodel = qs.FindModelList(o => o.Id == model.Qid).FirstOrDefault();
+            questionmodel.state = "0";
+            qs.UpDate(questionmodel);
             return Json(temp, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
@@ -191,17 +202,20 @@ namespace QuestionOnline.Controllers
         /// <param name="Qid">问题id</param>
         /// <param name="person">人名</param>
         /// <returns></returns>
-        public string AddFavorite(string Qid)
+        public string AddFavorite(int Qid)
         {
-            var pid = Common.CommonClass.GetPartyIdCount();
-            var temp = cs.FindModel(new object[] { Qid, pid });
+            var pid = Common.CommonClass1.GetPartyIdCount();
+            var name=Common.CommonClass1.GetUserName();
+            //var temp = cs.FindModel(new object[] { Qid, pid });
+            var temp = cs.FindModelList(o => o.personid == pid && o.Qid == Qid).FirstOrDefault();
             if (temp == null)
             {
                 var model = new Collect()
                 {
                     personid = Convert.ToInt32(pid),
                     Qid = Convert.ToInt32(Qid),
-                    collecttime = DateTime.Now
+                    collecttime = DateTime.Now,
+                    name = name
                 };
                 cs.Add(model);
                 return "收藏成功";
@@ -218,7 +232,7 @@ namespace QuestionOnline.Controllers
         /// <returns></returns>
         public List<Collect> GetFavoriteByPerson()
         {
-            var id = Common.CommonClass.GetPartyIdCount();
+            var id = Common.CommonClass1.GetPartyIdCount();
             return cs.FindModelList(o => o.personid == id).ToList();
         }
 
@@ -284,13 +298,13 @@ namespace QuestionOnline.Controllers
            ViewBag.TypeList = ts.FindModelList();
            ViewBag.page = page;
            ViewBag.allpage =Math.Ceiling((double)list.Count() / (double)pagenumber);
-           list = list.Skip((page - 1) * pagenumber).Take(pagenumber);
+           list = list.Skip((page - 1) * pagenumber).Take(pagenumber).OrderByDescending(o=>o.regdate);
            return View(list);
         }
         public ActionResult GetQuestionByPage(int? module = null, string parenttype = null, string childtype = null, int page = 1) 
         {
             int pagenumber = 6;//每页6条
-            IEnumerable<Question> list = qs.FindModelList().ToList();
+            IEnumerable<Question> list = qs.FindModelList().ToList().OrderByDescending(o => o.regdate);
 
             //if (module != null) 
             //{
@@ -299,7 +313,8 @@ namespace QuestionOnline.Controllers
 
             if (parenttype != null)
             {
-                int manid = 1;//Common.CommonClass.GetPartyIdCount();
+               // int manid = 1;
+                int manid = Common.CommonClass1.GetPartyIdCount();
                 switch (parenttype)
                 {
                     case "allquestion"://所有收藏
@@ -357,6 +372,7 @@ namespace QuestionOnline.Controllers
                 });
            
             }
+            templist = templist.OrderByDescending(o => o.regdate).ToList();
             return Json(templist, JsonRequestBehavior.AllowGet);
         }
 

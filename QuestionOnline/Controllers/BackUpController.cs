@@ -20,8 +20,8 @@ namespace QuestionOnline.Controllers
             var model = new ImproveReport() 
             {
                 regdate=DateTime.Now,
-                regman=Common.CommonClass.GetUserName(),
-                regmanid=Common.CommonClass.GetPartyIdCount(),
+                regman=Common.CommonClass1.GetUserName(),
+                regmanid=Common.CommonClass1.GetPartyIdCount(),
                 reportcontent=content,
                 title=title,
                 typeid=Convert.ToInt32(typeid)

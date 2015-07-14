@@ -7,7 +7,7 @@ using System.Web;
 
 namespace QuestionOnline.Common
 {
-    public class CommonClass
+    public class CommonClass1
     {
         public static string GetUserPassportNumber()
         {
@@ -68,7 +68,21 @@ namespace QuestionOnline.Common
             return null;
         }
 
+        public static void SetCookie(string cookieName, string value)
+        {
+            HttpCookie cookie = new HttpCookie(cookieName);
+            HttpResponse response = HttpContext.Current.Response;
+            //cookie.Expires = expires;
+            cookie.Value = HttpUtility.UrlEncode(value, Encoding.GetEncoding("UTF-8"));
 
+            //指定客户端脚本是否可以访问[默认为false]
+            cookie.HttpOnly = false;
+            //指定统一的Path，比便能通存通取
+            cookie.Path = "/";
+            //设置跨域,这样在其它二级域名下就都可以访问到了
+            //cookie.Domain = "chinesecoo.com";
+            response.Cookies.Add(cookie);
+        }
         
 
     }

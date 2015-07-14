@@ -1,5 +1,34 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/js/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input id="username" value="" type="text"/>
+        <input type="button" id="sb" value="登录"/>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $("#sb").click(function () {
+        $.ajax({
+            type: 'POST',
+            url:'@Url.Action("login")',
+            data: {"username":$("#username").val()},
+            success: function (str) {
+                alert(str);
+                if (str != "不存在")
+                window.location.href = '@Url.Action("Question","Question")';
+            }
+            });
+    });
+</script>
