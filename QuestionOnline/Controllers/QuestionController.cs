@@ -267,13 +267,13 @@ namespace QuestionOnline.Controllers
                 switch(parenttype)
                 { 
                     case "allquestion"://所有收藏
-                        list = qs.FindModelList();
+                        list = qs.FindModelList().OrderByDescending(o => o.regdate);
                         break;
-                    case "myquestion":                        
-                        list = list.Where(o => o.regmanid == manid);
+                    case "myquestion":
+                        list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
                         break;
                     case "collect":
-                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o=>o.question).Select(o=>o.Key);
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key).OrderByDescending(o => o.regdate);
                         break;                                     
                 }
                     
@@ -286,10 +286,10 @@ namespace QuestionOnline.Controllers
                     case "all":
                         break;
                     case "resolved"://已解决
-                        list = list.Where(o => o.state == "0");
+                        list = list.Where(o => o.state == "0").OrderByDescending(o => o.regdate);
                         break;
                     case "unsolved"://未解决
-                        list = list.Where(o => o.state == "1");
+                        list = list.Where(o => o.state == "1").OrderByDescending(o => o.regdate);
                         break;                 
                       
                 }
@@ -318,13 +318,13 @@ namespace QuestionOnline.Controllers
                 switch (parenttype)
                 {
                     case "allquestion"://所有收藏
-                        list = qs.FindModelList();
+                        list = qs.FindModelList().OrderByDescending(o => o.regdate);
                         break;
                     case "myquestion":
-                        list = list.Where(o => o.regmanid == manid);
+                        list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
                         break;
                     case "collect":
-                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key);
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key).OrderByDescending(o => o.regdate);
                         break;
                 }
 
@@ -336,10 +336,10 @@ namespace QuestionOnline.Controllers
                     case "all":
                         break;
                     case "resolved"://已解决
-                        list = list.Where(o => o.state == "0");
+                        list = list.Where(o => o.state == "0").OrderByDescending(o => o.regdate);
                         break;
                     case "unsolved"://未解决
-                        list = list.Where(o => o.state == "1");
+                        list = list.Where(o => o.state == "1").OrderByDescending(o => o.regdate);
                         break;
 
                 }

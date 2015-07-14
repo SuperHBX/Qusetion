@@ -63,13 +63,22 @@
 @foreach (var item in Model) {
     <div class="blackline">
         <div class="title hand" >
-               <div onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div>
+               <div onclick="GoDetail(@item.Id)"> 请问：@if(item.title.Length>13)
+                                                     {
+                                                        @item.title.Substring(0,13)<span>...</span>
+                                                     }
+                                                     else
+                                                     {
+                                                        @item.title
+                                                     }
+                                                                                  
+               </div>
             <div class="float_right" onclick="AddFav(@item.Id)">
-                <img src="~/image/6d4f62ae20eebc070e362238cf536f8c(1).png" style="width:20px;height:20px;"/>添加收藏夹
+                ★添加收藏夹
             </div>
         </div>
         <div class="content">
-                @(new HtmlString(item.content))
+                @(new HtmlString(item.content.Replace("<p>","").Replace("</p>","")))
         </div>
         <div>
             <ul class="detail">
@@ -219,7 +228,7 @@
             data: { "module": module, "page": page, "parenttype": parenttype, "childtype": childtype },
             dataType: "json",
             success: function (data) {
-                //alert(data);
+             
                 //动态写出问题列表
          
                 var str="";
@@ -227,6 +236,9 @@
                     str += '<div class="blackline"><div class="title">请问' + data[i].title + '</div><div class="content">' + data[i].content + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
                     if (data[i].Answer.answercontent != null) {
                         str += '<div class="answer"><div class="title">回答:</div><div class="content">' + data[i].Answer.answercontent + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
+                    }
+                    if (data[i].state == "1") {
+                        str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data[i].Id + ')">回答问题</span></div> ';
                     }
                     str += '</div>';
                 }
@@ -269,7 +281,8 @@
             url: '@Url.Action("AddAnswer")',
                 type: 'POST',
                 success: function () {
-                    alert("添加成功")
+                    alert("添加成功");
+                    $("#hide_answer").hide();
                 },
                 error: function (xhr, msg) {
                     alert(msg);
@@ -316,6 +329,11 @@
     }
 
   
+    function maxtext13(str)
+    {
+        str = str.substring(1,13);
+        return str;
+    }
     $("img").css({ "width": "80px", "heigth": "80px" });
 
 
