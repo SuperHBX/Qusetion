@@ -128,7 +128,7 @@
         
             $("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
-                type: 'GET',
+                type: 'POST',
                 success: function (ret) {
                     alert("添加成功");                   
                 },

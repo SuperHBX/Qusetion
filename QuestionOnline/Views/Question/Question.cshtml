@@ -244,7 +244,7 @@
          
                 var str="";
                 for (var i = 0; i < data.length; i++) {
-                    str += '<div class="blackline"><div class="title"><div class="hand "  onclick="GoDetail(' + data[i].Id + ')">请问' + data[i].title + '</div><div class="float_right hand" onclick="AddFav(' + data[i].Id + ')">★添加收藏夹</div></div><div class="content">' + data[i].content + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
+                    str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data[i].Id + ')">请问:' + data[i].title + '</div><div class="float_right hand" onclick="AddFav(' + data[i].Id + ')">★添加收藏夹</div></div><div class="content">' + data[i].content + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
                     if (data[i].Answer.answercontent != null) {
                         str += '<div class="answer"><div class="title">回答:</div><div class="content">' + data[i].Answer.answercontent + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
                     }
