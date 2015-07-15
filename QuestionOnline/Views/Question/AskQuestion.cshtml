@@ -94,7 +94,7 @@
 </div>
 <script type="text/javascript">
     $("#sbmSearch").click(function () {
-        SearchQuestion($("#keyword").val());
+        SearchQuestion($("#keyword").val(),1);
     });
 
     var editor;
@@ -133,7 +133,7 @@
         
             $("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
-                type: 'POST',
+                type: 'GET',
                 success: function (ret) {
                     alert("添加成功");                   
                 },

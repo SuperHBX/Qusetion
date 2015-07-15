@@ -1,6 +1,6 @@
 ﻿
-function SearchQuestion(keyword) {
-    window.location.href = "/Question/SearchKeyword?Keyword=" + keyword;
+function SearchQuestion(keyword,page) {
+    window.location.href = "/Question/SearchKeyword?Keyword=" + keyword + "&page=" + page;
 }
 //tijiao
 //时间戳转化成时间

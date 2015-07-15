@@ -147,11 +147,30 @@ namespace QuestionOnline.Controllers
         /// </summary>
         /// <param name="Keyword">关键字</param>
         /// <returns></returns>
-        public ActionResult SearchKeyword(string Keyword) 
+        //public ActionResult SearchKeyword(string Keyword) 
+        //{
+        //    var list =qs.FindModelList(o=>o.content.Contains(Keyword)).ToList();
+        //    var list2 = qs.FindModelList(o => o.title.Contains(Keyword)).ToList();
+        //    var AList=list.Union(list2).ToList();
+        //    //QuestionOnline.Common.PageSplit.GetPageCount(AList, 5);
+        //    return View("SearchResults", AList);
+        //}
+        
+        public ActionResult SearchKeyword(string Keyword,int page=1)
         {
-            var list =qs.FindModelList(o=>o.content.Contains(Keyword)).ToList();
+            int pagenumber = 6;
+            var list = qs.FindModelList(o => o.content.Contains(Keyword)).ToList();
             var list2 = qs.FindModelList(o => o.title.Contains(Keyword)).ToList();
-            return View("SearchResults", list.Union(list2).ToList());
+            var AList = list.Union(list2).ToList();
+
+            IList<QADAL.EntityFrameWorkCore.Models.Question> SList = new List<QADAL.EntityFrameWorkCore.Models.Question>();
+            ViewBag.keyword = Keyword;
+            ViewBag.count = AList.Count();
+            ViewBag.TypeList = ts.FindModelList();
+            ViewBag.page = page;
+            ViewBag.allpage = Math.Ceiling((double)AList.Count() / (double)pagenumber);
+            SList = AList.Skip((page - 1) * pagenumber).Take(pagenumber).OrderByDescending(o => o.regdate).ToList();
+            return View("SearchResults", SList);
         }
 
         /// <summary>
