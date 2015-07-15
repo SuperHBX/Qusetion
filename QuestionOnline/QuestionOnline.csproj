@@ -160,6 +160,7 @@
     <Content Include="Global.asax" />
     <Content Include="image\ask_question.png" />
     <Content Include="image\background_white.png" />
+    <Content Include="js\Common.js" />
     <Content Include="js\jquery-1.10.2.js" />
     <Content Include="js\jquery.form.js" />
     <Content Include="js\jquery.min.js" />
@@ -411,6 +412,9 @@
   <ItemGroup>
     <Content Include="KindEditor\file_manager_json.ashx" />
     <Content Include="KindEditor\upload_json.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Question\SearchResults.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
