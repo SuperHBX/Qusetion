@@ -1,5 +1,5 @@
 ﻿    <div class="rightdiv">
-        <input type="text" style="width:70%;height:25px"/><input type="button" value="搜索" style="width:28%;height:25px"/>
+        <input id="keyword" type="text" style="width:70%;height:25px"/><input id="sbmSearch" type="button" value="搜索" style="width:28%;height:25px"/>
     </div>
     <div class="rightdiv button">
             <a href="@Url.Action("AskQuestion")" class="sizemiddle">我要提问</a>      
@@ -28,3 +28,10 @@
         </ul>
     </div>      
     <div class="clear"></div>
+<script type="text/javascript">
+
+    $("#sbmSearch").click(function () {
+        SearchQuestion($("#keyword").val());
+    });
+
+</script>

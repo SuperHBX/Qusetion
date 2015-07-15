@@ -158,9 +158,9 @@
     <Content Include="css\jquery-ui-themes.css" />
     <Content Include="css\reset.css" />
     <Content Include="Global.asax" />
-    <Content Include="image\6d4f62ae20eebc070e362238cf536f8c%281%29.png" />
     <Content Include="image\ask_question.png" />
     <Content Include="image\background_white.png" />
+    <Content Include="js\Common.js" />
     <Content Include="js\jquery-1.10.2.js" />
     <Content Include="js\jquery.form.js" />
     <Content Include="js\jquery.min.js" />
@@ -376,6 +376,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\User\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\QADAL\QADAL.csproj">
       <Project>{fd06c2e3-682b-4596-ae8f-2f64c8f27a0f}</Project>
       <Name>QADAL</Name>
@@ -411,12 +414,7 @@
     <Content Include="KindEditor\upload_json.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Question\QuestionDetail.cshtml">
-      <SubType>Code</SubType>
-    </Content>
+    <Content Include="Views\Question\SearchResults.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

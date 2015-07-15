@@ -1,0 +1,50 @@
+﻿@model IList<QADAL.EntityFrameWorkCore.Models.Question>
+
+@{
+    ViewBag.Title = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var item in Model)
+{
+    <div class="blackline">
+        <div class="title hand">
+            <div onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div>
+        </div>
+        <div class="content">
+            @(new HtmlString(item.content))
+        </div>
+        <div>
+            <ul class="detail">
+                <li class="float_left">分类：@Html.DisplayFor(modelItem => item.Type.typename)</li>
+                <li class="float_left">提问人：@Html.DisplayFor(modelItem => item.regman)</li>
+                <li class="float_left">提问时间：@Html.DisplayFor(modelItem => item.regdate)</li>
+                <li class="clear"></li>
+            </ul>
+        </div>
+        @if (item.Answers.FirstOrDefault() != null)
+        {
+            <div class="answer">
+                <div class="title">
+                    回答:
+                </div>
+                <div class="content">
+                    @(item.Answers.FirstOrDefault() == null ? "" : item.Answers.FirstOrDefault().answercontent)
+                </div>
+                <div>
+                    <ul class="detail">
+                        <li class="float_left">回答人：@(item.Answers.FirstOrDefault() == null ? "" : item.Answers.FirstOrDefault().answerman)</li>
+                        <li class="float_left">回答时间：@(item.Answers.FirstOrDefault() == null ? DateTime.Now : item.Answers.FirstOrDefault().answerdate)</li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+            </div>
+        }
+        @if (item.state == "1")
+        {
+            <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div>
+        }
+    </div>
+}
+

@@ -147,11 +147,11 @@ namespace QuestionOnline.Controllers
         /// </summary>
         /// <param name="Keyword">关键字</param>
         /// <returns></returns>
-        public List<Question> SearchKeyword(string Keyword) 
+        public ActionResult SearchKeyword(string Keyword) 
         {
             var list =qs.FindModelList(o=>o.content.Contains(Keyword)).ToList();
             var list2 = qs.FindModelList(o => o.title.Contains(Keyword)).ToList();
-            return list.Union(list2).ToList();
+            return View("SearchResults", list.Union(list2).ToList());
         }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace QuestionOnline.Controllers
                     case "allquestion"://所有收藏
                         list = qs.FindModelList().OrderByDescending(o => o.regdate);
                         break;
-                    case "myquestion":
+                    case "myquestion":                        
                         list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
                         break;
                     case "collect":
