@@ -11,8 +11,17 @@ namespace QuestionOnline.Controllers
 {
     public class baseController : Controller
     {
-        //
-        // GET: /base/
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (filterContext.ActionDescriptor.ActionName != "Index" && filterContext.ActionDescriptor.ControllerDescriptor.ControllerName != "User")
+            {
+                if (Common.CommonClass1.GetCookieValue("username") == null)
+                {
+                    filterContext.Result = RedirectToAction("Index", "User");
+                }
+                base.OnActionExecuting(filterContext);
+            }
+        }
 
 
        
