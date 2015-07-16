@@ -11,8 +11,8 @@
 @foreach (var item in Model)
 {
     <div class="blackline">
-        <div class="title hand">
-            <div onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div>
+        <div class="title">
+            <div class="hand title8 sizebig" onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div><div class="float_right hand" onclick="AddFav(@item.Id)">★添加收藏夹</div>
         </div>
         <div class="content">
             @(new HtmlString(item.content))
@@ -43,24 +43,12 @@
                 </div>
             </div>
         }
-        @if (item.state == "1")
+        @if (item.state == "1"&& ViewBag.user=="贾如")
         {
             <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div>
         }
     </div>
 }
-
-<div id="paging">
-    <span id="page_up" class="hand">上一页</span>
-    <span id="page_down" class="hand">下一页</span>
-    <span>跳转到第</span>
-    <input type="text" value="@ViewBag.page" />
-    <span class="hand">GO</span>
-    <span>当前第@(ViewBag.page)页</span>
-    <span>共@(ViewBag.allpage)页</span>
-    <span>共@(ViewBag.count)条记录</span>
-
-</div>
 
 <script>
     //上一页
