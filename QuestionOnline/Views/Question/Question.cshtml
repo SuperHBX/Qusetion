@@ -55,15 +55,19 @@
     }
 </style>
 <div id="left">
-     <div>
+    <div>
         <div class="parent_line">
             <ul id="parent_type" >
                 <li class="float_left" etype="allquestion">所有问题</li>
                 <li class="float_left" etype="myquestion">我的答疑</li>
                 <li class="float_left" etype="collect">答疑收藏</li>
-                
+                @if(ViewBag.username=="贾如")
+                {
+                <li class="float_left" etype="report">改进报告</li> 
+                <li class="float_left" etype="editor">编辑问题</li> 
+                }                
             </ul>
-            <span class="float_right sizemiddle" ><a href="@Url.Action("EditorHot")">编辑问题</a></span>
+            
             <div class="clear"></div>
         </div>
         <ul class="child_type "id="child_type">
@@ -74,8 +78,9 @@
         </ul>
         <div class="clear"></div>                   
      </div>
-     <div class="clear"></div>
+     <div class="clear"></div>    
     <div id="questions">
+
 @*@foreach (var item in Model) {
     <div class="blackline">
         <div class="title hand" >
@@ -132,11 +137,11 @@
          <span id="page_up" class="hand">上一页</span>
          <span id="page_down"  class="hand">下一页</span>
          <span>跳转到第</span> 
-         <input type="text" value="@ViewBag.page"/>
+         <input id="page" type="text" value="@ViewBag.page"/>
          <span  class="hand" id="page_go">GO</span>
         @* <span>当前第@(ViewBag.page)页</span>*@
-         <span>共@(ViewBag.allpage)页</span>
-         <span>共@(ViewBag.count)条记录</span>
+         <span>共<span>@(ViewBag.allpage)</span>页</span>
+         <span>共<span id="count">@(ViewBag.count)</span>条记录</span>
 
      </div>
 </div>
@@ -164,10 +169,10 @@
 <br />
 <br />
 <br />
-<input id="parenttype" value="allquestion"/>
-<input id="childtype" value="resolved"/>
-<input id="page" value="@ViewBag.page" />
-<input id="module" value="0"/>
+<input type="hidden" id="parenttype" value="allquestion"/>
+<input type="hidden" id="childtype" value="resolved"/>
+@*<input id="page" value="@ViewBag.page" />*@
+<input type="hidden" id="module" value="-1"/>
 
 <script type="text/javascript">
 
@@ -181,21 +186,30 @@
     $("#parent_type").children().click(function () {
         $("#parent_type").children().css({ "background-color": "", "color": "black" });
         $(this).css({ "background-color": "#00A1E0", "color": "white" });
-        allshow();
+       
         $("#child_type").children().css("background-color", "#F1FCFE");
         switch ($(this).attr("etype")) {
+            case "editor":
+                window.location.href = '@Url.Action("EditorHot")';
+                return;
+            case "report":
+                window.location.href = '@Url.Action("report","BackUp")';
+                return;
             case "allquestion":
+                allshow();
                 $("#mycollect").hide();
                 $("#unsolved").css("background-color", "#AAAAAA");
                 $("#childtype").val($("#unsolved").attr("etype"));
                 break;
             case "myquestion":
+                allshow();
                 $("#mycollect").hide();
                 $("#all").hide();
                 $("#unsolved").css("background-color", "#AAAAAA");
                 $("#childtype").val($("#unsolved").attr("etype"));
                 break;
             case "collect":
+                allshow();
                 $("#unsolved").hide();
                 $("#resolved").hide();
                 $("#all").hide();
@@ -240,7 +254,7 @@
     });
     //GO
     $("#page_go").click(function () {
-
+        alert();
         var temp = parseInt($("#page").val());
 
 
@@ -269,19 +283,26 @@
             data: { "module": module, "page": page, "parenttype": parenttype, "childtype": childtype },
             dataType: "json",
             success: function (data) {
-
-                //动态写出问题列表
-
                 var str = "";
-                for (var i = 0; i < data.length; i++) {
-                    str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data[i].Id + ')">请问:' + data[i].title + '</div><div class="float_right hand" onclick="AddFav(' + data[i].Id + ')">★添加收藏夹</div></div><div class="content">' + maxtext13(data[i].content) + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
-                    if (data[i].Answer.answercontent != null) {
-                        str += '<div class="answer"><div class="title">回答:</div><div class="content">' + data[i].Answer.answercontent + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
+                if (data.length == 0) {
+                    str = "暂无数据"
+                }
+                else {
+
+                    for (var i = 0; i < data.length; i++) {
+                        str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data[i].Id + ')">请问:' + maxtext13(data[i].title) + '</div>';
+                        if ($("#parenttype").val() != "collect") {
+                            str += ' <div class="float_right hand" onclick="AddFav(' + data[i].Id + ')">★添加收藏夹</div>';
+                        }
+                        str += '</div><div class="content">' + maxtext25(data[i].content) + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
+                        if (data[i].Answer.answercontent != null) {
+                            str += '<div class="answer"><div class="title">回答:</div><div class="content">' + maxtext25(data[i].Answer.answercontent) + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
+                        }
+                        if (data[i].state == "1" && $("#username").val() == "贾如") {
+                            str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data[i].Id + ')">回答问题</span></div> ';
+                        }
+                        str += '</div>';
                     }
-                    if (data[i].state == "1") {
-                        str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data[i].Id + ')">回答问题</span></div> ';
-                    }
-                    str += '</div>';
                 }
                 $("#questions").html(str);
             },
@@ -290,6 +311,7 @@
             }
 
         });
+       
     }
 
     var editor;
@@ -302,7 +324,7 @@
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile']
         });
     });
 
@@ -334,7 +356,7 @@
 
     });
 
-        function GoDetail(o) {
+    function GoDetail(o) {
             window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
     }
 

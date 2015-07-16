@@ -50,6 +50,17 @@
         }
     </div>
     <div id="right" class="text_centre"> 
-    @Html.Partial("RightContent")
+    <div class="text_centre" style="margin-top:20px;">
+        <a href="@Url.Action("Question")" class="sizemiddle">
+            返回主页
+        </a>
+    </div>
+         <div class="sizemiddle text_centre">热门问题</div>      
+        <ul class="tips list">
+            @foreach(var i in ViewBag.HotQuestion)
+            {
+            <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>          
+            }
+        </ul>
     </div>
 </div>

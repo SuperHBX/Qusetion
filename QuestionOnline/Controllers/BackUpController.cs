@@ -35,6 +35,9 @@ namespace QuestionOnline.Controllers
         {
             return View();
         }
-
+        public ActionResult report()
+        {
+            return View();
+        }
     }
 }

@@ -288,17 +288,19 @@
         .title8 {
          width:80%;
         }
+         .text_dot{text-overflow:ellipsis; overflow:hidden; white-space:nowrap; width:200px; background:#ccc;}
     </style>
 </head>
 <body>
     <div id="container">
         <header class="header">
-             <span class="sizebig">网上答疑</span><span class="middle">-上勘信息化网上答疑平台</span>
+             <span class="sizebig">网上答疑</span><span class="middle">-上勘信息化网上答疑平台</span><span class="float_right">主页</span>
         </header>        
-            <div id="body" >                          
+            <div id="body" >                                      
                     @RenderBody()                                           
             </div> 
     </div>
+    <input type="hidden" id="username" value="@ViewBag.username" />
     <script>
     
     </script>

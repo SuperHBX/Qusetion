@@ -11,8 +11,9 @@
         <ul class="list">
         @foreach (var i in ViewBag.TypeList) 
         {
-            <li class="type">@i.typename</li>
-        }               
+            <li class="type" onclick="SelectType(@i.Id)">@i.typename</li>
+        }  
+            <li class="type" onclick="SelectType(-1)">全部</li>             
         </ul>
     </div> 
     <br />
@@ -33,5 +34,9 @@
     $("#sbmSearch").click(function () {
         SearchQuestion($("#keyword").val(),1);
     });
-
+    function SelectType(o)
+    {
+        $("#module").val(o);
+        QuestionPaging();
+    }
 </script>

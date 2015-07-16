@@ -24,17 +24,31 @@ function dateparse(jsonDate, istime) {
 }
 
 //超过13长度的字符串转换
-function maxtext13(str) {
+function maxtext25(str) {
 
     //alert(str);
-    str = str.replace(/<p>/gi, ' ').replace(/<\/p>/gi, ' ').replace(/<img(.*)src=\"([^\"]+)\"[^>]+>/gi, '[图片]');
-
-    if (str.length > 13) {
-        str = str.substring(1, 13);
-        str += str + "...";
+    str = str.replace(/<img(.*)src=\"([^\"]+)\"[^>]+>/gi, '[图片]').replace(/<p>/gi, '').replace(/<\/p>/gi, '').replace(/\<a\s.+\<\/a\>/gi, '[文件]');
+    //str = str.replace(/<[^>]+>/g, "");
+        //replace(/<\s?img[^>]*>/gi, '3').replace(/<p>/gi, '1').replace(/<\/p>/gi, '2').replace(/\<a\s.+\<\/a\>/gi, '5');
+    if (str.length > 25) {
+        str = str.substring(1, 25);
+        str += "...";
         return str;
     }
     else {
   return str;
+    }
+}
+function maxtext13(str) {
+
+    if (str == null)
+        return;
+    if (str.length > 13) {
+        str = str.substring(1, 13);
+        str += "...";
+        return str;
+    }
+    else {
+        return str;
     }
 }

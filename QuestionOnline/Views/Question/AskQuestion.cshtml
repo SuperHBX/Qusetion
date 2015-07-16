@@ -84,10 +84,10 @@
             </ul>          
         </div>      
         <div class="sizemiddle text_centre">热门问题</div>      
-        <ul class="tips">
+        <ul class="tips list">
             @foreach(var i in ViewBag.HotQuestion)
             {
-            <li>@i.title</li>          
+            <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>          
             }
         </ul>
     </div>
@@ -107,7 +107,7 @@
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile'],
             afterCreate: function () {
                 var self = this;
                 K.ctrl(document, 13, function () {
@@ -143,6 +143,10 @@
             });
         });
     });
+
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
+    }
 </script>
 
 

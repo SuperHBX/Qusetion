@@ -26,7 +26,7 @@ namespace QuestionOnline.Controllers
         /// <returns></returns>
         public ActionResult AskQuestion() 
         {
-            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(6);
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
             ViewBag.Types = GetAlltype();
             return View();
         }
@@ -37,9 +37,10 @@ namespace QuestionOnline.Controllers
         /// <returns></returns>
         public ActionResult QuestionDetail(int Qid=1) 
         {
-           var temp=qs.FindModel(new object[] {Qid});
-           ViewBag.TypeList = ts.FindModelList();
+            var temp = qs.FindModel(new object[] { Qid });
+            ViewBag.TypeList = ts.FindModelList();
            ViewBag.Types = GetAlltype();
+           ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
            return View(temp);
         }
 
@@ -49,7 +50,7 @@ namespace QuestionOnline.Controllers
         /// <returns></returns>
         public ActionResult EditorHot()
         {
-            ViewBag.TypeList = ts.FindModelList();
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
             ViewBag.Types = GetAlltype();
             return View();
         }
@@ -170,6 +171,7 @@ namespace QuestionOnline.Controllers
             ViewBag.page = page;
             ViewBag.allpage = Math.Ceiling((double)AList.Count() / (double)pagenumber);
             SList = AList.Skip((page - 1) * pagenumber).Take(pagenumber).OrderByDescending(o => o.regdate).ToList();
+            ViewBag.user = Common.CommonClass1.GetUserName();
             return View("SearchResults", SList);
         }
 
@@ -313,6 +315,7 @@ namespace QuestionOnline.Controllers
                       
                 }
             }
+           ViewBag.username = Common.CommonClass1.GetUserName();
            ViewBag.count = list.Count();                 
            ViewBag.TypeList = ts.FindModelList();
            ViewBag.page = page;
@@ -363,6 +366,12 @@ namespace QuestionOnline.Controllers
 
                 }
             }
+
+
+            if (module != -1)
+            {
+                list = list.Where(o => o.typeid == module).OrderByDescending(o => o.regdate);
+            }
             list = list.Skip((page - 1) * pagenumber).Take(pagenumber).ToList();
             var templist = new List<QuestionPageModel>();
             foreach (var i in list)
@@ -395,6 +404,52 @@ namespace QuestionOnline.Controllers
             return Json(templist, JsonRequestBehavior.AllowGet);
         }
 
+
+        //public int GetQuestionCount(int? module = null, string parenttype = null, string childtype = null) 
+        //{
+        //    IEnumerable<Question> list = qs.FindModelList().ToList().OrderByDescending(o => o.regdate);
+
+        //    //if (module != null) 
+        //    //{
+        //    //    list = list.Where(o => o.typeid == module);
+        //    //}
+
+        //    if (parenttype != null)
+        //    {
+        //        int manid = 1;//Common.CommonClass.GetPartyIdCount();
+        //        switch (parenttype)
+        //        {
+        //            case "allquestion"://所有收藏
+        //                list = qs.FindModelList().OrderByDescending(o => o.regdate);
+        //                break;
+        //            case "myquestion":
+        //                list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
+        //                break;
+        //            case "collect":
+        //                list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key).OrderByDescending(o => o.regdate);
+        //                break;
+        //        }
+
+        //    }
+        //    if (childtype != null && parenttype != "collect")
+        //    {
+        //        //int manid = Common.CommonClass.GetPartyIdCount();
+        //        switch (parenttype)
+        //        {
+        //            case "all":
+        //                break;
+        //            case "resolved"://已解决
+        //                list = list.Where(o => o.state == "0").OrderByDescending(o => o.regdate);
+        //                break;
+        //            case "unsolved"://未解决
+        //                list = list.Where(o => o.state == "1").OrderByDescending(o => o.regdate);
+        //                break;
+
+        //        }
+        //    }
+
+        //    return list.Count();
+        //}
 
         private List<Question> GetAllQuestion()
         {      

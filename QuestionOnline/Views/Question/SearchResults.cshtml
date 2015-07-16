@@ -6,10 +6,16 @@
 }
 
 <input type="hidden" id="keyword" value="@ViewBag.keyword" />
-<input type="hidden" id="page" value="@ViewBag.page" />
-
-@foreach (var item in Model)
+<input type="hidden" id="page" value="@ViewBag.page"/>
+<div style="min-height:500px">
+@if (Model.Count == 0)
 {
+    <div style="margin:10px;color:red">暂无数据</div>
+}
+else
+{
+    foreach (var item in Model)
+    {
     <div class="blackline">
         <div class="title">
             <div class="hand title8 sizebig" onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div><div class="float_right hand" onclick="AddFav(@item.Id)">★添加收藏夹</div>
@@ -43,12 +49,28 @@
                 </div>
             </div>
         }
-        @if (item.state == "1"&& ViewBag.user=="贾如")
+        @if (item.state == "1" && ViewBag.user == "贾如")
         {
             <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div>
         }
     </div>
+
+
+    }
+
 }
+</div>
+<div id="paging">
+    <span id="page_up" class="hand">上一页</span>
+    <span id="page_down" class="hand">下一页</span>
+    <span>跳转到第</span>
+    <input type="text" value="@ViewBag.page" />
+    <span class="hand">GO</span>
+    <span>当前第@(ViewBag.page)页</span>
+    <span>共@(ViewBag.allpage)页</span>
+    <span>共@(ViewBag.count)条记录</span>
+
+</div>
 
 <script>
     //上一页
@@ -71,4 +93,19 @@
         var page = $("#page").val();
         window.location.href = "@Url.Action("SearchKeyword")?keyword=" + keyword + "&page=" + page;
     }
+
+    function AddFav(o) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddFavorite")',
+            data: { "Qid": o },
+            success: function (str) {
+                alert(str);
+            }
+        });
+    }
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
+  }
+
 </script>
