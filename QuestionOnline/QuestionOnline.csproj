@@ -377,6 +377,9 @@
     <Content Include="js\themes\qq\qq.css" />
     <Content Include="js\themes\simple\simple.css" />
     <Content Include="js\zh_CN.js" />
+    <Content Include="Views\BackUp\report.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -445,9 +448,6 @@
     <Content Include="Views\Question\QuestionDetail.cshtml">
       <SubType>Code</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\BackUp\report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Question.pubxml" />
