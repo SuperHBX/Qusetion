@@ -106,12 +106,12 @@
         
     </div>
     <div id="right"> 
-         <div class="text_centre" style="margin-top:20px;">
-        <a href="@Url.Action("Question")" class="sizemiddle">
+        <div class="text_centre button_bg" style="margin-top:20px;">
+        <span id="back_index" class="sizemiddle hand ">
             返回主页
-        </a>
+        </span>
     </div>
-    <div class="sizemiddle text_centre">热门问题</div>      
+    <div class="sizemiddle text_centre titlediv">热门问题</div>      
         <ul class="tips list">
             @foreach(var i in ViewBag.HotQuestion)
             {
@@ -179,6 +179,8 @@
     function GoDetail(o) {
         window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
         }
-
+    $("#back_index").click(function () {
+        window.location.href = '@Url.Action("Question")';
+    });
 </script>
 

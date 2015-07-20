@@ -144,6 +144,7 @@
     <Content Include="css\default.css" />
     <Content Include="css\default.png" />
     <Content Include="css\font.css" />
+    <Content Include="css\images\home_ico.png" />
     <Content Include="css\images\images.html" />
     <Content Include="css\images\note.gif" />
     <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -168,6 +169,13 @@
     <Content Include="Global.asax" />
     <Content Include="image\ask_question.png" />
     <Content Include="image\background_white.png" />
+    <Content Include="image\bg2.png" />
+    <Content Include="image\bg3.png" />
+    <Content Include="image\h-top-logo.png" />
+    <Content Include="image\home_ico.png" />
+    <Content Include="image\title.png" />
+    <Content Include="image\titlebg.png" />
+    <Content Include="image\无标题.png" />
     <Content Include="js\Common.js" />
     <Content Include="js\jquery-1.10.2.js" />
     <Content Include="js\jquery.form.js" />
@@ -377,6 +385,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="副本 image\ask_question.png" />
+    <Content Include="副本 image\background_white.png" />
+    <Content Include="副本 image\bg2.png" />
+    <Content Include="副本 image\h-top-logo.png" />
+    <Content Include="副本 image\title.png" />
+    <Content Include="副本 image\titlebg.png" />
+    <Content Include="副本 image\无标题.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

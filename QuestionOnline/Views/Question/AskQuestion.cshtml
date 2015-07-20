@@ -70,12 +70,12 @@
         </form>
     </div>
     <div id="right"> 
-    <div class="text_centre" style="margin-top:20px;">
-        <a href="@Url.Action("Question")" class="sizemiddle">
+    <div class="text_centre button_bg" style="margin-top:20px;">
+        <span id="back_index" class="sizemiddle hand">
             返回主页
-        </a>
+        </span>
     </div>
-        <div class="text_centre sizemiddle">提问助手小贴士</div>
+        <div class="text_centre sizemiddle ">提问助手小贴士</div>
         <div class="tips">
             <ul>
                 <li>1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题</li>
@@ -83,7 +83,7 @@
                 <li>3.您的问题，会在24小时内解答</li>
             </ul>          
         </div>      
-        <div class="sizemiddle text_centre">热门问题</div>      
+        <div class="sizemiddle text_centre titlediv">热门问题</div>      
         <ul class="tips list">
             @foreach(var i in ViewBag.HotQuestion)
             {
@@ -96,7 +96,9 @@
     $("#sbmSearch").click(function () {
         SearchQuestion($("#keyword").val(),1);
     });
-
+    $("#back_index").click(function () {
+        window.location.href = '@Url.Action("Question")';
+  });
     var editor;
     KindEditor.ready(function (K) {
         editor = K.create('textarea[name="content"]', {

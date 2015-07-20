@@ -36,11 +36,12 @@ table {
     margin:0 auto;
     position:relative;
    
-    width: 510px;
+    width: 1000px;
 }
 
 .calendar {
     text-align: center;
+    width:50%;
 }
 
 .calendar header {
@@ -134,11 +135,14 @@ table {
 }
 
 .btn-next {
-    right: 35px;
+    right: 535px;
 }
 
 .list {
     margin-top: 20px;
+    margin-left:10px;
+    width:45%;
+
 }
 
 .close {

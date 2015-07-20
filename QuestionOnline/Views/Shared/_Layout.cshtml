@@ -36,10 +36,11 @@
             padding:5px;
         }
         .header{                       
-            height:30px;                        
-            background-color:#4F92D5;
-            padding:5px;
+            height:62px;          
+            /*background-color:#4F92D5;*/
+            /*padding:5px;*/
             text-align:center;
+            background-image:url("../image/bg3.png");
            
         }
         .float_left {
@@ -199,6 +200,9 @@
            margin:0 auto;
         }
         .parent_line {
+           
+        }
+        .parent_line li {
            background-color:#EDEDED;
            cursor:pointer;
         }
@@ -229,8 +233,8 @@
           font-size:16px;       
        }
        .titlediv {
-            background-color:#4F92D5;
-            color:white;
+            background-color:#EDF7FF;
+           
             height:28px;
             line-height:28px;
             font-size:16px;                   
@@ -288,21 +292,44 @@
         .title8 {
          width:80%;
         }
-         .text_dot{text-overflow:ellipsis; overflow:hidden; white-space:nowrap; width:200px; background:#ccc;}
+         .text_dot
+         {
+             text-overflow:ellipsis; 
+             overflow:hidden;
+             white-space:nowrap;
+             background:#ccc;
+
+         }
+        .button_bg {
+            background:#00A1E0;
+            color:white;
+        }
+        .home {
+            line-height:35px;
+            height:30px;
+            vertical-align:middle;
+        }
     </style>
 </head>
 <body>
     <div id="container">
-        <div class="header">
-             <span class="sizebig">网上答疑</span><span class="middle">-上勘信息化网上答疑平台</span><span class="float_right">主页</span>
-        </div>        
+      
+         <div class="header">
+           <div class="sizemiddle hand home" >
+               <div class="float_right"><img src="~/image/home_ico.png" /></div><div class="float_right" style="color:white; font-size:14px;">主页</div>
+           </div>
+        </div>                
             <div id="body" >                                      
                     @RenderBody()                                           
             </div> 
     </div>
     <input type="hidden" id="username" value="@ViewBag.username" />
-    <script>
-    
-    </script>
+   
 </body>
 </html>
+<script>
+    $(".home").click(function () {
+        window.location.href = '@Url.Action("Question","Question")';
+        
+    });
+</script>
