@@ -140,7 +140,7 @@
          <input id="page" type="text" value="@ViewBag.page"/>
          <span  class="hand" id="page_go">GO</span>
         @* <span>当前第@(ViewBag.page)页</span>*@
-         <span>共<span>@(ViewBag.allpage)</span>页</span>
+         <span>共<span id="allpage">@(ViewBag.allpage)</span>页</span>
          <span>共<span id="count">@(ViewBag.count)</span>条记录</span>
 
      </div>
@@ -249,7 +249,7 @@
     //下一页
     $("#page_down").click(function () {
         var temp = parseInt($("#page").val()) + 1;
-        var allpage =@(ViewBag.allpage)
+        var allpage = $("#allpage").html();
         $("#page").val(temp > allpage ? allpage : temp);
         @*window.location.href = '@Url.Action("Question")?module=' + $("#module").val() + '&page=' + $("#page").val() + '&parenttype=' + $("#parenttype").val() + '&childtype=' + $("#childtype").val();*@
         QuestionPaging();
@@ -285,23 +285,25 @@
             data: { "module": module, "page": page, "parenttype": parenttype, "childtype": childtype },
             dataType: "json",
             success: function (data) {
+                $("#count").html(data.allcount);
+                $("#allpage").html(Math.ceil(data.allcount/6));
                 var str = "";
-                if (data.length == 0) {
+                if (data.list.length == 0) {
                     str = "暂无数据"
                 }
                 else {
 
-                    for (var i = 0; i < data.length; i++) {
-                        str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data[i].Id + ')">请问:' + maxtext13(data[i].title) + '</div>';
+                    for (var i = 0; i < data.list.length; i++) {
+                        str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data.list[i].Id + ')">请问:' + maxtext13(data.list[i].title) + '</div>';
                         if ($("#parenttype").val() != "collect") {
-                            str += ' <div class="float_right hand" onclick="AddFav(' + data[i].Id + ')">★添加收藏夹</div>';
+                            str += ' <div class="float_right hand" onclick="AddFav(' + data.list[i].Id + ')">★添加收藏夹</div>';
                         }
-                        str += '</div><div class="content">' + maxtext25(data[i].content) + '</div><div><ul class="detail"><li class="float_left">分类：' + data[i].Type.typename + '</li><li class="float_left">提问人：' + data[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data[i].regdate) + '</li><div class="clear"></div></ul></div>';
-                        if (data[i].Answer.answercontent != null) {
-                            str += '<div class="answer"><div class="title">回答:</div><div class="content">' + maxtext25(data[i].Answer.answercontent) + '</div><div><ul class="detail"><li class="float_left">回答人：' + data[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
+                        str += '</div><div class="content">' + maxtext25(data.list[i].content) + '</div><div><ul class="detail"><li class="float_left">分类：' + data.list[i].Type.typename + '</li><li class="float_left">提问人：' + data.list[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data.list[i].regdate) + '</li><div class="clear"></div></ul></div>';
+                        if (data.list[i].Answer.answercontent != null) {
+                            str += '<div class="answer"><div class="title">回答:</div><div class="content">' + maxtext25(data.list[i].Answer.answercontent) + '</div><div><ul class="detail"><li class="float_left">回答人：' + data.list[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data.list[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
                         }
-                        if (data[i].state == "1" && $("#username").val() == "贾如") {
-                            str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data[i].Id + ')">回答问题</span></div> ';
+                        if (data.list[i].state == "1" && $("#username").val() == "贾如") {
+                            str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data.list[i].Id + ')">回答问题</span></div> ';
                         }
                         str += '</div>';
                     }

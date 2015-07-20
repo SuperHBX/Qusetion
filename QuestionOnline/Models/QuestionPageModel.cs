@@ -20,4 +20,10 @@ namespace QuestionOnline.Models
         public virtual QADAL.EntityFrameWorkCore.Models.Type Type { get; set; }
         public string title { get; set; }
     }
+
+    public class QuestionCountModel 
+    {
+        public int allcount { get; set; }
+        public List<QuestionPageModel> list { get; set; }
+    }
 }

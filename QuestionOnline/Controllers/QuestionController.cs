@@ -364,7 +364,7 @@ namespace QuestionOnline.Controllers
                         list = list.Where(o => o.state == "1").OrderByDescending(o => o.regdate);
                         break;
 
-                }
+                }    
             }
 
 
@@ -372,6 +372,10 @@ namespace QuestionOnline.Controllers
             {
                 list = list.Where(o => o.typeid == module).OrderByDescending(o => o.regdate);
             }
+
+            var model = new QuestionCountModel();
+            model.allcount = list.Count();//总个数
+
             list = list.Skip((page - 1) * pagenumber).Take(pagenumber).ToList();
             var templist = new List<QuestionPageModel>();
             foreach (var i in list)
@@ -401,7 +405,8 @@ namespace QuestionOnline.Controllers
            
             }
             templist = templist.OrderByDescending(o => o.regdate).ToList();
-            return Json(templist, JsonRequestBehavior.AllowGet);
+            model.list = templist;
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
 
