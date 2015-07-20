@@ -193,7 +193,9 @@
                 window.location.href = '@Url.Action("EditorHot")';
                 return;
             case "report":
-                window.location.href = '@Url.Action("report","BackUp")';
+                var time=new Date();
+                var month=time.getMonth()+1;
+                window.location.href = '@Url.Action("report","BackUp")?month=' + month;
                 return;
             case "allquestion":
                 allshow();

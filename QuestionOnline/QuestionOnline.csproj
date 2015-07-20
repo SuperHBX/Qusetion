@@ -143,6 +143,7 @@
     <Content Include="css\background.png" />
     <Content Include="css\default.css" />
     <Content Include="css\default.png" />
+    <Content Include="css\font.css" />
     <Content Include="css\images\images.html" />
     <Content Include="css\images\note.gif" />
     <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -160,6 +161,10 @@
     <Content Include="css\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="css\jquery-ui-themes.css" />
     <Content Include="css\reset.css" />
+    <Content Include="css\style-personal.css" />
+    <Content Include="css\style.css" />
+    <Content Include="css\style2.css" />
+    <Content Include="css\weloveiconfonts.com.css" />
     <Content Include="Global.asax" />
     <Content Include="image\ask_question.png" />
     <Content Include="image\background_white.png" />
@@ -350,6 +355,7 @@
     <Content Include="js\plugins\template\template.js" />
     <Content Include="js\plugins\wordpaste\wordpaste.js" />
     <Content Include="js\prettify.js" />
+    <Content Include="js\simplecalendar.js" />
     <Content Include="js\themes\common\anchor.gif" />
     <Content Include="js\themes\common\blank.gif" />
     <Content Include="js\themes\common\flash.gif" />
