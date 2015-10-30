@@ -15,7 +15,7 @@ namespace QADAL.EntityFrameWorkCore.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             this.Property(t => t.content)
-                .HasMaxLength(200);
+                .HasMaxLength(5000);
 
             this.Property(t => t.state)
                 .HasMaxLength(10);

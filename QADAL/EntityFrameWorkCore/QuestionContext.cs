@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 
 namespace QADAL.EntityFrameWorkCore
 {
@@ -39,7 +40,7 @@ namespace QADAL.EntityFrameWorkCore
             {
                 this.SaveChanges();
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 throw new Exception(ex.Message);
             }

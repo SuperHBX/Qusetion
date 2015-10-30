@@ -45,11 +45,11 @@
         </div>
         <form id="sub_question">
             <div class="sizesmall padding5">          
-                <span id="man" class="sizesmall">提问人:蔡冬冬</span><input name="regman" type="hidden" value="蔡冬冬"/>@*regman*@
+                <span id="man" class="sizesmall">提问人:@(QuestionOnline.Common.CommonClass1.GetUserName())</span><input name="regman" type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetUserName())"/>@*regman*@
                 <span id="date" class="float_right sizesmall">提问时间：@DateTime.Now</span><input name="regdate" type="hidden" value="@DateTime.Now"/>
-                <input name="regmanid"  type="hidden" value="2"/>@*regmanid*@
+                <input name="regmanid"  type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetPartyIdCount())"/>
                 <input name="state"  type="hidden" value="1"/>@*0已解决1未解决*@
-                <input name="ishot"  type="hidden" value="false"/>@*0已解决1未解决*@
+                <input name="ishot"  type="hidden" value="false"/>@*是否热们问题*@
             </div>
             <div class="sizesmall padding5">
                 <span>模块分类： </span>  
@@ -61,7 +61,7 @@
                     </select>
             </div>
             <div>
-                <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%"/></div>           
+               <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%"/></div>           
                <div class="sizesmall padding5">问题描述：</div>           
                <textarea id="content" name="content" style=" width:100%;height:200px;visibility:hidden; resize:none" ></textarea>
 

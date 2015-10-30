@@ -26,6 +26,7 @@ namespace QuestionOnline.Controllers
         /// <returns></returns>
         public ActionResult AskQuestion() 
         {
+            ViewBag.User = Common.CommonClass1.GetUserName();
             ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
             ViewBag.Types = GetAlltype();
             return View();
