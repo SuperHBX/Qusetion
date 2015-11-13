@@ -8,7 +8,18 @@
     <meta charset="utf-8">
     <title></title>
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"> 
-    <script src="~/js/jquery.min.js"></script>    
+    <link href="~/css/default.css" rel="stylesheet" />
+    <link href="~/css/prettify.css" rel="stylesheet" />
+    <script src="~/js/kindeditor-min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/zh_CN.js"></script>
+    <script src="~/js/jquery.form.js"></script>
+    <script src="~/js/prettify.js"></script>
+    <script src="~/js/Common.js"></script>
+    <script src="~/js/showCover.js"></script>
+    <link href="~/css/showCover.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+  @*  <script src="~/js/bootstrap.min.js"></script>*@
         <style type="text/css">
         *{
             list-style:none;
@@ -42,6 +53,7 @@
             /*padding:5px;*/
             text-align:center;
             background-image:url("../image/bg3.png");
+            background-size:100% 100%;
            
         }
         .float_left {
@@ -173,7 +185,10 @@
         }
 
         #parent_type {
-               
+               background-image:url("/image/nav-bg.jpg");
+               height:37px;
+               width:100%;
+               color:white;
         }
         #child_type li {
            padding:8px;width:100px; 
@@ -181,31 +196,29 @@
            background-color:#EDF7FF;
             /*border-right:solid 4px #EDF7FF;*/          
         }
-         #child_type li:hover {         
-           background-color:#AAAAAA;  
-        
-           cursor:pointer;
-           
-        }
+            #child_type li:hover {
+                background-color: #2F84F4;
+                cursor: pointer;
+            }
          #parent_type li {
-           padding:8px; width:100px; 
+           padding:8px; width:80px; 
            font-size:16px;
            /*border-right:solid 4px #EDEDED;*/
              
         }
-        #parent_type li:hover {
-           background-color:#00A1E0;
-           color:white;   
-        }
+            #parent_type li:hover {
+                /*background-color:#00A1E0;*/
+                color: #ECE9CF;
+            }
         #body{
            width:70%;
            margin:0 auto;
         }
         .parent_line {
-           
+
         }
         .parent_line li {
-           background-color:#EDEDED;
+           
            cursor:pointer;
         }
         .blackline {
@@ -237,23 +250,35 @@
        .titlediv {
             background-color:#EDF7FF;
            
-            height:28px;
+            height:35px;
             line-height:28px;
             font-size:16px;                   
        }
         .type {           
-           
-            height:28px;
+            margin:4px 0 4px 0; 
+            height:35px;
             line-height:28px;
             font-size:16px;
+            cursor:pointer;
+           
                              
        }
+        .type_bg {
+            background-image: url("/image/sys-bg1.png");
+            background-size:100% 100%;
+        }
+        .type_bg1 {
+            background-image: url("/image/sys-bg.jpg");
+            background-size:100% 100%;
+        }
        .button {
+           width:188px;
             font-size:16px;
             cursor:pointer;       
        }
        .module_type {
             border:1px solid #EDEDED;
+            width:100%;
 
        }
        .title {
@@ -266,8 +291,8 @@
             font-size:14px;
             padding:15px;
        }
-       .list li:nth-of-type(odd){ background:#FEFEFE; cursor:pointer}
-       .list li:nth-of-type(even){ background:#F6F6F6;cursor:pointer}
+       /*.list li:nth-of-type(odd){ background:#FEFEFE;}
+       .list li:nth-of-type(even){ background:#F6F6F6;cursor:pointer}*/
        .detail li{
             padding:5px  50px 5px 5px;
         }
@@ -278,8 +303,8 @@
             padding:3px 15px;
        }
        .hand {
-            cursor:pointer;
-           
+         
+           cursor:pointer;
        }
        .text_centre {
             text-align:center;
@@ -299,7 +324,6 @@
              text-overflow:ellipsis; 
              overflow:hidden;
              white-space:nowrap;
-             background:#ccc;
 
          }
         .button_bg {
@@ -310,15 +334,17 @@
             line-height:35px;
             height:30px;
             vertical-align:middle;
+
         }
+    
     </style>
 </head>
 <body>
     <div id="container">
       
          <div class="header">
-           <div class="sizemiddle hand home" >
-               <div class="float_right"><img src="~/image/home_ico.png" /></div><div class="float_right" style="color:white; font-size:14px;">主页</div>
+           <div class="sizemiddle  home" >
+               <div class="float_right hand" id="home"><img src="~/image/home_ico.png" /></div><div class="float_right" style="color:white; font-size:14px;">主页</div>
            </div>
         </div>                
             <div id="body" >                                      
@@ -330,7 +356,7 @@
 </body>
 </html>
 <script>
-    $(".home").click(function () {
+    $("#home").click(function () {
         window.location.href = '@Url.Action("Question","Question")';
         
     });

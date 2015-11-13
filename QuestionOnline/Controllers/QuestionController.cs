@@ -19,6 +19,7 @@ namespace QuestionOnline.Controllers
         AnswerServer ans = new AnswerServer();
         CollectServer cs = new CollectServer();
         TypeServer ts = new TypeServer();
+        SelectOptionServer so = new SelectOptionServer();
 
         /// <summary>
         /// 提问页
@@ -42,6 +43,11 @@ namespace QuestionOnline.Controllers
             ViewBag.TypeList = ts.FindModelList();
            ViewBag.Types = GetAlltype();
            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
+           var list = so.FindModelList().Where(o=>o.SelectItem1=="管理员"&&o.party_id_from==temp.Type.typename&&o.Text==Common.CommonClass1.GetUserName()).ToList();
+           
+            
+
+           ViewBag.IsManager = (list.Count()>0&&temp.state=="1");
            return View(temp);
         }
 

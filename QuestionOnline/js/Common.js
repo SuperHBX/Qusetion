@@ -28,6 +28,7 @@ function maxtext25(str) {
 
     //alert(str);
     str = str.replace(/<img(.*)src=\"([^\"]+)\"[^>]+>/gi, '[图片]').replace(/<p>/gi, '').replace(/<\/p>/gi, '').replace(/\<a\s.+\<\/a\>/gi, '[文件]');
+    str = str.replace(/<[^>]+>/g, "");
     //str = str.replace(/<[^>]+>/g, "");
         //replace(/<\s?img[^>]*>/gi, '3').replace(/<p>/gi, '1').replace(/<\/p>/gi, '2').replace(/\<a\s.+\<\/a\>/gi, '5');
     if (str.length > 25) {

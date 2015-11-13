@@ -8,12 +8,6 @@
 }
 
 
-<link href="~/css/default.css" rel="stylesheet" />
-<script src="~/js/kindeditor-min.js"></script>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/js/zh_CN.js"></script>
-<script src="~/js/jquery.form.js"></script>
-<script src="~/js/Common.js"></script>
 
 @*<script src="~/js/kindeditor-all.js"></script>*@
 <style type="text/css">
@@ -152,7 +146,7 @@
                 alert("请填写完整");
                 return;
             }
-         
+            ShowMessage("上传中");
             $("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
                 type: 'POST',
@@ -162,6 +156,7 @@
                         url: '@Url.Action("AddAnswer")',
                         type: 'POST',
                         success: function () {
+                            CloseMessage();
                             alert("添加成功")
                         },
                         error: function (xhr, ms) {

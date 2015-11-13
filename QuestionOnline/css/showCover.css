@@ -1,0 +1,48 @@
+﻿.mycover
+{
+    position:absolute;
+    background-color:Gray;
+    opacity:0.5;
+    filter:alpha(opacity=50);
+	z-index:999;
+    display:none;
+}
+#optionField
+{
+    position:fixed;
+    
+    z-index:1000;
+    display:none;
+}
+
+#PasswordChangeDiv
+{
+    position:fixed;
+    
+    z-index:1000;
+    display:none;
+}
+
+#objectField
+{
+    position:fixed;
+    
+    z-index:1000;
+    display:none;
+}
+
+#loadingField
+{
+    position:fixed;
+    
+    z-index:1000;
+    display:none;
+}
+
+#messageField
+{
+    position:fixed;
+    
+    z-index:1000;
+    display:none;
+}

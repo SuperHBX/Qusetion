@@ -22,16 +22,18 @@ namespace QADAL.EntityFrameWorkCore
         public DbSet<Models.Collect> collects { get; set; }
         public DbSet<Models.ImproveReport> improvereports { get; set; }
         public DbSet<Models.Question> questions { get; set; }
-       
+        public DbSet<Models.Select_Option> selectoption { get; set; }
         public DbSet<Models.Type> types { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Configurations.Add(new Mapping.AnswerMap());
             modelBuilder.Configurations.Add(new Mapping.CollectMap());
             modelBuilder.Configurations.Add(new Mapping.ImprovereportMap());
             modelBuilder.Configurations.Add(new Mapping.QuestionMap());          
             modelBuilder.Configurations.Add(new Mapping.TypeMap());
+            modelBuilder.Configurations.Add(new Mapping.Select_OptionMap());
         }
 
         public void Save()

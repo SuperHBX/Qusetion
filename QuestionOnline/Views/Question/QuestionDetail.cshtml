@@ -3,12 +3,7 @@
     ViewBag.Title = "QuestionDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/css/default.css" rel="stylesheet" />
-<script src="~/js/kindeditor-min.js"></script>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/js/zh_CN.js"></script>
-<script src="~/js/jquery.form.js"></script>
-<script src="~/js/Common.js"></script>
+
 <style type="text/css">
     #menu {
         font-size:14px;
@@ -23,14 +18,65 @@
         padding:5px;
         line-height:17px;      
     }
+
+      #hide_answer {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #bg {
+        width: 100%;
+        height: 100%;
+        /**透明层兼容**/
+        filter: alpha(opacity=30);
+        -moz-opacity: 0.3;
+        -khtml-opacity: 0.3;
+        opacity: 0.3;
+        background-color: black;
+        z-index: 0;
+        position: fixed;
+    }
+
+    #nr {
+        
+        width: 700px;
+        height: 400px;
+        margin: 100px auto 0px;
+        /*background-image:url("../image/background_white.png");*/
+        background-color: #fff;
+        z-index: 900;
+        position: relative;
+        padding: 10px;
+    }
+
+    #questions {
+        min-height: 700px;
+    }
+
+    #paging span {
+        padding: 0 10px;
+    }
    
 </style>
 <div id="location">
 
     <div id="left" >
 
-        <div id="menu">
+       @* <div id="menu">
             当前位置：网上答疑 > 问题详情
+        </div>*@
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="#">网上答疑</a></li>
+                    <li><a href="#">提问问题</a></li>
+                </ul>
+            </div>
         </div>
         <div class="sizebig padding10">请问：@Html.DisplayFor(o => o.title)</div>
         <div class="sizesmall padding10 backgriund_gray">By:@Html.DisplayFor(o => o.regman) &nbsp;&nbsp;|&nbsp;&nbsp; @Html.DisplayFor(o => o.regdate)</div>
@@ -48,24 +94,97 @@
             </div>
             <div class="sizesmall padding10 backgriund_gray">By:@Html.DisplayFor(o => o.Answers.FirstOrDefault().answerman) &nbsp;&nbsp;|&nbsp;&nbsp; @Html.DisplayFor(o => o.Answers.FirstOrDefault().answerdate)</div>
         }
+        @if (ViewBag.IsManager)
+        {
+            @*<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer()">回答问题</span></div>  
+             *@
+            <br/>
+            <button onclick="SubAnswer()" class="btn-sm btn-primary">回答问题</button>
+        }
     </div>
-    <div id="right" > 
-    <div class="text_centre" style="margin-top:20px;">
-        <span href="@Url.Action("Question")" class="sizemiddle">
-            返回主页
-        </span>
-    </div>
-         <div class="sizemiddle text_centre">热门问题</div>      
+    <div id="right">
+        <div class="text_centre button_bg" style="margin-top:20px;">
+            <span id="back_index" class="sizemiddle hand ">
+                返回主页
+            </span>
+        </div>
+        <div class="sizemiddle text_centre titlediv">热门问题</div>
         <ul class="tips list">
-            @foreach(var i in ViewBag.HotQuestion)
+            @foreach (var i in ViewBag.HotQuestion)
             {
-            <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>          
+                <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>
             }
         </ul>
     </div>
 </div>
+<div id="hide_answer">
+    <div id="bg">
+       
+    </div>
+    <form id="sub_answer">
+        <div id="nr">
+            <span class="sizebig float_right hand" id="close_hide">×</span>            <!--层内的内容-->
+            <input type="hidden" id="hide_Qid" name="Qid" value="@Model.Id"/>
+            <div class="sizemiddle">问答问题：</div>
+            <br />
+            <div>
+                <textarea id="content" name="answercontent" style=" width:100%;height:300px;visibility:hidden; resize:none" ></textarea>
+            </div>
+            <div style="margin:15px auto;width:80px;"><input  id="submit" type="button"  value="提交" style="width:80px;height:30px;font-size:16px;"/></div>            
+        </div>
+    </form>
+</div>
 <script type="text/javascript">
+    $("#submit").click(function () {
+        ShowMessage("加载中")
+        $("#sub_answer").ajaxSubmit({
+            url: '@Url.Action("AddAnswer")',
+            type: 'POST',
+            success: function () {
+                alert("添加成功");
+                location.reload();
+                CloseMessage();
+               
+                $("#hide_answer").hide();
+                
+            },
+            error: function (xhr, msg) {
+                CloseMessage();
+                alert(msg);
+            }
+
+
+        });
+
+    });
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[id="content"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            allowPreviewEmoticons: false,
+            allowImageUpload: true,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile']
+        });
+    });
+
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
+    }
     $("#back_index").click(function () {
-        window.location.
+        window.location.href = '@Url.Action("Question")';
+    });
+
+    function SubAnswer(item) {
+       // $("#hide_Qid").val(item);
+        $("#hide_answer").show();
+        scroll(0, 0);
+    }
+    $("#close_hide").click(function () {
+        $("#hide_answer").hide();
+
     });
 </script>

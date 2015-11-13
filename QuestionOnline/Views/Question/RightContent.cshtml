@@ -1,23 +1,39 @@
-﻿    <div class="rightdiv">
-        <input id="keyword" type="text" style="width:70%;height:25px"/><input id="sbmSearch" type="button" value="搜索" style="width:28%;height:25px"/>
+﻿<div class="rightdiv">
+    <input id="keyword" type="text" style="width: 70%; height: 25px" /><input id="sbmSearch" type="button" value="搜索" style="width: 28%; height: 25px" />
+</div>
+@*<div class="rightdiv button button_bg">
+    <span id="has_question" class="sizemiddle hand ">我要提问</span>
+</div>*@
+<div class="text_centre btn-primary" style="margin-top: 20px;">
+    <span id="has_question" class="sizemiddle hand ">我要提问
+    </span>
+</div>
+<div class="module_type">
+    <div class="titlediv">
+        模块分类    
     </div>
-    <div class="rightdiv button button_bg">
-            <span id="has_question" class="sizemiddle hand ">我要提问</span>      
-    </div>
-    <div class="module_type">
-        <div class="titlediv">
-            模块分类    
-        </div>
-        <ul class="list">
-        @foreach (var i in ViewBag.TypeList) 
+    <ul class="list">
+        @foreach (var i in ViewBag.TypeList)
         {
-            <li class="type" onclick="SelectType(@i.Id)">@i.typename</li>
-        }  
-            <li class="type" onclick="SelectType(-1)">全部</li>             
-        </ul>
-    </div> 
-    <br />
-  @*  <div class="module_type">
+            <li class="type type_bg" onclick="SelectType(@i.Id,this)">@i.typename</li>
+        }
+          @foreach (var i in ViewBag.TypeList)
+        {
+            @*<li class="type type_bg" onclick="SelectType(@i.Id,this)">@i.typename</li>*@
+               <li class="media"><a class="pull-left" href="#">
+                            <img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a><div class="media-body">
+                                <h4 class="media-heading" onclick="SelectType(@i.Id,this)">@i.typename</h4>
+                              
+                            </div>
+                        </li>           
+        }
+
+
+        <li class="type type_bg" onclick="SelectType(-1,this)">全部</li>
+    </ul>
+</div>
+<br />
+@*  <div class="module_type">
         <div class="titlediv">
             模块分类    
         </div>
@@ -32,11 +48,12 @@
 <script type="text/javascript">
 
     $("#sbmSearch").click(function () {
-        SearchQuestion($("#keyword").val(),1);
+        SearchQuestion($("#keyword").val(), 1);
     });
-    function SelectType(o)
-    {
+    function SelectType(o, obj) {
         $("#module").val(o);
+        $(obj).parent().children().removeClass("type_bg1");
+        $(obj).addClass("type_bg1");
         QuestionPaging();
     }
     $("#has_question").click(function () {

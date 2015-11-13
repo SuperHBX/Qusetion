@@ -36,9 +36,11 @@ namespace QuestionOnline.Common
             //if (GetCookieValue("PARTYID") == null)
             //{
             //    string passportnumber = GetUserPassportNumber();
-            //    SetCookie("PARTYID", PersonHelper.GetUsernameByPassportnumber(passportnumber));
+            //   // SetCookie("PARTYID", PersonHelper.GetUsernameByPassportnumber(passportnumber));
             //}
             return GetCookieValue("PARTYID");
+            //return "贾如";
+            
         }
 
         /// <summary>
@@ -47,12 +49,13 @@ namespace QuestionOnline.Common
         /// <returns></returns>
         public static int GetPartyIdCount()
         {
-        //    if (GetCookieValue("PARTYIDCOUNT") == null)
-        //    {
-        //        string passportnumber = GetUserPassportNumber();
-        //        SetCookie("PARTYIDCOUNT", PersonHelper.GetPartyidcountByPassportnumber(passportnumber).ToString());
-        //    }
+            //if (GetCookieValue("PARTYIDCOUNT") == null)
+            //{
+            //    string passportnumber = GetUserPassportNumber();
+            //    //SetCookie("PARTYIDCOUNT", PersonHelper.GetPartyidcountByPassportnumber(passportnumber).ToString());
+            //}
             return int.Parse(GetCookieValue("PARTYIDCOUNT"));
+            //return 11;
         }
 
         public static string GetCookieValue(string cookieName)

@@ -16,7 +16,7 @@ namespace QuestionOnline
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "index", id = UrlParameter.Optional }
+                defaults: new { controller = "Question", action = "Question", id = UrlParameter.Optional }
             );
         }
     }

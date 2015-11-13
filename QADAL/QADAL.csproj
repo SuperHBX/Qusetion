@@ -50,9 +50,12 @@
     <Compile Include="EntityFrameWorkCore\Content\CollectRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\ImproveReportRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\QuestionRepoistory.cs" />
+    <Compile Include="EntityFrameWorkCore\Content\SelectOptionRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\Content\TypeRepoistory.cs" />
     <Compile Include="EntityFrameWorkCore\DbContextRepository.cs" />
+    <Compile Include="EntityFrameWorkCore\Mapping\Select_OptionMap.cs" />
     <Compile Include="EntityFrameWorkCore\Models\Modelbase.cs" />
+    <Compile Include="EntityFrameWorkCore\Models\Select_Option.cs" />
     <Compile Include="EntityFrameWorkCore\QuestionContext.cs" />
     <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\ICompleteRepository.cs" />
     <Compile Include="EntityFrameWorkCore\UnitOfWorkCore\IExtensionRepository.cs" />
