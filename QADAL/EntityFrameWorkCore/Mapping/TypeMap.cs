@@ -16,11 +16,13 @@ namespace QADAL.EntityFrameWorkCore.Mapping
 
             this.Property(t => t.typename)
                 .HasMaxLength(10);
-
+            this.Property(t => t.img)
+                .HasMaxLength(50);
             // Table & Column Mappings
             this.ToTable("type");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.typename).HasColumnName("typename");
+            this.Property(t => t.img).HasColumnName("img");
         }
     }
 }

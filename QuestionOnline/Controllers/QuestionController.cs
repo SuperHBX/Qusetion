@@ -1,5 +1,5 @@
 ﻿
-using QADAL.EntityFrameWorkCore.Models;
+using QADAL.Models;
 using QAServer.Server;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using QuestionOnline.Models;
+using SgidiHelpers;
+using SK_TodoList;
+using System.Xml.Linq;
+using System.Net;
+using System.Collections.Specialized;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace QuestionOnline.Controllers
 {
@@ -20,7 +27,7 @@ namespace QuestionOnline.Controllers
         CollectServer cs = new CollectServer();
         TypeServer ts = new TypeServer();
         SelectOptionServer so = new SelectOptionServer();
-
+        ITodoService service = SK_TodoList.TodoEngine.GetTodoService();
         /// <summary>
         /// 提问页
         /// </summary>
@@ -37,13 +44,24 @@ namespace QuestionOnline.Controllers
         /// 详情页
         /// </summary>
         /// <returns></returns>
-        public ActionResult QuestionDetail(int Qid=1) 
+        public ActionResult QuestionDetail(int Qid=1,string pid=null) 
         {
+            try
+            {
+                if (pid != null)
+                    service.DeleteTodo(pid);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
             var temp = qs.FindModel(new object[] { Qid });
             ViewBag.TypeList = ts.FindModelList();
-           ViewBag.Types = GetAlltype();
-           ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
-           var list = so.FindModelList().Where(o=>o.SelectItem1=="管理员"&&o.party_id_from==temp.Type.typename&&o.Text==Common.CommonClass1.GetUserName()).ToList();
+            ViewBag.Types = GetAlltype();
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
+            var list = so.FindModelList().Where(o=>o.SelectItem1=="管理员"&&o.party_id_from==temp.Type.typename&&o.Text==Common.CommonClass1.GetUserName()).ToList();
            
             
 
@@ -171,7 +189,7 @@ namespace QuestionOnline.Controllers
             var list2 = qs.FindModelList(o => o.title.Contains(Keyword)).ToList();
             var AList = list.Union(list2).ToList();
 
-            IList<QADAL.EntityFrameWorkCore.Models.Question> SList = new List<QADAL.EntityFrameWorkCore.Models.Question>();
+            IList<QADAL.Models.Question> SList = new List<QADAL.Models.Question>();
             ViewBag.keyword = Keyword;
             ViewBag.count = AList.Count();
             ViewBag.TypeList = ts.FindModelList();
@@ -208,11 +226,21 @@ namespace QuestionOnline.Controllers
         /// 删除问题
         /// </summary>
         /// <param name="Qid">问题id</param>
-        public void DeleteQuestion(string Qid) 
+        public void DeleteQuestion(int Qid) 
         {
-            int temp = Convert.ToInt32(Qid);
-            ans.Delete(o => o.Qid == temp);
-            qs.Delete(o => o.Id == temp);
+            try
+            {
+                //int temp = Convert.ToInt32(Qid);
+                ans.Delete(o => o.Qid == Qid);
+                qs.Delete(o => o.Id == Qid);
+                Response.Write("ok");
+            }
+            catch (Exception ex)
+            {
+
+                Response.Write(ex.Message);
+            }
+           
         }
 
         /// <summary>
@@ -268,7 +296,7 @@ namespace QuestionOnline.Controllers
         /// 获取全部分类
         /// </summary>
         /// <returns></returns>
-        public List<QADAL.EntityFrameWorkCore.Models.Type> GetAlltype() 
+        public List<QADAL.Models.Type> GetAlltype() 
         {
             return ts.FindModelList().ToList();
         }
@@ -281,6 +309,7 @@ namespace QuestionOnline.Controllers
         }
         public ActionResult Question(int? module=null,string parenttype=null,string childtype=null,int page=1)
         {
+            ViewBag.HotQuestion = HotQuestion().OrderByDescending(o => o.regdate).Take(10);
             int pagenumber = 6;
             IEnumerable<Question> list = qs.FindModelList().ToList().OrderByDescending(o => o.regdate);
 
@@ -301,7 +330,7 @@ namespace QuestionOnline.Controllers
                         list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
                         break;
                     case "collect":
-                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key).OrderByDescending(o => o.regdate);
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.Question).Select(o => o.Key).OrderByDescending(o => o.regdate);
                         break;                                     
                 }
                     
@@ -353,7 +382,7 @@ namespace QuestionOnline.Controllers
                         list = list.Where(o => o.regmanid == manid).OrderByDescending(o => o.regdate);
                         break;
                     case "collect":
-                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.question).Select(o => o.Key).OrderByDescending(o => o.regdate);
+                        list = cs.FindModelList(o => o.personid == manid).GroupBy(o => o.Question).Select(o => o.Key).OrderByDescending(o => o.regdate);
                         break;
                 }
 
@@ -387,13 +416,13 @@ namespace QuestionOnline.Controllers
             var templist = new List<QuestionPageModel>();
             foreach (var i in list)
             {
-                i.Type.questions.Clear();
-                i.Type.improvereports.Clear();
+                i.Type.Questions.Clear();
+                i.Type.Improvereports.Clear();
                 var answer = new Answer();
                 if (i.Answers.Count!=0)
                 {
                     answer = i.Answers.ToList().FirstOrDefault();
-                    answer.question = null;
+                    answer.Question = null;
                 }
                 templist.Add(new QuestionPageModel() 
                 {
@@ -463,9 +492,125 @@ namespace QuestionOnline.Controllers
         //    return list.Count();
         //}
 
+        public void SendMsg(int type)
+        {
+            
+            var typename = ts.FindModelList(o => o.Id == type).FirstOrDefault().typename;
+            var phone = so.FindModelList().Where(o => o.party_id_from == typename).FirstOrDefault().note;
+            try
+            {
+                //SgidiHelpers.MsgSendingHelper.Send(assgine, );
+                XElement root = new XElement("message",
+                new XElement("account", "dh1993"), //账号 dh1993 
+                new XElement("password", md5("yt123.com")), //密码 yt123.com 
+                new XElement("msgid", ""),
+                new XElement("phones", string.Join(",", new List<string>() { phone }.ToArray())), //电话号码，多个号码用小写逗号分隔 
+                new XElement("content", "您有一个答疑平台的待解决问题请及时处理"), //短信内容 
+                new XElement("sign", "【上海岩土院】"), //短信签名内容 
+                new XElement("subcode", ""),
+                new XElement("sendtime", ""));
+
+                string xmlString = "<?xml version='1.0' encoding='UTF-8'?>" + root.ToString(SaveOptions.DisableFormatting);
+
+                WebClient webClient = new WebClient();
+                NameValueCollection postValues = new NameValueCollection();
+                postValues.Add("message", xmlString);
+
+                //向服务器发送POST数据 
+                string url = "http://3tong.net/http/sms/Submit";
+                byte[] responseArray = webClient.UploadValues(url, postValues);
+                string send_result = Encoding.UTF8.GetString(responseArray);
+                //return send_result;
+                //return "";
+                Response.Write("ok");
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+            
+        }
+
+        private static string md5(string str)
+        {
+            byte[] result = Encoding.Default.GetBytes(str);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] output = md5.ComputeHash(result);
+            String md = BitConverter.ToString(output).Replace("-", "");
+            return md.ToLower();
+        }
+
+        public void SendTodo(string owner,int type,string qid)
+        {
+            var typename = ts.FindModelList(o => o.Id == type).FirstOrDefault().typename;
+            var assgine = so.FindModelList().Where(o => o.party_id_from == typename).FirstOrDefault().Value;
+
+            try
+            {   
+                var service=SK_TodoList.TodoEngine.GetTodoService();
+#if DEBUG
+                service.SendTodo(assgine + "-" + qid, typename, int.Parse(assgine), "您有一个答疑平台的待解决问题", owner + "的" + typename + "的问题", "", "http://192.168.11.8:30002/Question/QuestionDetail?Qid=" + qid + "&pid=" + assgine + "-" + qid);
+#else
+                
+                service.SendTodo(assgine + "-" + qid, typename, int.Parse(assgine), "您有一个答疑平台的待解决问题", owner + "的" + typename + "的问题", "", "http://192.168.2.8:10050/Question/QuestionDetail?Qid=" + qid + "&pid=" + assgine + "-" + qid);
+#endif
+                Response.Write("ok");
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+
+        }
+
+        public ActionResult EditorQuestion(int id)
+        {
+            var Question = qs.FindModel(new object[] { id });
+            ViewBag.Types = GetAlltype();
+            return View(Question);
+        }
+
+        public ActionResult SelectOption()
+        {
+            return View();
+        }
+
+
+
+
+        public void UpdateQuestion(int Qid)
+        {
+            try
+            {
+                var question = qs.FindModel(new object[] { Qid });
+                question.typeid = int.Parse(Request.Form["typeid"]);
+                question.title = Request.Form["title"];
+                question.content = Request.Form["content"];
+                var answer = new Answer();
+                if (Request.Form.AllKeys.Contains("answercontent"))
+                {
+                    answer = ans.FindModelList().Where(o => o.Qid == Qid).FirstOrDefault();
+                    answer.answercontent = Request.Form["answercontent"];
+                }
+                ans.UpDate(answer);
+                qs.UpDate(question);
+            }
+            catch (Exception ex)
+            {
+
+                Response.Write(ex.Message);
+            }
+           
+               
+        }
         private List<Question> GetAllQuestion()
         {      
             return qs.FindModelList().ToList();
         }
+
+
+        
+
+
     }
 }

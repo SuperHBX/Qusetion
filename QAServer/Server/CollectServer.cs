@@ -1,6 +1,6 @@
 ﻿using QADAL.EntityFrameWorkCore;
 using QADAL.EntityFrameWorkCore.Content;
-using QADAL.EntityFrameWorkCore.Models;
+using QADAL.Models;
 using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
 using System;
 using System.Collections.Generic;

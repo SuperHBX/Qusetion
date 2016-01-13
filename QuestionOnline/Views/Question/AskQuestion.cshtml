@@ -21,169 +21,188 @@
         padding: 5px;
         line-height: 17px;
     }
+
+    #hide_answer {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    #bg {
+        width: 100%;
+        height: 100%;
+        /**透明层兼容**/
+        filter: alpha(opacity=30);
+        -moz-opacity: 0.3;
+        -khtml-opacity: 0.3;
+        opacity: 0.3;
+        background-color: black;
+        z-index: 0;
+        position: fixed;
+    }
+
+    #nr {
+        width: 600px;
+        height: 150px;
+        margin: 100px auto 0px;
+        /*background-image:url("../image/background_white.png");*/
+        background-color: #fff;
+        z-index: 900;
+        position: relative;
+        padding: 10px;
+    }
 </style>
 <div id="location">
-
-    <div id="left">
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="breadcrumb">
-                    <li><a href="#">网上答疑</a></li>
-                    <li><a href="#">提问问题</a></li>
-                </ul>
-            </div>
-        </div>
-        @* <div id="search">
-            <span class="rightdiv">搜索提问：</span>
-            <input type="text" id="keyword" style="width:150px;height:25px"/>
-            <input id="sbmSearch" style="width:80px;height:25px" type="button" value="搜索"/>               
-        </div>  *@
-        <div class="form-horizontal">
-            <div class="form-group form-group-lg">
-                <label class="col-sm-2 col-sm-offset-1 control-label" for="formGroupInputLarge">搜索提问：</label>
-                <div class="col-sm-4">
-                    <input class="form-control" type="text" id="keyword1" placeholder="关键字">
-                </div>
-                <div class="col-sm-2">
-                    <button class="btn btn-primary btn-lg" id="sbmSearch">搜索</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="section">
-            <div class="">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class=" panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">我要提问</h3>
-                            </div>
-                            <div class="panel-body">
-
-                                <form id="sub_question">
-                                    <div class="sizesmall padding5">
-                                        @* <span id="man" class="sizesmall">提问人:@(QuestionOnline.Common.CommonClass1.GetUserName())</span>*@
-                                        <label class="col-xm-2  control-label">提问人:@(QuestionOnline.Common.CommonClass1.GetUserName())</label>
-
-                                        <input name="regman" type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetUserName())"/>@*regman*@
-                                        @*  <span id="date" class="float_right sizesmall">提问时间：@DateTime.Now</span>*@<label class="col-xm-2 col-sm-offset-7 control-label">提问时间：@DateTime.Now</label><input name="regdate" type="hidden" value="@DateTime.Now"/>
-                                        <input name="regmanid"  type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetPartyIdCount())"/>
-                                        <input name="state" type="hidden" value="1" />@*0已解决1未解决*@
-                                        <input name="ishot" type="hidden" value="false" />@*是否热们问题*@
-                                    </div>
-                                    <div class="sizesmall padding5">
-                                        <label class="col-xm-2">模块分类：</label>
-                                        <select name="typeid">
-                                            @foreach (var i in ViewBag.Types)
-                                            {
-                                                <option value="@i.Id">@i.typename</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <div class="sizesmall padding5">
-                                            @*  问题标题：
-                   <input type="text" id="title" name="title" style="height:20px;width:100%"/>*@
-
-                                            <label class="col-xm-2">问题标题：</label>
-                                            <div class="col-xm-10">
-                                                <input class="form-control" type="text" id="title" name="title">
-                                            </div>
-
-                                        </div>
-                                        @*<div class="sizesmall padding5">问题描述：</div> *@
-                                        <label class="col-xm-2">问题标题：</label>
-                                        <textarea id="content" name="content" style="width: 100%; height: 200px; visibility: hidden; resize: none"></textarea>
-
-                                    </div>
-                                    <div class="text_centre sizesmall padding5">
-                                        @* <input type="button" id="sub_button" value="提交问题"/>*@
-                                        <button class="btn btn-primary btn-lg" id="sub_button">提交问题</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*   <div id="ask_question">
-            我要提问
-        </div>*@
-        <!-- <form id="sub_question">
-            <div class="sizesmall padding5">          
-                <span id="man" class="sizesmall">提问人:@(QuestionOnline.Common.CommonClass1.GetUserName())</span><input name="regman" type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetUserName())"/>@*regman*@
-                <span id="date" class="float_right sizesmall">提问时间：@DateTime.Now</span><input name="regdate" type="hidden" value="@DateTime.Now"/>
-                <input name="regmanid"  type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetPartyIdCount())"/>
-                <input name="state"  type="hidden" value="1"/>@*0已解决1未解决*@
-                <input name="ishot"  type="hidden" value="false"/>@*是否热们问题*@
-            </div>
-            <div class="sizesmall padding5">
-                <span>模块分类： </span>  
-                    <select name="typeid">
-                   @foreach (var i in ViewBag.Types)
-                   {
-                       <option value="@i.Id">@i.typename</option>
-                   }
-                    </select>
-            </div>
-            <div>
-               <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%"/></div>           
-               <div class="sizesmall padding5">问题描述：</div>           
-               <textarea id="content" name="content" style=" width:100%;height:200px;visibility:hidden; resize:none" ></textarea>
-
-            </div>
-            <div  class="text_centre sizesmall padding5"><input type="button" id="sub_button" value="提交问题"/></div>
-        </form>-->
-    </div>
     <div id="right">
         <div class="text_centre btn-primary" style="margin-top: 20px;">
-            <span id="back_index" class="sizemiddle hand ">返回主页
+            <span id="back_index" class="sizemiddle hand ">
+                返回主页
             </span>
         </div>
         <div class="text_centre sizemiddle ">提问助手小贴士</div>
         <div class="tips">
             <ul>
-                <li>1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题</li>
-                <li>2.在提问是问题竟可能的描述清晰，以便工作人员帮你快速解答</li>
-                <li>3.您的问题，会在24小时内解答</li>
+                <li><label>1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题</label></li>
+                <li><label>2.在提问时问题尽可能的描述清晰，以便工作人员帮你快速解答</label></li>
+                <li><label>3.您的问题，会在24小时内解答</label></li>
             </ul>
         </div>
-        <div class="section">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <ol>
-                        <li>
-                            <p>1.提问前可以先搜索相关的问题，看是否已经有过得到解决的类似问题</p>
-                        </li>
-                        <li>
-                            <p>2.在提问是问题竟可能的描述清晰，以便工作人员帮你快速解答</p>
-                        </li>
-                        <li>
-                            <p>3.您的问题，会在24小时内解答</p>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-
-        </div>
-         <div class="text_centre btn-primary" style="margin-top: 20px;">
-            <span  class="sizemiddle hand ">热门问题
+        <div class="text_centre btn-primary" style="margin-top: 20px;">
+            <span class="sizemiddle hand ">
+                热门问题
             </span>
         </div>
         <ul class="tips list">
             @foreach (var i in ViewBag.HotQuestion)
             {
-                <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>          
+                <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>
             }
         </ul>
     </div>
+    <div id="left">
+
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="#">网上答疑</a></li>
+                <li><a href="#">提问问题</a></li>
+            </ul>
+
+        </div>
+        @* <div id="search">
+                <span class="rightdiv">搜索提问：</span>
+                <input type="text" id="keyword" style="width:150px;height:25px"/>
+                <input id="sbmSearch" style="width:80px;height:25px" type="button" value="搜索"/>
+            </div>  *@
+        <div class="form-horizontal">
+
+            <label class="col-sm-2 col-sm-offset-1 control-label" for="formGroupInputLarge">搜索提问：</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" id="keyword1" placeholder="关键字">
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-ml" id="sbmSearch">搜索</button>
+            </div>
+
+        </div>
+
+        <br />
+        <div class="section">
+
+            <div class="col-md-12" style="margin-top:20px">
+                <div class=" panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">我要提问</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="sub_question">
+                            <div class="sizesmall padding5 line30">
+                                <div class="float_left">
+                                    <label class="col-xm-4 col-xm-push-8">提问人:@(QuestionOnline.Common.CommonClass1.GetUserName())</label>
+                                </div>
+
+                                <div class="float_right">
+                                    <label class="col-xm-8 col-xm-pull-4">提问时间：@DateTime.Now</label><input id="regdate" name="regdate" type="hidden" value="@DateTime.Now" />
+                                </div>
+                                <input id="regman" name="regman" type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetUserName())" />@*regman*@
+                                <input id="regmanid" name="regmanid" type="hidden" value="@(QuestionOnline.Common.CommonClass1.GetPartyIdCount())" />
+                                <input id="state" name="state" type="hidden" value="1" />@*0已解决1未解决*@
+                                <input id="ishot" name="ishot" type="hidden" value="false" />@*是否热们问题*@
+                            </div>
+                            <div class="sizesmall padding5 line30">
+                                <div class="float_left">
+                                    <label class="">模块分类：</label>
+                                    <select name="typeid" id="typeid">
+                                        @foreach (var i in ViewBag.Types)
+                                        {
+                                            <option value="@i.Id">@i.typename</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div>
+                                <div class="sizesmall padding5 line30">
+
+
+                                    <label class="col-xm-2 ">问题标题：</label>
+                                </div>
+                                <div class="col-xm-10 padding5">
+                                    <input class="form-control" type="text" id="title" name="title">
+                                </div>
+
+
+                                <label class="col-xm-2 ">问题内容：</label>
+                                <textarea id="content" name="content" style="width: 100%; height: 200px; visibility: hidden; resize: none"></textarea>
+
+                            </div>
+                            <div class="text_centre sizesmall padding5">
+
+                                <button class="btn btn-primary btn-lg" id="sub_button">提交问题</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
 </div>
+
+<div id="hide_answer">
+    <div id="bg">
+
+    </div>
+
+    <div id="nr">
+        <span class="sizebig float_right hand" id="close_hide">×</span>
+
+        @* <div class="sizemiddle">问答问题：</div>
+            <br />
+            <div>
+                <textarea id="content" name="answercontent" style=" width:100%;height:300px;visibility:hidden; resize:none"></textarea>
+            </div>*@
+
+        <div style="margin:15px auto;width:300px;">
+            <button class="btn btn-primary btn-lg" id="after_anwser">24小时之内回答</button>
+            <button class="btn btn-primary btn-lg" id="now_answer">立即回答</button>
+        </div>
+    </div>
+
+</div>
+<input id="Qid" type="hidden" />
 <script type="text/javascript">
     $("#sbmSearch").click(function () {
         SearchQuestion($("#keyword1").val(), 1);
@@ -195,9 +214,10 @@
     KindEditor.ready(function (K) {
         editor = K.create('textarea[name="content"]', {
             afterBlur: function () { this.sync(); },
-            resizeType: 0,
+            //resizeType: 0,
             allowPreviewEmoticons: true,
             allowImageUpload: true,
+            cssData: 'body {font-size:14px;}',
             items: [
                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
@@ -212,6 +232,12 @@
                     self.sync();
                     K('form[name=example]')[0].submit();
                 });
+            },
+            afterChange: function () {
+                var str = $("#content").val().replace(/<img(.*)src=\"([^\"]+)\"[^>]+>/gi, '').replace(/<p>/gi, '').replace(/<\/p>/gi, '').replace(/\<a\s.+\<\/a\>/gi, '');
+                str = str.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, "").replace(/(^\s+)|(\s+$)/g, "").replace(/\s/g, "");;
+                str = str.substring(0, 15);
+                $("#title").val(str);
             }
 
         });
@@ -225,25 +251,109 @@
                 return;
             }
             ShowMessage("上传中");
-            $("#sub_question").ajaxSubmit({
+            @*$("#sub_question").ajaxSubmit({
                 url: '@Url.Action("AddQuestionV2")',
                 type: 'POST',
                 success: function (ret) {
                     CloseMessage();
+                    $("#Qid").val(ret.id);
                     alert("添加成功");
+                    $("#hide_answer").show();
+                    //window.location.href = "@Url.Action("AskQuestion")";
                 },
                 error: function (xhr, msg) {
-
                     CloseMessage();
                     alert(xhr + msg);
                 }
+            });*@
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AddQuestionV2")',
+                data: {
+                    content: $("#content").val(),
+                    typeid: $("#typeid").val(),
+                    title: $("#title").val(),
+                    regmanid: $("#regmanid").val(),
+                    regman: $("#regman").val(),
+                    state: $("#state").val(),
+                    regdate: $("#regdate").val(),
+                    ishot: $("#ishot").val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    CloseMessage();
+                    $("#Qid").val(data.Id);
+                    //alert("添加成功");
+                    //debugger;
+                    $("#hide_answer").show();
+                    //window.location.href = "@Url.Action("AskQuestion")";
+                }
             });
+
         });
+
+
     });
 
     function GoDetail(o) {
         window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
     }
+
+
+
+    $("#now_answer").click(function () {
+        ShowMessage("请稍等");
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SendMsg")',
+            data: { type: $("#typeid").val() },
+            cache: false,
+            //dataType: "json",
+            success: function (data) {
+                CloseMessage();
+                if (data == "ok") {
+                    alert("短信发送成功");
+                    $("#hide_answer").hide();
+                    window.location.href = "@Url.Action("Question")";
+                }
+            }
+
+        });
+
+    });
+    $("#after_anwser").click(function () {
+        ShowMessage("请稍等");
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SendTodo")',
+            data: { type: $("#typeid").val(), owner: $("#regman").val(), qid: $("#Qid").val() },
+            //dataType: "json",
+            cache: false,
+            success: function (data) {
+                CloseMessage();
+                if (data == "ok") {
+                    alert("代办发送成功");
+                    $("#hide_answer").hide();
+                    window.location.href = "@Url.Action("Question")";
+
+                }
+               
+            }
+
+        });
+
+    });
+    $("#close_hide").click(function () {
+
+        $("#hide_answer").hide();
+        window.location.href = "@Url.Action("Question")";
+    });
+
+    $("#content").change(function () {
+        alert();
+        var value = $("#content").val();
+        $("#title").val(value);
+    });
 </script>
 
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace QADAL.EntityFrameWorkCore.UnitOfWorkCore
 {
-    public interface IRepository<TEntity> where TEntity : QADAL.EntityFrameWorkCore.Models.Modelbase
+    public interface IRepository<TEntity> where TEntity : Models.ModelBase
     {
 
       

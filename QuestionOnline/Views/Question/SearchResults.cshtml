@@ -1,4 +1,4 @@
-﻿@model IList<QADAL.EntityFrameWorkCore.Models.Question>
+﻿@model IList<QADAL.Models.Question>
 
 @{
     ViewBag.Title = "SearchResults";
@@ -18,7 +18,7 @@ else
     {
     <div class="blackline">
         <div class="title">
-            <div class="hand title8 sizebig" onclick="GoDetail(@item.Id)"> 请问： @Html.DisplayFor(modelItem => item.title)</div><div class="float_right hand" onclick="AddFav(@item.Id)">★添加收藏夹</div>
+            <div class="hand title8 sizebig" onclick="GoDetail(@item.Id)">  @item.title</div><div class="float_right hand" onclick="AddFav(@item.Id)">★添加收藏夹</div>
         </div>
         <div class="content">
             @(new HtmlString(item.content))
@@ -38,7 +38,7 @@ else
                     回答:
                 </div>
                 <div class="content">
-                    @(item.Answers.FirstOrDefault() == null ? "" : item.Answers.FirstOrDefault().answercontent)
+                   @(new HtmlString(item.Answers.FirstOrDefault() == null ? "" : item.Answers.FirstOrDefault().answercontent));
                 </div>
                 <div>
                     <ul class="detail">

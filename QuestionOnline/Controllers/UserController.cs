@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using QADAL.EntityFrameWorkCore.Models;
+using QADAL.Models;
 using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
 using QADAL.EntityFrameWorkCore;
 using QADAL.EntityFrameWorkCore.Content;

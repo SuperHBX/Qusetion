@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "RepairApply";
+    Layout = "~/Views/Shared/_LayoutRepair.cshtml";
+}
+
+<style type="text/css">
+    .div_line {
+        margin: 15px 0;
+    }
+
+    .textarea {
+        width: 70%;
+        height: 240px;
+    }
+
+    .row_2 {
+        width: 10%;
+        display: inline-block;
+    }
+
+    .row_4 {
+        width: 20%;
+        display: inline-block;
+    }
+</style>
+<h2>我要保修</h2>
+<hr style="width:70%;;border:1px solid black;" />
+<form>
+    <div class="div_line">
+        <span>报修人：@QuestionOnline.Common.CommonClass1.GetUserName()</span>
+        <input type="hidden" value="@QuestionOnline.Common.CommonClass1.GetUserName()" name="Regman" />
+        <span class="row_4"></span>
+        <span class="row_4"></span>
+        <span>保修时间：@DateTime.Now.ToString()</span>
+        <input type="hidden" value="@DateTime.Now.ToString();" name="Regtime" />
+    </div>
+    <div class="div_line">
+        <span>基地管理员：</span>
+        <select name="Manager">
+            @*@foreach (var i in Viewbag.Manager)
+                {
+                    <option value="@i.Id">@i.Value</option>
+                }*@
+        </select>
+    </div>
+    <div class="div_line">
+        <span>保修紧急程度：</span>
+        <label><input type="radio" name="repairstate" value="0" />24小时以内</label>
+        <label><input type="radio" name="repairstate" value="1" />基地管理员安排（一周以内）</label>
+    </div>
+    <div class="div_line">
+        <span>保修类型：</span>
+        <select name="Repairtype">
+            <option value="计算机维护">计算机维护</option>
+            <option value="其他">其他</option>
+        </select>
+    </div>
+    <div class="div_line">
+        <span>保修事项：</span>
+        <br />
+        <textarea name="Repairnote" class="textarea"></textarea>
+    </div>
+
+</form>

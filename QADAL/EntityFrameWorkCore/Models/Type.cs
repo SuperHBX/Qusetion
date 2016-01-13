@@ -13,7 +13,9 @@ namespace QADAL.EntityFrameWorkCore.Models
 
         public int Id { get; set; }
         public string typename { get; set; }
+        public string img { get; set; }
         public virtual ICollection<ImproveReport> improvereports { get; set; }
         public virtual ICollection<Question> questions { get; set; }
+       
     }
 }

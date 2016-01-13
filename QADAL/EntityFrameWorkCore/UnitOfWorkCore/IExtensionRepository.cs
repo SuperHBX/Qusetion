@@ -7,7 +7,7 @@ namespace QADAL.EntityFrameWorkCore.UnitOfWorkCore
     /// <summary>
     /// 扩展的Repository操作规范
     /// </summary>
-    public interface IExtensionRepository<TEntity> where TEntity : QADAL.EntityFrameWorkCore.Models.Modelbase
+    public interface IExtensionRepository<TEntity> where TEntity : Models.ModelBase
     {
         /// <summary>
         /// 添加集合

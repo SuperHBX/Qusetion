@@ -1,4 +1,4 @@
-﻿using QADAL.EntityFrameWorkCore.Models;
+﻿using QADAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace QuestionOnline.Models
         public Nullable<System.DateTime> regdate { get; set; }
         public Nullable<bool> ishot { get; set; }
         public Answer Answer { get; set; }
-        public virtual QADAL.EntityFrameWorkCore.Models.Type Type { get; set; }
+        public virtual QADAL.Models.Type Type { get; set; }
         public string title { get; set; }
     }
 

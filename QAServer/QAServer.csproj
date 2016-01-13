@@ -54,7 +54,9 @@
     <Compile Include="Server\CollectServer.cs" />
     <Compile Include="Server\IBaseServer.cs" />
     <Compile Include="Server\ImproveReportServer.cs" />
+    <Compile Include="Server\LogServer.cs" />
     <Compile Include="Server\QuestionServer.cs" />
+    <Compile Include="Server\RepairServer.cs" />
     <Compile Include="Server\SelectOptionServer.cs" />
     <Compile Include="Server\TypeServer.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using QADAL.EntityFrameWorkCore.Models;
+﻿using QADAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QAServer.Server
 {
-    public interface IBaseServer<T> where T:Modelbase
+    public interface IBaseServer<T> where T:ModelBase
     {
          T Add(T entity);
          void Add(IEnumerable<T> entity);

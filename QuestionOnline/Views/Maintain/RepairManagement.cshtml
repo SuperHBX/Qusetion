@@ -1,0 +1,35 @@
+﻿@model IEnumerable<QADAL.Models.Repair>
+@{
+    ViewBag.Title = "RepairManagement";
+    Layout = "~/Views/Shared/_LayoutRepair.cshtml";
+}
+
+    <div>基地维护日志</div>
+    <div>
+        <span>排序：</span><span>申请日期</span><span>维护状态</span>
+    </div>
+    <div>
+        <span>查询：</span>
+        <span>开始时间：</span>
+        <input type="text" />
+        <span>结束时间：</span>
+        <input type="text" />
+        <span>维护状态：</span>
+        <input type="text" />
+    </div>
+    @foreach (var i in Model)
+    {
+        <div>
+            <div>
+                <span>保修类型：@i.RepairType</span>
+                <span>保修紧急度：@i.CheckSate</span>
+                <span>基地管理员：@i.Manager</span>
+                <span>申请人：@i.Regman</span>
+                <span>申请日期：@i.Regtime</span>
+            </div>
+            <div>
+                <span>保修事项：</span>
+                <div>@i.RepairNote</div>
+            </div>
+        </div>
+    }

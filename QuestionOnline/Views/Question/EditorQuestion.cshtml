@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "EditorQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model QADAL.Models.Question
+
+
+@*<script src="~/js/kindeditor-all.js"></script>*@
+<style type="text/css">
+    #menu {
+        font-size: 14px;
+        padding: 10px 10px 1px 0px;
+        border-bottom: 2px solid #000000;
+    }
+
+    #ask_question {
+        border-bottom: 2px solid #000000;
+        font-size: 16px;
+    }
+
+    .tips li {
+        padding: 5px;
+        line-height: 17px;
+    }
+</style>
+<script type="text/javascript">
+    //jQuery(function ($) {
+    //    $("textarea").bind("paste", handlePaste)
+    //})
+
+    //function handlePaste(ev) {
+    //    alert(1);
+    //    var item = ev.originalEvent.clipboardData.items[0]
+    //    //console.log(ev.originalEvent.clipboardData.items[0]);
+
+    //    var blob = item.getAsFile();
+    //    var reader = new FileReader();
+    //    reader.onload = function (event) {
+    //        //console.log(event.target.result)
+
+    //        var sHtml = '&lt;img src="' + event.target.result + '" /&gt;';
+    //        console.log(sHtml);
+    //        $(".ke-content").html($(".ke-content").html() + sHtml);
+    //    }
+    //    reader.readAsDataURL(blob);
+    //    return false;
+
+    //}
+
+
+</script>
+<div id="location">
+    <div id="right">
+        <div class="text_centre button_bg" style="margin-top:20px;">
+            <span id="back_index" class="sizemiddle hand ">
+                返回主页
+            </span>
+        </div>
+        <div class="sizemiddle text_centre titlediv">热门问题</div>
+        @*<ul class="tips list">
+            @foreach (var i in ViewBag.HotQuestion)
+            {
+                <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>
+            }
+        </ul>*@
+    </div>
+    <div id="left">
+
+        <ul class="breadcrumb">
+            <li><a href="#">网上答疑</a></li>
+            <li><a href="#">编辑问题</a></li>
+        </ul>
+
+        <div id="search" class="sizemiddle">
+            编辑热门问题
+        </div>
+        <form id="sub_question">
+            <div class="sizesmall padding5">
+                <span id="man" class="sizesmall">编辑人:@(Model.regman)</span>
+                <span id="date" class="float_right sizesmall">编辑时间：@Model.regdate</span>
+            </div>
+            <div class="sizesmall padding5">
+                <span>模块分类： </span>
+                <select name="typeid">
+                    @foreach (var i in ViewBag.Types)
+                    {
+                        if (Model.typeid !=i.Id)
+                        {
+                            <option value="@i.Id">@i.typename</option>
+                        }
+                        else
+                        {
+                            <option value="@i.Id" selected="selected">@i.typename</option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <div>
+                <div class="sizesmall padding5">问题标题：<input type="text" id="title" name="title" style="height:20px;width:100%" value="@Model.title" /></div>
+                <div class="sizesmall padding5">问题描述：</div>
+                <textarea id="content" name="content" style="width:100%;height:200px;visibility:hidden; resize:none">@Model.content</textarea>
+            </div>
+        </form>
+        @if (Model.Answers.Count != 0)
+        {
+       
+            <form id="sub_answer">
+                <div>
+                    <div class="sizesmall padding5">问题回复：</div>
+                    <textarea id="content1" name="answercontent" style="width:100%;height:200px;visibility:hidden; resize:none">@Model.Answers.FirstOrDefault().answercontent</textarea>
+                </div>
+            </form> 
+        }
+        <div class="text_centre sizesmall padding5"><input type="button" id="sub_button" value="提交问题" /></div>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            cssData: 'body {font-size:14px;}',
+            allowPreviewEmoticons: false,
+            allowImageUpload: false,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile']
+
+        });
+        editor = K.create('textarea[name="answercontent"]', {
+            afterBlur: function () { this.sync(); },
+            resizeType: 0,
+            cssData: 'body {font-size:14px;}',
+            allowPreviewEmoticons: false,
+            allowImageUpload: false,
+            items: [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'insertfile']
+
+        });
+    });
+
+    $(function () {
+        $("#sub_button").click(function () {
+
+            if ($("#content").val() == "" || $("#title").val() == "" || $("#content1").val() == "") {
+                alert("请填写完整");
+                return;
+            }
+            ShowMessage("上传中");
+            $("#sub_question").ajaxSubmit({
+                url: '@Url.Action("AddQuestionV2")',
+                type: 'POST',
+                success: function (date) {
+                    $("#Qid").val(date.Id);
+                    $("#sub_answer").ajaxSubmit({
+                        url: '@Url.Action("AddAnswer")',
+                        type: 'POST',
+                        success: function () {
+                            CloseMessage();
+                            alert("添加成功")
+                        },
+                        error: function (xhr, ms) {
+                            alert(msg);
+                        }
+
+                    });
+                },
+                error: function (xhr, msg) {
+                    alert(msg);
+                }
+            });
+        });
+    });
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
+        }
+    $("#back_index").click(function () {
+        window.location.href = '@Url.Action("Question")';
+    });
+</script>
+
+

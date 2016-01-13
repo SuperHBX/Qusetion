@@ -1,49 +1,52 @@
 ﻿<div class="rightdiv">
-    <input id="keyword" type="text" style="width: 70%; height: 25px" /><input id="sbmSearch" type="button" value="搜索" style="width: 28%; height: 25px" />
+    <input id="keyword" type="text" style="width: 70%; height: 25px; position:relative; top:-2px;" /><input id="sbmSearch" type="button" value="搜索" style="width: 28%; height: 25px;"  />
 </div>
 @*<div class="rightdiv button button_bg">
-    <span id="has_question" class="sizemiddle hand ">我要提问</span>
-</div>*@
+        <span id="has_question" class="sizemiddle hand ">我要提问</span>
+    </div>*@
 <div class="text_centre btn-primary" style="margin-top: 20px;">
-    <span id="has_question" class="sizemiddle hand ">我要提问
+    <span id="has_question" class="sizemiddle hand ">
+        我要提问
     </span>
 </div>
 <div class="module_type">
-    <div class="titlediv">
-        模块分类    
-    </div>
+
     <ul class="list">
         @foreach (var i in ViewBag.TypeList)
         {
-            <li class="type type_bg" onclick="SelectType(@i.Id,this)">@i.typename</li>
-        }
-          @foreach (var i in ViewBag.TypeList)
-        {
-            @*<li class="type type_bg" onclick="SelectType(@i.Id,this)">@i.typename</li>*@
-               <li class="media"><a class="pull-left" href="#">
-                            <img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a><div class="media-body">
-                                <h4 class="media-heading" onclick="SelectType(@i.Id,this)">@i.typename</h4>
-                              
-                            </div>
-                        </li>           
+            <li class="type type_bg" onclick="SelectType(@i.Id,this) " style="position:relative; color:white"><img src="~/image/@(i.img)" style=" position:absolute; left:15px;top:8px;" />@i.typename</li>
         }
 
 
-        <li class="type type_bg" onclick="SelectType(-1,this)">全部</li>
+        <li class="type type_bg" onclick="SelectType(-1,this)" style="color:white">全部</li>
     </ul>
 </div>
 <br />
+<div class="text_centre btn-primary" style="margin-top: 20px;">
+    <span class="sizemiddle hand ">
+        热门问题
+    </span>
+</div>
+<ul class="tips list">
+    @foreach (var i in ViewBag.HotQuestion)
+            {
+        <li class="hand text_dot" onclick="GoDetail(@(i.Id))">@i.title</li>
+    }
+</ul>
+
+
+
 @*  <div class="module_type">
         <div class="titlediv">
-            模块分类    
+            模块分类
         </div>
         <ul class="list">
-        @foreach (var i in ViewBag.TypeList) 
+        @foreach (var i in ViewBag.TypeList)
         {
             <li class="type">@i.typename</li>
-        }               
+        }
         </ul>
-    </div>      
+    </div>
     <div class="clear"></div>*@
 <script type="text/javascript">
 
@@ -54,6 +57,7 @@
         $("#module").val(o);
         $(obj).parent().children().removeClass("type_bg1");
         $(obj).addClass("type_bg1");
+
         QuestionPaging();
     }
     $("#has_question").click(function () {

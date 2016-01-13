@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QADAL.EntityFrameWorkCore.Models.Question>
+﻿@model IEnumerable<QADAL.Models.Question>
 
 @{
     ViewBag.Title = "Question";
@@ -47,91 +47,152 @@
     #paging span {
         padding: 0 10px;
     }
-</style>
-<div id="left">
-    <div>
-        <div class="parent_line">
-            <ul id="parent_type">
-                <li class="float_left" etype="allquestion">所有问题</li>
-                <li class="float_left" etype="myquestion">我的答疑</li>
-                <li class="float_left" etype="collect">答疑收藏</li>
-                @if (ViewBag.username == "贾如")
-                {
-                    <li class="float_left" etype="report">改进报告</li> 
-                    <li class="float_left" etype="editor">编辑问题</li> 
-                }
-            </ul>
 
-            <div class="clear"></div>
-        </div>
-        <ul class="child_type " id="child_type">
-            <li class="float_left" etype="unsolved" id="unsolved">待解决问题</li>
-            <li class="float_left" etype="resolved" id="resolved">已解决问题</li>
-            <li class="float_left" etype="all" id="all">所有问题</li>
-            <li class="float_left hide" etype="collect" id="mycollect">我的收藏</li>
-        </ul>
-        <div class="clear"></div>
-    </div>
+    .menu li {
+        padding: 5px;
+        width: 120px;
+        height: 27px;
+        background-image: url("../image/menu-sub.jpg");
+    }
+    /*.menu:hover ul {
+
+        display:block;
+    }*/
+    .menulist {
+        margin-top: 7px;
+        position: absolute;
+        display: none;
+        z-index:100;
+    }
+</style>
+<div class="parent_line">
+    <ul id="parent_type">
+        <li class="float_left menu" etype="allquestion">
+            <span class="menutitle" id="allquestion">所有问题</span>
+            <ul class="menulist">
+                <li etype="unsolved">待解决问题</li>
+                <li etype="resolved">已解决问题</li>
+                <li etype="all">所有问题</li>
+
+            </ul>
+        </li>
+
+        <li class="float_left menu" etype="myquestion">
+            <span class="menutitle">我的答疑</span>
+            <ul class="menulist">
+                <li etype="unsolved">待解决问题</li>
+                <li etype="resolved">已解决问题</li>
+                <li etype="all">所有问题</li>
+
+            </ul>
+        </li>
+        <li class="float_left" etype="collect"><span class="menutitle">答疑收藏</span></li>
+        @if (ViewBag.username == "贾如")
+        {
+            <li class="float_left" etype="report"><span class="menutitle">改进报告</span></li>
+            <li class="float_left" etype="editor"><span class="menutitle">编辑问题</span></li>
+        }
+    </ul>
+
     <div class="clear"></div>
+</div>
+<div id="right" class="text_centre">
+    @Html.Partial("RightContent")
+</div>
+
+<div id="left">
+    @*<div>
+            @* <div class="parent_line">
+                <ul id="parent_type">
+                    <li class="float_left menu" etype="allquestion">所有问题
+                         <ul class="menulist">
+                             <li etype="unsolved" >待解决问题</li>
+                             <li etype="resolved" >已解决问题</li>
+                             <li etype="all" >所有问题</li>
+                             <li class=" hide" etype="collect" id="mycollect">我的收藏</li>
+                         </ul>
+                    </li>
+
+                    <li class="float_left" etype="myquestion">我的答疑</li>
+                    <li class="float_left" etype="collect">答疑收藏</li>
+                    @if (ViewBag.username == "贾如")
+                    {
+                        <li class="float_left" etype="report">改进报告</li>
+                        <li class="float_left" etype="editor">编辑问题</li>
+                    }
+                </ul>
+
+                <div class="clear"></div>
+            </div>
+            <ul class="child_type " id="child_type">
+                <li class="float_left" etype="unsolved" id="unsolved">待解决问题</li>
+                <li class="float_left" etype="resolved" id="resolved">已解决问题</li>
+                <li class="float_left" etype="all" id="all">所有问题</li>
+                <li class="float_left hide" etype="collect" id="mycollect">我的收藏</li>
+            </ul>
+            <div class="clear"></div>
+        </div>*@
+    @*<div class="clear"></div>*@
     <div id="questions">
 
         @*@foreach (var item in Model) {
-    <div class="blackline">
-        <div class="title hand" >
-               <div onclick="GoDetail(@item.Id)"> 请问：@if(item.title.Length>13)
-                                                     {
-                                                        @item.title.Substring(0,13)<span>...</span>
-                                                     }
-                                                     else
-                                                     {
-                                                        @item.title
-                                                     }
-                                                                                  
-               </div>
-            <div class="float_right" onclick="AddFav(@item.Id)">
-                ★添加收藏夹
-            </div>
-        </div>
-        <div class="content">
-                @(new HtmlString(item.content.Replace("<p>","").Replace("</p>","")))
-        </div>
-        <div>
-            <ul class="detail">
-                <li class="float_left">分类：@Html.DisplayFor(modelItem => item.Type.typename)</li>
-                <li class="float_left">提问人：@Html.DisplayFor(modelItem => item.regman)</li>
-                <li class="float_left">提问时间：@item.regdate.Value.ToString("yyyy-MM-dd")</li>
-                <div class="clear"></div>
-            </ul>
-        </div>
-        @if (item.Answers.FirstOrDefault()!=null){
-        <div class="answer">
-            <div class="title">
-                回答:
-            </div>
-            <div class="content">
-               @(new HtmlString(item.Answers.FirstOrDefault().answercontent))
-            </div>
-            <div>
-            <ul class="detail">
-                <li class="float_left">回答人：@(item.Answers.FirstOrDefault().answerman)</li>
-                <li class="float_left">回答时间：@item.Answers.FirstOrDefault().answerdate.Value.ToString("yyyy-MM-dd")</li>
-                <div class="clear"></div>
-           </ul>
-        </div>      
-        </div>
-        }
-        @if (item.state == "1")
-        {
-            <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div> 
-        }
-    </div>       
-}*@
+                <div class="blackline">
+                    <div class="title hand" >
+                           <div onclick="GoDetail(@item.Id)"> 请问：@if(item.title.Length>13)
+                                                                 {
+                                                                    @item.title.Substring(0,13)<span>...</span>
+                                                                 }
+                                                                 else
+                                                                 {
+                                                                    @item.title
+                                                                 }
+
+                           </div>
+                        <div class="float_right" onclick="AddFav(@item.Id)">
+                            ★添加收藏夹
+                        </div>
+                    </div>
+                    <div class="content">
+                            @(new HtmlString(item.content.Replace("<p>","").Replace("</p>","")))
+                    </div>
+                    <div>
+                        <ul class="detail">
+                            <li class="float_left">分类：@Html.DisplayFor(modelItem => item.Type.typename)</li>
+                            <li class="float_left">提问人：@Html.DisplayFor(modelItem => item.regman)</li>
+                            <li class="float_left">提问时间：@item.regdate.Value.ToString("yyyy-MM-dd")</li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                    @if (item.Answers.FirstOrDefault()!=null){
+                    <div class="answer">
+                        <div class="title">
+                            回答:
+                        </div>
+                        <div class="content">
+                           @(new HtmlString(item.Answers.FirstOrDefault().answercontent))
+                        </div>
+                        <div>
+                        <ul class="detail">
+                            <li class="float_left">回答人：@(item.Answers.FirstOrDefault().answerman)</li>
+                            <li class="float_left">回答时间：@item.Answers.FirstOrDefault().answerdate.Value.ToString("yyyy-MM-dd")</li>
+                            <div class="clear"></div>
+                       </ul>
+                    </div>
+                    </div>
+                    }
+                    @if (item.state == "1")
+                    {
+                        <div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(@Html.DisplayFor(modelItem => item.Id))">回答问题</span></div>
+                    }
+                </div>
+            }*@
     </div>
+
     <div id="paging">
         <span id="page_up" class="hand">上一页</span>
         <span id="page_down" class="hand">下一页</span>
         <span>跳转到第</span>
-        <input id="page" type="text" value="@ViewBag.page"/>
+        <input id="page" type="text" value="@ViewBag.page" />
         <span class="hand" id="page_go">GO</span>
         @* <span>当前第@(ViewBag.page)页</span>*@
         <span>共<span id="allpage">@(ViewBag.allpage)</span>页</span>
@@ -139,9 +200,9 @@
 
     </div>
 </div>
-<div id="right" class="text_centre">
-    @Html.Partial("RightContent")
-</div>
+@*<div id="right" class="text_centre">
+        @Html.Partial("RightContent")
+    </div>*@
 <div class="clear"></div>
 <div id="hide_answer">
     <div id="bg">
@@ -157,7 +218,8 @@
                 <textarea id="content" name="answercontent" style="width: 100%; height: 300px; visibility: hidden; resize: none"></textarea>
             </div>
             <div style="margin: 15px auto; width: 80px;">
-                <input id="submit" type="button" value="提交" style="width: 80px; height: 30px; font-size: 16px;" /></div>
+                <input id="submit" type="button" value="提交" style="width: 80px; height: 30px; font-size: 16px;" />
+            </div>
         </div>
     </form>
 </div>
@@ -173,17 +235,17 @@
 
     $(function () {
         //QuestionPaging();
-        $("li[etype='allquestion']").click();
+        $("#allquestion").click();
     });
 
 
     //选择父菜单
-    $("#parent_type").children().click(function () {
-        $("#parent_type").children().css({ "color": "white" });
-        $(this).css({ "color": "#ECE9CF" });
-
+    $(".menutitle").click(function () {
+        //$("#parent_type").children().css({ "color": "white" });
+        //$(this).css({ "color": "#ECE9CF" });
+        // alert();
         //$("#child_type").children().css("background-color", "#F1FCFE");
-        switch ($(this).attr("etype")) {
+        switch ($(this).parent().attr("etype")) {
             case "editor":
                 window.location.href = '@Url.Action("EditorHot")';
                 return;
@@ -193,37 +255,41 @@
                 window.location.href = '@Url.Action("report", "BackUp")?month=' + month;
                 return;
             case "allquestion":
-                allshow();
-                $("#mycollect").hide();
-                $("#unsolved").css("background-color", "#2F84F4");
-                $("#childtype").val($("#unsolved").attr("etype"));
+                //allshow();
+                //$("#mycollect").hide();
+                //$("#unsolved").css("background-color", "#2F84F4");
+                $("#childtype").val("all");
                 break;
             case "myquestion":
-                allshow();
-                $("#mycollect").hide();
-                $("#all").hide();
-                $("#unsolved").css("background-color", "#2F84F4");
-                $("#childtype").val($("#unsolved").attr("etype"));
+                //allshow();
+                //$("#mycollect").hide();
+                //$("#all").hide();
+                //$("#unsolved").css("background-color", "#2F84F4");
+                $("#childtype").val("all");
                 break;
             case "collect":
-                allshow();
-                $("#unsolved").hide();
-                $("#resolved").hide();
-                $("#all").hide();
-                $("#mycollect").css("background-color", "#2F84F4");
-                $("#childtype").val($("#mycollect").attr("etype"));
+                //allshow();
+                //$("#unsolved").hide();
+                //$("#resolved").hide();
+                //$("#all").hide();
+                //$("#mycollect").css("background-color", "#2F84F4");
+                $("#childtype").val("collect");
                 break;
         }
-        $("#parenttype").val($(this).attr("etype"));
+        $("#parenttype").val($(this).parent().attr("etype"));
         $("#page").val(1);
         QuestionPaging();
     });
 
     //选择子菜单
-    $("#child_type").children().click(function () {
-        $("#child_type").children().css("background-color", "#F1FCFE");
-        $(this).css("background-color", "#2F84F4");
+    $(".menulist").children().click(function () {
+
+        //$("#child_type").children().css("background-color", "#F1FCFE");
+        //$(this).css("background-color", "#2F84F4");
+        var temp = $(this).parent().parent().attr("etype");
+        $("#parenttype").val(temp);
         $("#childtype").val($(this).attr("etype"));
+        $(".menulist").hide();
         $("#page").val(1);
         QuestionPaging();
     });
@@ -271,11 +337,12 @@
 
 
     function QuestionPaging() {
+        //alert($("#parenttype").val());
+        //alert($("#childtype").val());
         var module = $("#module").val();
         var page = $("#page").val();
         var parenttype = $("#parenttype").val();
         var childtype = $("#childtype").val();
-        //alert("请稍等");
         ShowMessage("加载中");
         $.ajax({
             type: "POST",
@@ -288,18 +355,18 @@
                 $("#allpage").html(Math.ceil(data.allcount / 6));
                 var str = "";
                 if (data.list.length == 0) {
-                    str = "暂无数据"
+                    str = "<span style='margin :20px;'>暂无数据</span>"
                 }
                 else {
 
                     for (var i = 0; i < data.list.length; i++) {
-                        str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data.list[i].Id + ')">请问:' + maxtext13(data.list[i].title) + '</div>';
+                        str += '<div class="blackline"><div class="title"><div class="hand title8 sizebig"   onclick="GoDetail(' + data.list[i].Id + ')">请问:' + data.list[i].Id + "-" + maxtext13(data.list[i].title) + "-" + ParseState(data.list[i].state) + '</div>';
                         if ($("#parenttype").val() != "collect") {
                             str += ' <div class="float_right hand" onclick="AddFav(' + data.list[i].Id + ')">★添加收藏夹</div>';
                         }
-                        str += '</div><div class="content">' + maxtext25(data.list[i].content) + '</div><div><ul class="detail"><li class="float_left">分类：' + data.list[i].Type.typename + '</li><li class="float_left">提问人：' + data.list[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data.list[i].regdate) + '</li><div class="clear"></div></ul></div>';
+                        str += '</div><div class="content">' + maxtext25(data.list[i].content) + '</div><ul class="detail"><li class="float_left">分类：' + data.list[i].Type.typename + '</li><li class="float_left">提问人：' + data.list[i].regman + '</li><li class="float_left">提问时间：' + dateparse(data.list[i].regdate) + '</li><div class="clear"></div></ul>';
                         if (data.list[i].Answer.answercontent != null) {
-                            str += '<div class="answer"><div class="title">回答:</div><div class="content">' + maxtext25(data.list[i].Answer.answercontent) + '</div><div><ul class="detail"><li class="float_left">回答人：' + data.list[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data.list[i].Answer.answerdate) + '</li><div class="clear"></div></ul></div></div>';
+                            str += '<div class="title sizebig">回答:</div><div class="content">' + maxtext25(data.list[i].Answer.answercontent) + '</div><ul class="detail"><li class="float_left">回答人：' + data.list[i].Answer.answerman + '</li><li class="float_left">回答时间：' + dateparse(data.list[i].Answer.answerdate) + '</li><div class="clear"></div></ul>';
                         }
                         //if (data.list[i].state == "1" && $("#username").val() == "贾如") {
                         //    str += '<div class="sizesmall text_centre"><span style="color:red;cursor:pointer" onclick="SubAnswer(' + data.list[i].Id + ')">回答问题</span></div> ';
@@ -361,8 +428,8 @@
 
     });
 
-        function GoDetail(o) {
-            window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
+    function GoDetail(o) {
+        window.location.href = "@Url.Action("QuestionDetail")?Qid=" + o;
     }
 
 
@@ -384,4 +451,15 @@
     $(".blackline").find("img").css({ "width": "80px", "heigth": "80px" });
 
 
+    //$(".menu").click(function () {
+    //    $(this).children().slideToggle();
+    //});
+    $(".menu").mouseenter(function () {
+        $(this).children().eq(1).show();
+
+    });
+    $(".menu").mouseleave(function () {
+        $(this).children().eq(1).hide();
+
+    });
 </script>

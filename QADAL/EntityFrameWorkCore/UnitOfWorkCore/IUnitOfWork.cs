@@ -23,5 +23,5 @@
     /// 对泛型类型的支持
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IUnitOfWork<T> : IUnitOfWork where T : QADAL.EntityFrameWorkCore.Models.Modelbase { }
+    public interface IUnitOfWork<T> : IUnitOfWork where T : Models.ModelBase { }
 }

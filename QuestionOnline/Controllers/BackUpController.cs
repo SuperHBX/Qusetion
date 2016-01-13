@@ -1,5 +1,5 @@
 ﻿
-using QADAL.EntityFrameWorkCore.Models;
+using QADAL.Models;
 using QAServer.Server;
 using System;
 using System.Collections.Generic;

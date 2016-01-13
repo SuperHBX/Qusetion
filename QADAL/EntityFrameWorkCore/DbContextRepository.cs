@@ -9,7 +9,7 @@ using QADAL.EntityFrameWorkCore.UnitOfWorkCore;
 
 namespace QADAL.EntityFrameWorkCore
 {
-    public class DbContextRepository<TEntity> :ICompleteRepository<TEntity> where TEntity : Models.Modelbase
+    public class DbContextRepository<TEntity> :ICompleteRepository<TEntity> where TEntity : QADAL.Models.ModelBase
     {
         protected QuestionContext _db { get; private set; }
         IUnitOfWork iUnitWork;
@@ -55,6 +55,7 @@ namespace QADAL.EntityFrameWorkCore
             {
                 this.Delete(o);
             });
+            this.SaveChanges();
 
             //foreach (TEntity obj in objects)
             //    //dbset.Remove(obj);
